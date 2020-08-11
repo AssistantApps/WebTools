@@ -7,11 +7,13 @@ import { CommonFunctions } from './entities/CommonFunctions';
 import { ICommonFunctions } from './entities/interface/ICommonFunctions';
 
 import { settingReducer } from './modules/setting';
+import { translationReducer } from './modules/translation';
 
 
 export const reducer = combineReducers({
     commonReducer,
     settingReducer,
+    translationReducer,
 });
 
 export const commonMapDispatchToProps = (dispatch: any): ICommonFunctions => {

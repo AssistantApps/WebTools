@@ -1,8 +1,6 @@
 import React from 'react';
 import { ExternalUrls } from '../../../constants/externalUrls';
 
-// import './header.scss';
-
 export const Footer = () => {
     return (
         <footer className="footer-area">
@@ -42,7 +40,7 @@ export const Footer = () => {
                                     </div>
                                 </div>
                                 <div style={{ position: 'absolute', left: '-5000px' }}>
-                                    <input name="b_36c4fd991d266f23781ded980_aefe40901a" value="" type="text" />
+                                    <input name="email" type="text" />
                                 </div>
 
                                 <div className="info"></div>
@@ -56,10 +54,10 @@ export const Footer = () => {
                         Copyright &copy;{new Date().getFullYear()} All rights reserved | <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer">Kurt Lourens</a>
                     </p>
                     <div className="col-lg-4 col-md-12 text-center text-lg-right footer-social">
-                        <a href="#"><i className="ti-facebook"></i></a>
-                        <a href="#"><i className="ti-twitter-alt"></i></a>
-                        <a href="#"><i className="ti-dribbble"></i></a>
-                        <a href="#"><i className="ti-linkedin"></i></a>
+                        <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer"><i className="ti-facebook"></i></a>
+                        <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer"><i className="ti-twitter-alt"></i></a>
+                        <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer"><i className="ti-dribbble"></i></a>
+                        <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer"><i className="ti-linkedin"></i></a>
                     </div>
                 </div>
             </div>

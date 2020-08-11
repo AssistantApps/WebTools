@@ -14,7 +14,7 @@ interface IProps {
     // removeItemFromCart: (cartItemId: string) => void;
 }
 
-export class CartContainerUnconnected extends React.Component<IProps, any> {
+export class TranslationContainerUnconnected extends React.Component<IProps, any> {
     render() {
         return (
             <TranslationPresenter {...this.props} />
@@ -22,4 +22,4 @@ export class CartContainerUnconnected extends React.Component<IProps, any> {
     }
 };
 
-export const CartContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(CartContainerUnconnected));
+export const TranslationContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(TranslationContainerUnconnected));
