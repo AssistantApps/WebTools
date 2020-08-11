@@ -1,0 +1,7 @@
+{
+    "googleAnalyticsEnabled": true,
+    "consoleLogDebug": false,
+    "useServiceWorker": true,
+    "apiUrl": "https://api.nmsassistant.com",
+    "googleClientId": "539483681905-cg6d6d3m29kdepmv73efcehr2dia7cfq.apps.googleusercontent.com"
+}
