@@ -6,7 +6,6 @@ export const Footer = () => {
         <footer className="footer-area">
             <div className="container">
                 <div className="row">
-
                     <div className="col-lg-4 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
                         <h4>About Us</h4>
                         <p>AssistantApps creates Beautiful and fast cross-platform apps built to help you in your favourite games!</p>
@@ -25,28 +24,8 @@ export const Footer = () => {
                     </div>
 
                     <div className="col-lg-4 col-md-8 mb-4 mb-xl-0 single-footer-widget">
-                        <h4>Newsletter</h4>
-                        <p>Join the <a href={ExternalUrls.patreon} target="_blank" rel="noopener noreferrer">Patreon page</a> to get early access and a behind-the-scenes look at we are building. <br /> Or signup to our newsletter here:</p>
-
-                        <div className="form-wrap" id="mc_embed_signup">
-                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                method="get">
-                                <div className="input-group">
-                                    <input type="email" className="form-control" name="EMAIL" placeholder="Your Email Address" />
-                                    <div className="input-group-append">
-                                        <button className="btn click-btn" type="submit">
-                                            <i className="fab fa-telegram-plane"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div style={{ position: 'absolute', left: '-5000px' }}>
-                                    <input name="email" type="text" />
-                                </div>
-
-                                <div className="info"></div>
-                            </form>
-                        </div>
-
+                        <h4>News</h4>
+                        <p>Join the <a href={ExternalUrls.patreon} target="_blank" rel="noopener noreferrer">Patreon page</a> to get early access and a behind-the-scenes look at we are building.</p>
                     </div>
                 </div>
                 <div className="footer-bottom row align-items-center text-center text-lg-left no-gutters">

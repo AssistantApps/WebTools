@@ -13,6 +13,7 @@ export const AppDropDown: React.FC<IProps> = (props: IProps) => {
         <DropDown
             placeholder='Select App'
             options={options}
+            multiple={true}
             onChange={props.onChange}
         />
     );
