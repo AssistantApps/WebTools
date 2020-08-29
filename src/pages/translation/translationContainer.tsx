@@ -1,23 +1,61 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { mapDispatchToProps, mapStateToProps } from './translation.redux';
-import { TranslationItem } from '../../redux/entities/translation/translationItem';
+
+import { NetworkState } from '../../constants/networkState';
+import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { TranslationPresenter } from './translationPresenter';
+
+import { mapDispatchToProps, mapStateToProps } from './translation.redux';
+
+import { ApiService } from '../../services/ApiService';
+
+interface IState {
+    status: NetworkState;
+    appDetails: Array<AppViewModel>;
+}
 
 interface IProps {
     location: any;
     match: any;
     history: any;
-    translationItems: Array<TranslationItem>
-    // editItemInCart?: (cartItemIndex: number, cartItem: CartItem) => void;
-    // removeItemFromCart: (cartItemId: string) => void;
 }
 
-export class TranslationContainerUnconnected extends React.Component<IProps, any> {
+export class TranslationContainerUnconnected extends React.Component<IProps, IState> {
+    constructor(props: IProps) {
+        super(props);
+
+        this.state = {
+            status: NetworkState.Loading,
+            appDetails: []
+        };
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = async () => {
+        var appsResult = await (new ApiService()).getApps();
+        if (!appsResult.isSuccess) {
+            this.setState(() => {
+                return {
+                    status: NetworkState.Error
+                }
+            });
+            return;
+        }
+        this.setState(() => {
+            return {
+                appDetails: appsResult.value,
+                status: NetworkState.Success
+            }
+        });
+    }
+
     render() {
         return (
-            <TranslationPresenter {...this.props} />
+            <TranslationPresenter {...this.state} />
         );
     }
 };
