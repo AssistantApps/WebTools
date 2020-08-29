@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import { NetworkState } from '../../constants/networkState';
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
+import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
 import { TranslationPresenter } from './translationPresenter';
 
 import { mapDispatchToProps, mapStateToProps } from './translation.redux';
@@ -12,7 +13,11 @@ import { ApiService } from '../../services/ApiService';
 
 interface IState {
     status: NetworkState;
+    appStatus: NetworkState;
     appDetails: Array<AppViewModel>;
+    langStatus: NetworkState;
+    langDetails: Array<LanguageViewModel>;
+    apiService: ApiService;
 }
 
 interface IProps {
@@ -26,21 +31,26 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
         super(props);
 
         this.state = {
-            status: NetworkState.Loading,
-            appDetails: []
+            status: NetworkState.Success,
+            appStatus: NetworkState.Loading,
+            appDetails: [],
+            langStatus: NetworkState.Loading,
+            langDetails: [],
+            apiService: new ApiService(),
         };
     }
 
     componentDidMount() {
-        this.fetchData();
+        this.fetchAppData();
+        this.fetchLanguageData();
     }
 
-    fetchData = async () => {
-        var appsResult = await (new ApiService()).getApps();
+    fetchAppData = async () => {
+        var appsResult = await this.state.apiService.getApps();
         if (!appsResult.isSuccess) {
             this.setState(() => {
                 return {
-                    status: NetworkState.Error
+                    appStatus: NetworkState.Error
                 }
             });
             return;
@@ -48,7 +58,25 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
         this.setState(() => {
             return {
                 appDetails: appsResult.value,
-                status: NetworkState.Success
+                appStatus: NetworkState.Success
+            }
+        });
+    }
+
+    fetchLanguageData = async () => {
+        var langResult = await this.state.apiService.getLanguages();
+        if (!langResult.isSuccess) {
+            this.setState(() => {
+                return {
+                    langStatus: NetworkState.Error
+                }
+            });
+            return;
+        }
+        this.setState(() => {
+            return {
+                langDetails: langResult.value,
+                langStatus: NetworkState.Success
             }
         });
     }

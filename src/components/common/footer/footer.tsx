@@ -33,10 +33,10 @@ export const Footer = () => {
                         Copyright &copy;{new Date().getFullYear()} All rights reserved | <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer">Kurt Lourens</a>
                     </p>
                     <div className="col-lg-4 col-md-12 text-center text-lg-right footer-social">
-                        <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer"><i className="ti-facebook"></i></a>
-                        <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer"><i className="ti-twitter-alt"></i></a>
-                        <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer"><i className="ti-dribbble"></i></a>
-                        <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer"><i className="ti-linkedin"></i></a>
+                        <a href={ExternalUrls.kurtlourensFacebook} target="_blank" rel="noopener noreferrer"><i className="ti-facebook"></i></a>
+                        <a href={ExternalUrls.kurtlourensTwitter} target="_blank" rel="noopener noreferrer"><i className="ti-twitter-alt"></i></a>
+                        <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer"><i className="ti-html5"></i></a>
+                        <a href={ExternalUrls.kurtlourensLinkedIn} target="_blank" rel="noopener noreferrer"><i className="ti-linkedin"></i></a>
                     </div>
                 </div>
             </div>

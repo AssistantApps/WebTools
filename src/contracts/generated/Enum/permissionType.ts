@@ -14,4 +14,6 @@ export enum PermissionType {
     translationKeyManage,
     hangfireDashboardView,
     hangfireDashboardManage,
+    languageView,
+    languageManage,
 }

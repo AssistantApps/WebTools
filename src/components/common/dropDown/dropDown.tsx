@@ -5,7 +5,8 @@ import './dropDown.scss';
 
 interface IProps {
     placeholder: string;
-    multiple: boolean;
+    multiple?: boolean;
+    isLoading?: boolean;
     options: Array<any>;
     onChange: (key: string) => void
 }
@@ -25,6 +26,7 @@ export const DropDown: React.FC<IProps> = (props: IProps) => {
             fluid
             selection
             multiple={props.multiple || false}
+            loading={props.isLoading || false}
             options={props.options}
             onChange={handleChange}
         />

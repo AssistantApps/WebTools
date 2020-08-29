@@ -1,7 +1,7 @@
 ﻿/* Auto Generated */
 
 export enum LanguageType {
-    notSpecified,
+    notSpecified = 0,
     brazilianPortuguese = 1,
     dutch = 2,
     english = 3,
