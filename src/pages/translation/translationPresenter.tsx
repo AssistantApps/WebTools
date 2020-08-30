@@ -24,9 +24,9 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
 
     const appOptions = props.appDetails.map((item: AppViewModel) => {
         return {
-            key: item.appType,
+            key: item.guid,
             text: item.gameName,
-            value: item.appType,
+            value: item.guid,
             image: { src: item.iconUrl },
         };
     });
