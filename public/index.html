@@ -16,21 +16,47 @@
   <link rel="stylesheet" href="/assets/vendors/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/assets/vendors/owl-carousel/owl.carousel.min.css">
   <link rel="stylesheet" href="/assets/vendors/animate-css/animate.css">
+
+  <style>
+    .full-page-loader {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      color: white
+    }
+
+    .full-page-loader img {
+      width: 200px;
+    }
+
+    .opacity80 {
+      background-color: #333333;
+      opacity: 0.8;
+    }
+  </style>
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="assistantApp"></div>
-  <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+  <div id="assistantApp">
+    <div class="full-page-loader opacity80"></div>
+    <div class="full-page-loader">
+      <div class="cssload-container">
+        <ul class="cssload-flex-container">
+          <li style="list-style-type: none;">
+            <img src="/assets/img/loader.svg" draggable="false" alt="loading-animation">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
