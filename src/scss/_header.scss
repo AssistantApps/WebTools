@@ -1,17 +1,19 @@
 //header_area css
-.header_area{
+.header_area {
     position: absolute;
     width: 100%;
     top: 0;
-    left:0;
+    left: 0;
     z-index: 99;
     transition: background 0.4s, all 0.3s linear;
-    .navbar{
+
+    .navbar {
         background: transparent;
         padding: 0px;
         border: 0px;
         border-radius: 0px;
-        .logo_h{
+
+        .logo_h {
             color: #fff;
             height: 80px;
             text-align: center;
@@ -20,31 +22,39 @@
             text-transform: uppercase;
             font-weight: 700;
         }
+
         .navbar-brand {
             padding-top: 0;
         }
-        .nav{
-            .nav-item{
+
+        .nav {
+            .nav-item {
                 margin-right: 45px;
-                .nav-link{
+
+                .nav-link {
                     font: 400 12px/80px $rob;
                     text-transform: capitalize;
                     color: $white;
                     padding: 0px;
                     display: inline-block;
                     font-size: 14px;
-                    &:after{
+
+                    &:after {
                         display: none;
                     }
                 }
-                &:hover, &.active{
-                    .nav-link{
+
+                &:hover,
+                &.active {
+                    .nav-link {
                         color: $baseColor;
                     }
                 }
-                &.submenu{
+
+                &.submenu {
                     position: relative;
-                    ul{
+
+                    ul {
                         border: none;
                         padding: 0px;
                         border-radius: 0px;
@@ -52,7 +62,8 @@
                         margin: 0px;
                         background: #fff;
                         box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.1);
-                        @media (min-width: 992px){
+
+                        @media (min-width: 992px) {
                             position: absolute;
                             top: 120%;
                             left: 0px;
@@ -66,7 +77,8 @@
                             padding: 0px;
                             border-radius: 0px;
                         }
-                        &:before{
+
+                        &:before {
                             content: "";
                             width: 0;
                             height: 0;
@@ -80,14 +92,16 @@
                             opacity: 0;
                             transition: all 400ms linear;
                         }
-                        .nav-item{
+
+                        .nav-item {
                             display: block;
                             float: none;
                             margin-right: 0px;
                             border-bottom: 1px solid #ededed;
                             margin-left: 0px;
                             transition: all 0.4s linear;
-                            .nav-link{
+
+                            .nav-link {
                                 line-height: 45px;
                                 color: $dip;
                                 padding: 0px 30px;
@@ -95,31 +109,36 @@
                                 display: block;
                                 margin-right: 0px;
                             }
-                            &:last-child{
+
+                            &:last-child {
                                 border-bottom: none;
                             }
-                            &:hover{
-                                .nav-link{
+
+                            &:hover {
+                                .nav-link {
                                     background: $baseColor;
                                     color: #fff;
                                 }
-                            }    
+                            }
                         }
                     }
-                    &:hover{
-                        ul{
-                            @media (min-width: 992px){
+
+                    &:hover {
+                        ul {
+                            @media (min-width: 992px) {
                                 visibility: visible;
                                 opacity: 1;
                                 top: 100%;
                             }
-                            .nav-item{
+
+                            .nav-item {
                                 margin-top: 0px;
                             }
                         }
                     }
                 }
-                &:last-child{
+
+                &:last-child {
                     margin-right: 0px;
                 }
             }
@@ -127,22 +146,23 @@
     }
 
 
-    &.navbar_fixed{
-        .main_menu{
+    &.navbar_fixed {
+        .main_menu {
             position: fixed;
             width: 100%;
-            top: -70px;
+            top: -71px;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.8);  
+            background: rgba(0, 0, 0, 0.8);
             transform: translateY(70px);
             transition: transform 500ms ease, background 500ms ease;
             -webkit-transition: transform 500ms ease, background 500ms ease;
             box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.1);
-            .navbar{
-                .nav{
-                    .nav-item{
-                        .nav-link{
+
+            .navbar {
+                .nav {
+                    .nav-item {
+                        .nav-link {
                             line-height: 70px;
                         }
                     }
@@ -154,24 +174,29 @@
 
 
 
-.right-button{
+.right-button {
     margin-left: 60px;
     margin-top: 15px;
-    ul{
+
+    ul {
         padding: 0;
         list-style: none;
-        li{
+
+        li {
             display: inline-block;
             margin-left: 68px;
             font-size: 16px;
-            a{
-                color: $white; 
+
+            a {
+                color: $white;
             }
         }
     }
-    .shop-icon{
+
+    .shop-icon {
         position: relative;
-        span{
+
+        span {
             position: absolute;
             background: #e22104;
             right: -10px;
@@ -185,11 +210,13 @@
             line-height: 14px;
         }
     }
-    @media (max-width: 991px){
+
+    @media (max-width: 991px) {
 
         display: none;
     }
-    .sign_up{
+
+    .sign_up {
         font-size: 14px;
         color: #222222;
         background: #fff;
@@ -215,6 +242,7 @@
     text-align: center;
     padding: 0 20px;
     background: $baseColor;
+
     ::placeholder {
         color: #fff;
     }
@@ -244,7 +272,7 @@
 }
 
 
-.search-inner{
+.search-inner {
     padding: 5px 15px;
 }
 
@@ -267,6 +295,3 @@
     padding: 0 20px;
     top: 80px;
 }
-
-
-

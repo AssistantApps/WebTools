@@ -1,8 +1,16 @@
 .home_banner_area.small {
-    margin-top: 80px;
-    min-height: 300px;
+    // margin-top: 80px;
+    min-height: 350px;
 }
 
 .home_banner_area .banner_inner.small {
-    min-height: 300px;
+    min-height: 350px;
+
+    .container {
+        padding-top: 12em;
+
+        .banner_content {
+            text-align: center;
+        }
+    }
 }

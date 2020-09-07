@@ -18,7 +18,6 @@ export const Banner = () => {
 								<Link className="banner_btn" to={route.translation}>Help translate<i className="ti-arrow-right"></i></Link>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -38,13 +37,12 @@ export const SmallBanner = (props: ISmallBannerProps) => {
 				<div className="overlay"></div>
 				<div className="container">
 					<div className="row">
-						<div className="col-lg-8 offset-lg-4 col-xl-7 offset-xl-5">
+						<div className="col-12">
 							<div className="banner_content">
 								<h3>{props.title}</h3>
 								<p>{props.descrip}</p>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
