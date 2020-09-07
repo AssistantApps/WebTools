@@ -22,5 +22,5 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: 'dist' 
+    pathtoPublish: 'build' 
     artifactName: 'reactDrop'
