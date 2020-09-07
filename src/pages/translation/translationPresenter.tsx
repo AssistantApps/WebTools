@@ -26,7 +26,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                         }} />
                     </div>
                     <div className="col-6">
-                        <label>Please select a language</label>
+                        <label>Please select a target language</label>
                         <DropDown
                             placeholder='Select Language'
                             options={[]}
