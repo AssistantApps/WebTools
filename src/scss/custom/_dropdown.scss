@@ -11,4 +11,10 @@
     .ui.dropdown>.text {
         display: inline;
     }
+
+    .ui.multiple.dropdown>.label {
+        margin-top: 0;
+        margin-left: 0;
+        margin-bottom: 0;
+    }
 }
