@@ -17,6 +17,7 @@ interface IState {
     appDetails: Array<AppViewModel>;
     langStatus: NetworkState;
     langDetails: Array<LanguageViewModel>;
+    submissionStatus: NetworkState;
     apiService: ApiService;
 }
 
@@ -36,6 +37,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
             appDetails: [],
             langStatus: NetworkState.Loading,
             langDetails: [],
+            submissionStatus: NetworkState.Success,
             apiService: new ApiService(),
         };
     }

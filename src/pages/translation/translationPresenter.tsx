@@ -6,6 +6,7 @@ import { Error } from '../../components/common/error';
 import { Loading } from '../../components/common/loading';
 
 import { NetworkState } from '../../constants/networkState';
+import { getImageUrlFromCountryCode } from '../../helper/countryCodeHelper';
 
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
@@ -31,11 +32,13 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
         };
     });
 
+
     const langOptions = props.langDetails.map((item: LanguageViewModel) => {
         return {
             key: item.guid,
             text: item.name,
             value: item.languageCode,
+            image: { src: getImageUrlFromCountryCode(item.countryCode) },
         };
     });
 
@@ -60,10 +63,10 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                                         console.warn(value);
                                     }}
                                 />
-                                : <p>Error loading apps</p>
+                                : <p>Error loading apps, please refresh the page or contact us</p>
                         }
                     </div>
-                    <div className="col-6">
+                    <div className="col-6 custom-drop-down">
                         <label>Please select a language</label>
                         {
                             (props.appStatus !== NetworkState.Error)
@@ -75,7 +78,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                                         console.warn(value);
                                     }}
                                 />
-                                : <p>Error loading languages</p>
+                                : <p>Error loading languages, please refresh the page or contact us</p>
                         }
                     </div>
                 </div>

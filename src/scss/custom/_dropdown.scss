@@ -1,0 +1,14 @@
+.custom-drop-down {
+
+    .ui.dropdown .menu>.item>.image,
+    .ui.dropdown .menu>.item>img,
+    .ui.dropdown>.text>.image,
+    .ui.dropdown>.text>img {
+
+        max-width: 3em;
+    }
+
+    .ui.dropdown>.text {
+        display: inline;
+    }
+}
