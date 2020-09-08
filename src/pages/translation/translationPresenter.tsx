@@ -10,6 +10,7 @@ import { getImageUrlFromCountryCode } from '../../helper/countryCodeHelper';
 
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
+import { Pagination } from 'semantic-ui-react';
 
 interface IProps {
     status: NetworkState;
@@ -82,6 +83,10 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                         }
                     </div>
                 </div>
+            </div>
+
+            <div className="container" style={{ textAlign: 'center', marginBottom: '2em' }}>
+                <Pagination defaultActivePage={5} totalPages={10} activePage={1} />
             </div>
         </>
     );
