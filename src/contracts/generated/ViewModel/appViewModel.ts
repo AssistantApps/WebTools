@@ -7,4 +7,5 @@ export interface AppViewModel {
     iconUrl: string;
     logoUrl: string;
     isVisible: boolean;
+    sortOrder: number;
 }

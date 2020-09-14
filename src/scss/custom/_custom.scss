@@ -1,13 +1,46 @@
+@import "buttons";
 @import "dropdown";
 
-.pt1 {
+.p1 {
     padding: 1em;
 }
 
-.pt2 {
+.p2 {
     padding: 2em;
 }
 
-.pt3 {
+.p3 {
     padding: 3em;
+}
+
+.pt1 {
+    padding-top: 1em;
+}
+
+.pt2 {
+    padding-top: 2em;
+}
+
+.pt1 {
+    padding-top: 1em;
+}
+
+.pt2 {
+    padding-top: 2em;
+}
+
+.pt3 {
+    padding-top: 3em;
+}
+
+.pb1 {
+    padding-bottom: 1em;
+}
+
+.pb2 {
+    padding-bottom: 2em;
+}
+
+.pb3 {
+    padding-bottom: 3em;
 }

@@ -4,4 +4,5 @@ export enum CacheType {
     patreons,
     dashboard,
     dashboardLoggedIn,
+    guideSearch,
 }

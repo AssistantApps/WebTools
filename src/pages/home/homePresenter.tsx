@@ -12,7 +12,6 @@ export const HomePresenter: React.FC = () => {
             <section className="about-area area-padding-bottom">
                 <div className="container">
                     <div className="row align-items-center">
-
                         <div className="col-lg-6">
                             <div className="area-heading">
                                 <h4>Form Female From<br />Cattle Evening. </h4>

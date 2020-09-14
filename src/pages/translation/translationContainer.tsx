@@ -5,11 +5,13 @@ import { withRouter } from 'react-router-dom';
 import { NetworkState } from '../../constants/networkState';
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
+import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationPresenter } from './translationPresenter';
 
 import { mapDispatchToProps, mapStateToProps } from './translation.redux';
 
 import { ApiService } from '../../services/ApiService';
+import { TranslationSearchViewModel } from '../../contracts/generated/ViewModel/Translation/translationSearchViewModel';
 
 interface IState {
     status: NetworkState;
@@ -19,6 +21,13 @@ interface IState {
     langDetails: Array<LanguageViewModel>;
     submissionStatus: NetworkState;
     apiService: ApiService;
+
+    selectedApps: Array<string>;
+    selectedLanguage: string;
+
+    translationKeys: Array<TranslationKeyViewModel>;
+    translationKeyIndex: number;
+    translationKeyStatus: NetworkState;
 }
 
 interface IProps {
@@ -39,6 +48,11 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
             langDetails: [],
             submissionStatus: NetworkState.Success,
             apiService: new ApiService(),
+            selectedApps: [],
+            selectedLanguage: '',
+            translationKeys: [],
+            translationKeyIndex: 0,
+            translationKeyStatus: NetworkState.Success,
         };
     }
 
@@ -83,9 +97,43 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
         });
     }
 
+    fetchTranslationKeys = async (ignoreLanguage: boolean = false) => {
+        this.setState(() => {
+            return {
+                translationKeyStatus: NetworkState.Loading
+            }
+        });
+        var searchObj: TranslationSearchViewModel = {
+            appGuidList: this.state.selectedApps,
+            languageGuid: ignoreLanguage ? null : this.state.selectedLanguage
+        }
+        var transKeyResult = await this.state.apiService.getTranslationKeys(searchObj);
+        if (!transKeyResult.isSuccess) {
+            this.setState(() => {
+                return {
+                    translationKeyStatus: NetworkState.Error
+                }
+            });
+            return;
+        }
+        this.setState(() => {
+            return {
+                translationKeys: transKeyResult.value,
+                translationKeyStatus: NetworkState.Success
+            }
+        });
+    }
+
+    setApps = (apps: Array<string>) => this.setState(() => { return { selectedApps: apps } });
+    setLanguage = (language: string) => this.setState(() => { return { selectedLanguage: language } });
+
     render() {
         return (
-            <TranslationPresenter {...this.state} />
+            <TranslationPresenter {...this.state}
+                setApps={this.setApps}
+                setLanguage={this.setLanguage}
+                fetchTranslationKeys={this.fetchTranslationKeys}
+            />
         );
     }
 };

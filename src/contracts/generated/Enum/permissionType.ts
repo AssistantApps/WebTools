@@ -16,4 +16,8 @@ export enum PermissionType {
     hangfireDashboardManage,
     languageView,
     languageManage,
+    cacheView,
+    cacheManage,
+    guideSubmissionView,
+    guideSubmissionManage,
 }
