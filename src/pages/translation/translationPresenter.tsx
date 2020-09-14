@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Pagination, Input, TextArea, Form, Segment, Placeholder, Popup } from 'semantic-ui-react';
+import { Pagination, Segment, Placeholder } from 'semantic-ui-react';
 
 import { SmallBanner } from '../../components/common/banner/banner';
 import { DropDown } from '../../components/common/dropDown/dropDown';
@@ -62,7 +62,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
     var untranslationEnabled = props.selectedApps != null && props.selectedApps.length > 0 &&
         props.selectedLanguage != null && props.selectedLanguage.length > 0;
     var showPagination = props.translationKeys != null && props.translationKeys.length > 0
-        && props.translationKeyStatus == NetworkState.Success;
+        && props.translationKeyStatus === NetworkState.Success;
 
     var currentTranslation = props.translationKeys[props.translationKeyIndex];
 
@@ -127,7 +127,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
             {paginationComp}
 
             {
-                props.translationKeyStatus == NetworkState.Loading ?
+                props.translationKeyStatus === NetworkState.Loading ?
                     <div className="container">
                         <div className="row full">
                             <div className="col-12 pb2">

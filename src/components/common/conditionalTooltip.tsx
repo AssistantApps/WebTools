@@ -1,5 +1,5 @@
-import React, { ReactChild, ReactFragment, ReactPortal } from 'react';
-import { Pagination, Input, TextArea, Form, Segment, Placeholder, Popup } from 'semantic-ui-react';
+import React from 'react';
+import { Popup } from 'semantic-ui-react';
 
 interface IProps {
     message: string;
