@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Pagination, Segment, Placeholder, PaginationProps } from 'semantic-ui-react';
+import { Pagination, Segment, Placeholder, PaginationProps, Icon } from 'semantic-ui-react';
 
 import { SmallBanner } from '../../components/common/banner/banner';
 import { DropDown } from '../../components/common/dropDown/dropDown';
@@ -50,14 +50,16 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
     });
 
 
-    const langOptions = props.langDetails.map((item: LanguageViewModel) => {
-        return {
-            key: item.guid,
-            text: item.name,
-            value: item.guid,
-            image: { src: getImageUrlFromCountryCode(item.countryCode) },
-        };
-    });
+    const langOptions = props.langDetails
+        .filter((item: LanguageViewModel) => item.languageCode != 'en')
+        .map((item: LanguageViewModel) => {
+            return {
+                key: item.guid,
+                text: item.name,
+                value: item.guid,
+                image: { src: getImageUrlFromCountryCode(item.countryCode) },
+            };
+        });
 
     var fullTranslationEnabled = props.selectedApps != null && props.selectedApps.length > 0;
     var untranslationEnabled = props.selectedApps != null && props.selectedApps.length > 0 &&
@@ -70,10 +72,16 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
     var paginationComp = (<div></div>);
     if (showPagination) {
         paginationComp = (
-            <div className="container" style={{ textAlign: 'center' }}>
+            <div className="container" style={{ textAlign: 'center', overflowX: 'auto' }}>
                 <Pagination
+                    size='mini'
                     totalPages={props.translationKeys.length}
                     activePage={props.translationKeyIndex + 1}
+                    ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
+                    firstItem={{ content: <Icon name='angle double left' />, icon: true }}
+                    lastItem={{ content: <Icon name='angle double right' />, icon: true }}
+                    prevItem={{ content: <Icon name='angle left' />, icon: true }}
+                    nextItem={{ content: <Icon name='angle right' />, icon: true }}
                     onPageChange={(event: any, pageData: PaginationProps) => {
                         var newIndex: any = pageData.activePage;
                         props.setTranslationIndex(newIndex - 1);
@@ -90,7 +98,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
             />
             <div className="container">
                 <div className="row full pt3 pb3">
-                    <div className="col-6">
+                    <div className="col-12 col-md-6">
                         <label>Please select Apps you would like to translate for</label>
                         {
                             (props.appStatus !== NetworkState.Error)
@@ -104,7 +112,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                                 : <p>Error loading apps, please refresh the page or contact us</p>
                         }
                     </div>
-                    <div className="col-6 custom-drop-down">
+                    <div className="col-12 col-md-6 custom-drop-down pt1 pt-md-0">
                         <label>Please select a language</label>
                         {
                             (props.appStatus !== NetworkState.Error)
@@ -143,7 +151,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                                     <Placeholder.Line />
                                 </Placeholder>
                             </div>
-                            <div className="col-6">
+                            <div className="col-12 col-md-6">
                                 <Placeholder>
                                     <Placeholder.Line />
                                     <Placeholder.Line />
@@ -152,7 +160,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                                     <Placeholder.Line />
                                 </Placeholder>
                             </div>
-                            <div className="col-6">
+                            <div className="col-12 col-md-6">
                                 <Placeholder>
                                     <Placeholder.Image />
                                 </Placeholder>
@@ -167,7 +175,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                                     <div className="col-12" style={{ textAlign: 'center' }}>
                                         <p className="pb1"><strong>Key: </strong>{currentTranslation.key}</p>
                                     </div>
-                                    <div className="col-6">
+                                    <div className="col-12 col-md-6">
                                         <Segment placeholder style={{ minHeight: 'unset' }}>
                                             <p>{currentTranslation.original}</p>
                                         </Segment>
@@ -175,7 +183,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                                             <strong>Description: </strong>{currentTranslation.meta}
                                         </i>
                                     </div>
-                                    <div className="col-6">
+                                    <div className="col-12 col-md-6">
                                         <TranslationImages translationKeyGuid={currentTranslation.guid} />
                                     </div>
                                 </div>
