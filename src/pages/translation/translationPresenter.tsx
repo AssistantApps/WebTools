@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Pagination, Segment, Placeholder } from 'semantic-ui-react';
+import { Pagination, Segment, Placeholder, PaginationProps } from 'semantic-ui-react';
 
 import { SmallBanner } from '../../components/common/banner/banner';
 import { DropDown } from '../../components/common/dropDown/dropDown';
@@ -32,6 +32,7 @@ interface IProps {
 
     setApps: (app: Array<string>) => void;
     setLanguage: (language: string) => void;
+    setTranslationIndex: (newIndex: number) => void;
     fetchTranslationKeys: (ignoreLanguage?: boolean) => void;
 }
 
@@ -70,7 +71,14 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
     if (showPagination) {
         paginationComp = (
             <div className="container" style={{ textAlign: 'center' }}>
-                <Pagination totalPages={props.translationKeys.length} activePage={props.translationKeyIndex} />
+                <Pagination
+                    totalPages={props.translationKeys.length}
+                    activePage={props.translationKeyIndex + 1}
+                    onPageChange={(event: any, pageData: PaginationProps) => {
+                        var newIndex: any = pageData.activePage;
+                        props.setTranslationIndex(newIndex - 1);
+                    }}
+                />
             </div>
         );
     }

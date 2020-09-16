@@ -126,12 +126,14 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
 
     setApps = (apps: Array<string>) => this.setState(() => { return { selectedApps: apps } });
     setLanguage = (language: string) => this.setState(() => { return { selectedLanguage: language } });
+    setTranslationIndex = (newIndex: number) => this.setState(() => { return { translationKeyIndex: newIndex } });
 
     render() {
         return (
             <TranslationPresenter {...this.state}
                 setApps={this.setApps}
                 setLanguage={this.setLanguage}
+                setTranslationIndex={this.setTranslationIndex}
                 fetchTranslationKeys={this.fetchTranslationKeys}
             />
         );
