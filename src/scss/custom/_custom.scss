@@ -1,6 +1,11 @@
 @import "buttons";
 @import "dropdown";
 
+.ui.modal {
+    position: relative !important;
+}
+
+
 .p1 {
     padding: 1em;
 }

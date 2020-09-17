@@ -1,4 +1,5 @@
 import React from 'react';
+import { LoginDialog } from '../../dialog/loginDialog';
 
 import './header.scss';
 
@@ -23,6 +24,9 @@ export const Header = () => {
 								</li>
 								<li className="nav-item">
 									<a className="nav-link" href="contact.html">Contact</a>
+								</li>
+								<li className="nav-item">
+									<LoginDialog />
 								</li>
 							</ul>
 						</div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Pagination, Segment, Placeholder, PaginationProps, Icon } from 'semantic-ui-react';
+import { Pagination, Segment, Placeholder, PaginationProps, Icon, Input, Label, Button, Menu } from 'semantic-ui-react';
 
 import { SmallBanner } from '../../components/common/banner/banner';
 import { DropDown } from '../../components/common/dropDown/dropDown';
@@ -88,6 +88,101 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
             </div>
         );
     }
+
+    const renderMainTranslationPanel = () => {
+        if (props.translationKeyStatus === NetworkState.Loading) {
+            return (
+                <div className="row full">
+                    <div className="col-12 pb2">
+                        <Placeholder style={{ margin: '0 auto' }}>
+                            <Placeholder.Line />
+                        </Placeholder>
+                    </div>
+                    <div className="col-12 col-md-6">
+                        <Placeholder>
+                            <Placeholder.Line />
+                            <Placeholder.Line />
+                            <Placeholder.Line />
+                            <Placeholder.Line />
+                            <Placeholder.Line />
+                        </Placeholder>
+                    </div>
+                    <div className="col-12 col-md-6">
+                        <Placeholder>
+                            <Placeholder.Image />
+                        </Placeholder>
+                    </div>
+                </div>
+            );
+        }
+
+        if (currentTranslation == null) {
+            return (<div></div>);
+        }
+
+        return (
+            <div className="row full pt2">
+                <div className="col-12" style={{ textAlign: 'center' }}>
+                    <p className="pb1"><strong>Key: </strong>{currentTranslation.key}</p>
+                </div>
+                <div className="col-12 col-md-6">
+                    <Segment placeholder style={{ minHeight: 'unset' }}>
+                        <p>{currentTranslation.original}</p>
+                    </Segment>
+                    <i style={{ display: 'block' }}>
+                        <strong>Description: </strong>{currentTranslation.meta}
+                    </i>
+                </div>
+                <div className="col-12 col-md-6">
+                    <TranslationImages translationKeyGuid={currentTranslation.guid} />
+                </div>
+            </div>
+        );
+    }
+
+    const renderSubmissionTranslationPanel = () => {
+        if (props.translationKeyStatus === NetworkState.Loading) {
+            return (
+                <>
+                    <hr />
+                    <div className="row full">
+                        <div className="col-12 pb2">
+                            <Placeholder style={{ margin: '0 auto' }}>
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                            </Placeholder>
+                        </div>
+                    </div>
+                </>
+            );
+        }
+
+        if (currentTranslation == null) {
+            return (<div></div>);
+        }
+
+        return (
+            <>
+                <hr />
+                <div className="row full">
+                    <div className="col-12">
+                        <p>Submissions from previous Translators</p>
+                        <div>
+                        </div>
+                    </div>
+                    <div className="col-12 pt2">
+                        <p>Submit your own Translation</p>
+                        <Input type="text" />
+                    </div>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             <SmallBanner
@@ -113,7 +208,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                     <div className="col-12 col-md-6 custom-drop-down pt1 pt-md-0">
                         <label>Please select a language</label>
                         {
-                            (props.appStatus !== NetworkState.Error)
+                            (props.langStatus !== NetworkState.Error)
                                 ? <DropDown
                                     placeholder='Select Language'
                                     options={langOptions}
@@ -140,54 +235,8 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
 
             {paginationComp}
 
-            {
-                props.translationKeyStatus === NetworkState.Loading ?
-                    <div className="container">
-                        <div className="row full">
-                            <div className="col-12 pb2">
-                                <Placeholder style={{ margin: '0 auto' }}>
-                                    <Placeholder.Line />
-                                </Placeholder>
-                            </div>
-                            <div className="col-12 col-md-6">
-                                <Placeholder>
-                                    <Placeholder.Line />
-                                    <Placeholder.Line />
-                                    <Placeholder.Line />
-                                    <Placeholder.Line />
-                                    <Placeholder.Line />
-                                </Placeholder>
-                            </div>
-                            <div className="col-12 col-md-6">
-                                <Placeholder>
-                                    <Placeholder.Image />
-                                </Placeholder>
-                            </div>
-                        </div>
-                    </div>
-                    : <div className="container">
-                        {
-                            currentTranslation == null
-                                ? <div></div>
-                                : <div className="row full pt2">
-                                    <div className="col-12" style={{ textAlign: 'center' }}>
-                                        <p className="pb1"><strong>Key: </strong>{currentTranslation.key}</p>
-                                    </div>
-                                    <div className="col-12 col-md-6">
-                                        <Segment placeholder style={{ minHeight: 'unset' }}>
-                                            <p>{currentTranslation.original}</p>
-                                        </Segment>
-                                        <i style={{ display: 'block' }}>
-                                            <strong>Description: </strong>{currentTranslation.meta}
-                                        </i>
-                                    </div>
-                                    <div className="col-12 col-md-6">
-                                        <TranslationImages translationKeyGuid={currentTranslation.guid} />
-                                    </div>
-                                </div>
-                        }
-                    </div>
-            }
+            <div className="container">{renderMainTranslationPanel()}</div>
+            <div className="container pt1">{renderSubmissionTranslationPanel()}</div>
 
             <div className="pt3 pb3">
                 {paginationComp}

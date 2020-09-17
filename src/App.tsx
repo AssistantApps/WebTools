@@ -10,9 +10,11 @@ import { HomePresenter } from './pages/home/homePresenter';
 import { TranslationContainer } from './pages/translation/translationContainer';
 import { NotFoundPresenter } from './pages/notFoundPresenter';
 import { StateSettingReducer } from './redux/state/StateSettingReducer';
+import { Loading } from './components/common/loading';
 
 interface IProps extends StateSettingReducer {
 	location: any;
+	isLoading: boolean;
 	toggleMenu: () => void;
 }
 
@@ -28,6 +30,9 @@ const AppUnconnected: React.FC<any> = (props: IProps) => {
 				</Switch>
 			</ScrollToTop>
 			<Footer />
+			{
+				props.isLoading && <Loading />
+			}
 		</>
 	);
 }

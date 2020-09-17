@@ -51,7 +51,7 @@ export class TranslationImages extends React.Component<IProps, IState> {
     render() {
         if (this.state.status === NetworkState.Loading) return <SmallLoading />
         return (
-            <div className="row">
+            <div className="row" key={this.props.translationKeyGuid}>
                 {
                     this.state.images.map((item: TranslationImageViewModel) => {
                         return (
