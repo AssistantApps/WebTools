@@ -15,7 +15,14 @@ export const Banner = () => {
 							<div className="banner_content">
 								<h3>Help make your favourite apps better!</h3>
 								<p>Your feedback and help is appreciated! The Assistant Apps are only as good as they are now, thanks to the efforts of all the contributors, Patrons, donators and those who give feedback! <span role="img" aria-label="smiley">😁</span></p>
-								<Link className="banner_btn" to={route.translation}>Help translate<i className="ti-arrow-right"></i></Link>
+								<div className="row">
+									<div className="col-12 col-lg-6">
+										<Link className="banner_btn" to={route.translation}>Help translate<i className="ti-arrow-right"></i></Link>
+									</div>
+									{/* <div className="col-12 col-lg-6">
+										<Link className="banner_btn" to={route.translation}>Create a Guide<i className="ti-arrow-right"></i></Link>
+									</div> */}
+								</div>
 							</div>
 						</div>
 					</div>
