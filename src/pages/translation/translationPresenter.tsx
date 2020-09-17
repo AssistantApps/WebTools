@@ -61,9 +61,8 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
             };
         });
 
-    var fullTranslationEnabled = props.selectedApps != null && props.selectedApps.length > 0;
-    var untranslationEnabled = props.selectedApps != null && props.selectedApps.length > 0 &&
-        props.selectedLanguage != null && props.selectedLanguage.length > 0;
+    var translationButtonsDisabled = props.selectedApps == null || props.selectedApps.length < 1 ||
+        props.selectedLanguage == null || props.selectedLanguage.length < 1;
     var showPagination = props.translationKeys != null && props.translationKeys.length > 0
         && props.translationKeyStatus === NetworkState.Success;
 
@@ -74,7 +73,6 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
         paginationComp = (
             <div className="container" style={{ textAlign: 'center', overflowX: 'auto' }}>
                 <Pagination
-                    size='mini'
                     totalPages={props.translationKeys.length}
                     activePage={props.translationKeyIndex + 1}
                     ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
@@ -126,14 +124,14 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                         }
                     </div>
                     <div className="col-12 p1">
-                        <ConditionalToolTip message='Must select at least one App' showToolTip={!fullTranslationEnabled}>
-                            <button className={classNames("button full", { disabled: !fullTranslationEnabled })}
+                        <ConditionalToolTip message='Must select at least one App' showToolTip={translationButtonsDisabled}>
+                            <button className={classNames("button full", { disabled: translationButtonsDisabled })}
                                 onClick={() => props.fetchTranslationKeys(true)}>Load all items</button>
                         </ConditionalToolTip>
                     </div>
                     <div className="col-12">
-                        <ConditionalToolTip message='Must select at least one App and a Language' showToolTip={!fullTranslationEnabled}>
-                            <button className={classNames("button full", { disabled: !untranslationEnabled })}
+                        <ConditionalToolTip message='Must select at least one App and a Language' showToolTip={translationButtonsDisabled}>
+                            <button className={classNames("button full", { disabled: translationButtonsDisabled })}
                                 onClick={() => props.fetchTranslationKeys()}>Load untranslated items</button>
                         </ConditionalToolTip>
                     </div>
