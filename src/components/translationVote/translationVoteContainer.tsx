@@ -83,7 +83,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
         }
         var voteObj: TranslationVoteViewModel = {
             guid: userGuid.value,
-            translationGuid: translationGuid || this.props.currentTranslation.guid,
+            translationGuid: translationGuid,
             userGuid: userGuid.value,
         }
         var transKeyResult = await this.state.apiService.selectTranslationVote(voteObj);
@@ -101,6 +101,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                 status: NetworkState.Success
             }
         });
+        this.fetchVotes();
     }
 
     submitTranslation = async () => {
@@ -129,6 +130,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                 status: NetworkState.Success
             }
         });
+        this.fetchVotes();
     }
 
     render() {
@@ -174,11 +176,9 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                             this.state.voteOptions.map((voteOpt: TranslationSubmissionWithVotesViewModel, index: number) => {
                                 return (
                                     <TranslationVoteItem
-                                        key={voteOpt.translationKeyGuid + '' + index}
-                                        title={voteOpt.text}
-                                        isSelected={voteOpt.isCurentVote}
-                                        numberOfVotes={voteOpt.votes}
-                                        onClick={() => this.setTranslation(voteOpt.translationKeyGuid)}
+                                        key={voteOpt.guid}
+                                        details={voteOpt}
+                                        onClick={() => this.setTranslation(voteOpt.guid)}
                                     />
                                 );
                             })

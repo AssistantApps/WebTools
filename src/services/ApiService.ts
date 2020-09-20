@@ -44,8 +44,8 @@ export class ApiService extends BaseApiService {
         var apiResult = await this.post(apiEndpoints.authUrl, oAuthObj, (headers) => {
             var token = headers.token;
             var tokenExpiry = headers.tokenExpiry;
-            var userGuid = headers.userGuid;
-            var userName = headers.userName;
+            var userGuid = headers.userguid;
+            var username = headers.username;
 
             this.setInterceptors(token);
             var expiry = moment().add(tokenExpiry, 'seconds');
@@ -53,7 +53,7 @@ export class ApiService extends BaseApiService {
             var storageServ = new StorageService();
             storageServ.set(storageType.token, token, expiry.toDate());
             storageServ.set(storageType.userGuid, userGuid, expiry.toDate());
-            storageServ.set(storageType.userName, userName, expiry.toDate());
+            storageServ.set(storageType.userName, username, expiry.toDate());
         });
 
 
