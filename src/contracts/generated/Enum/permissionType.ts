@@ -20,4 +20,6 @@ export enum PermissionType {
     cacheManage,
     guideSubmissionView,
     guideSubmissionManage,
+    versionView,
+    versionManage,
 }

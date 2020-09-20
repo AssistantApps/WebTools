@@ -1,13 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Pagination, Segment, Placeholder, PaginationProps, Icon, Input, Label, Button, Menu } from 'semantic-ui-react';
+import { Pagination, PaginationProps, Icon } from 'semantic-ui-react';
 
 import { SmallBanner } from '../../components/common/banner/banner';
 import { DropDown } from '../../components/common/dropDown/dropDown';
 import { Error } from '../../components/common/error';
 import { Loading } from '../../components/common/loading';
-import { TranslationImages } from '../../components/translationImages';
 import { ConditionalToolTip } from '../../components/common/conditionalTooltip';
+import { renderMainTranslationPanel } from './translationComponents';
 
 import { NetworkState } from '../../constants/networkState';
 import { getImageUrlFromCountryCode } from '../../helper/countryCodeHelper';
@@ -15,6 +15,7 @@ import { getImageUrlFromCountryCode } from '../../helper/countryCodeHelper';
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
+import { TranslationVoteContainer } from '../../components/translationVote/translationVoteContainer';
 
 interface IProps {
     status: NetworkState;
@@ -51,7 +52,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
 
 
     const langOptions = props.langDetails
-        .filter((item: LanguageViewModel) => item.languageCode != 'en')
+        .filter((item: LanguageViewModel) => item.languageCode !== 'en')
         .map((item: LanguageViewModel) => {
             return {
                 key: item.guid,
@@ -86,100 +87,6 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                     }}
                 />
             </div>
-        );
-    }
-
-    const renderMainTranslationPanel = () => {
-        if (props.translationKeyStatus === NetworkState.Loading) {
-            return (
-                <div className="row full">
-                    <div className="col-12 pb2">
-                        <Placeholder style={{ margin: '0 auto' }}>
-                            <Placeholder.Line />
-                        </Placeholder>
-                    </div>
-                    <div className="col-12 col-md-6">
-                        <Placeholder>
-                            <Placeholder.Line />
-                            <Placeholder.Line />
-                            <Placeholder.Line />
-                            <Placeholder.Line />
-                            <Placeholder.Line />
-                        </Placeholder>
-                    </div>
-                    <div className="col-12 col-md-6">
-                        <Placeholder>
-                            <Placeholder.Image />
-                        </Placeholder>
-                    </div>
-                </div>
-            );
-        }
-
-        if (currentTranslation == null) {
-            return (<div></div>);
-        }
-
-        return (
-            <div className="row full pt2">
-                <div className="col-12" style={{ textAlign: 'center' }}>
-                    <p className="pb1"><strong>Key: </strong>{currentTranslation.key}</p>
-                </div>
-                <div className="col-12 col-md-6">
-                    <Segment placeholder style={{ minHeight: 'unset' }}>
-                        <p>{currentTranslation.original}</p>
-                    </Segment>
-                    <i style={{ display: 'block' }}>
-                        <strong>Description: </strong>{currentTranslation.meta}
-                    </i>
-                </div>
-                <div className="col-12 col-md-6">
-                    <TranslationImages translationKeyGuid={currentTranslation.guid} />
-                </div>
-            </div>
-        );
-    }
-
-    const renderSubmissionTranslationPanel = () => {
-        if (props.translationKeyStatus === NetworkState.Loading) {
-            return (
-                <>
-                    <hr />
-                    <div className="row full">
-                        <div className="col-12 pb2">
-                            <Placeholder style={{ margin: '0 auto' }}>
-                                <Placeholder.Line />
-                                <Placeholder.Line />
-                                <Placeholder.Line />
-                                <Placeholder.Line />
-                                <Placeholder.Line />
-                                <Placeholder.Line />
-                            </Placeholder>
-                        </div>
-                    </div>
-                </>
-            );
-        }
-
-        if (currentTranslation == null) {
-            return (<div></div>);
-        }
-
-        return (
-            <>
-                <hr />
-                <div className="row full">
-                    <div className="col-12">
-                        <p>Submissions from previous Translators</p>
-                        <div>
-                        </div>
-                    </div>
-                    <div className="col-12 pt2">
-                        <p>Submit your own Translation</p>
-                        <Input type="text" />
-                    </div>
-                </div>
-            </>
         );
     }
 
@@ -235,8 +142,16 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
 
             {paginationComp}
 
-            <div className="container">{renderMainTranslationPanel()}</div>
-            <div className="container pt1">{renderSubmissionTranslationPanel()}</div>
+            <div className="container">{renderMainTranslationPanel(props.translationKeyStatus, currentTranslation)}</div>
+            <div className="container pt1">
+                {
+                    props.translationKeyStatus === NetworkState.Success &&
+                    <TranslationVoteContainer
+                        languageGuid={props.selectedLanguage}
+                        currentTranslation={currentTranslation}
+                    />
+                }
+            </div>
 
             <div className="pt3 pb3">
                 {paginationComp}

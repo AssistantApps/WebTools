@@ -3,5 +3,6 @@
     "consoleLogDebug": false,
     "useServiceWorker": false,
     "apiUrl": "https://staging-api.assistantapps.com",
-    "googleClientId": "539483681905-d4ak563l825o8i0b47inn1c7gu30abvs.apps.googleusercontent.com"
+    "googleClientId": "539483681905-d4ak563l825o8i0b47inn1c7gu30abvs.apps.googleusercontent.com",
+    "assistantAppsTranslationCdnUrl": "https://cdn.assistantapps.com/Translation/"
 }

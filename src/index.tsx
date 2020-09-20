@@ -18,7 +18,8 @@ import { reducer } from './redux';
 import * as serviceWorker from './serviceWorker';
 
 import './index.scss';
-import 'semantic-ui-css/semantic.min.css'
+import 'react-image-lightbox/style.css';
+import 'semantic-ui-css/semantic.min.css';
 
 declare global {
   interface Window { config: any; registration: any }

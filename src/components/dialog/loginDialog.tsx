@@ -59,8 +59,7 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
             username: response.profileObj.name,
         }
 
-        var result = await this.state.apiService.loginWithOAuth(apiObj);
-        console.log({ result });
+        await this.state.apiService.loginWithOAuth(apiObj);
         if (this.props.setLoadingStatus) this.props.setLoadingStatus(false);
     }
 
