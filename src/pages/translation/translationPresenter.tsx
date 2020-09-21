@@ -7,7 +7,7 @@ import { DropDown } from '../../components/common/dropDown/dropDown';
 import { Error } from '../../components/common/error';
 import { Loading } from '../../components/common/loading';
 import { ConditionalToolTip } from '../../components/common/conditionalTooltip';
-import { renderMainTranslationPanel } from './translationComponents';
+import { MainTranslationPanel } from './translationComponents';
 
 import { NetworkState } from '../../constants/networkState';
 import { getImageUrlFromCountryCode } from '../../helper/countryCodeHelper';
@@ -31,6 +31,8 @@ interface IProps {
     translationKeyIndex: number;
     translationKeyStatus: NetworkState;
 
+    userGuid: string;
+
     setApps: (app: Array<string>) => void;
     setLanguage: (language: string) => void;
     setTranslationIndex: (newIndex: number) => void;
@@ -40,6 +42,8 @@ interface IProps {
 export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
     if (props.status === NetworkState.Error) return <Error message="Something went wrong" />;
     if (props.status === NetworkState.Loading) return <Loading />;
+
+    console.log(props.userGuid);
 
     const appOptions = props.appDetails.map((item: AppViewModel) => {
         return {
@@ -142,13 +146,20 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
 
             {paginationComp}
 
-            <div className="container">{renderMainTranslationPanel(props.translationKeyStatus, currentTranslation)}</div>
+            <div className="container">
+                <MainTranslationPanel
+                    translationKeyStatus={props.translationKeyStatus}
+                    currentTranslation={currentTranslation}
+                    userGuid={props.userGuid}
+                />
+            </div>
             <div className="container pt1">
                 {
                     props.translationKeyStatus === NetworkState.Success &&
                     <TranslationVoteContainer
                         languageGuid={props.selectedLanguage}
                         currentTranslation={currentTranslation}
+                        userGuid={props.userGuid}
                     />
                 }
             </div>

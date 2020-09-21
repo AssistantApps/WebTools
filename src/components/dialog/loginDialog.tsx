@@ -18,6 +18,7 @@ interface IState {
 interface IProps {
     isLoading?: boolean;
     setLoadingStatus?: (isLoading: boolean) => void;
+    login?: (userGuid: string) => void;
 }
 
 export class LoginDialogUnconnected extends React.Component<IProps, IState> {
@@ -59,8 +60,11 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
             username: response.profileObj.name,
         }
 
-        await this.state.apiService.loginWithOAuth(apiObj);
+        var loginResult = await this.state.apiService.loginWithOAuth(apiObj);
         if (this.props.setLoadingStatus) this.props.setLoadingStatus(false);
+        if (loginResult.isSuccess) {
+            if (this.props.login) this.props.login(loginResult.value);
+        }
     }
 
     oAuthLoginFailure = () => {

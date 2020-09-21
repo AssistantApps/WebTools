@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { Form, Placeholder, TextArea, TextAreaProps } from 'semantic-ui-react';
+import { Form, Placeholder, Segment, TextArea, TextAreaProps } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { NetworkState } from '../../constants/networkState';
 import * as storageType from '../../constants/storageType';
@@ -23,6 +23,7 @@ interface IState {
 }
 
 interface IProps {
+    userGuid: string;
     languageGuid: string;
     currentTranslation: TranslationKeyViewModel;
 }
@@ -45,10 +46,25 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
         this.fetchVotes();
     }
 
+    componentDidUpdate(prevProps: IProps) {
+        if (this.props.userGuid !== prevProps.userGuid ||
+            this.props.languageGuid !== prevProps.languageGuid ||
+            (this.props.currentTranslation?.guid || '') !== (prevProps.currentTranslation?.guid || '')) {
+            this.fetchVotes();
+        }
+    }
+
     fetchVotes = async () => {
         if (this.props == null) return;
         if (this.props.currentTranslation == null) return;
-        if (this.props.currentTranslation.key == null) return;
+        if (this.props.currentTranslation.guid == null) return;
+        if (this.props.userGuid == null || this.props.userGuid.length < 1) return;
+
+        this.setState(() => {
+            return {
+                status: NetworkState.Loading,
+            }
+        });
 
         var translationVotesResult = await this.state.apiService.getSubmittedTranslations(this.props.currentTranslation.guid, this.props.languageGuid);
         if (!translationVotesResult.isSuccess) {
@@ -73,8 +89,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                 status: NetworkState.Loading
             }
         });
-        var userGuid = this.state.storageServ.get<string>(storageType.userGuid);
-        if (userGuid == null || userGuid.isSuccess === false || userGuid.value == null) {
+        if (this.props.userGuid == null || this.props.userGuid.length < 1) {
             Swal.fire({
                 title: 'Login required',
                 text: 'You are not logged in, you need to be logged in in order to submit translations or vote on translation. Please log in by clicking the icon in the top right.',
@@ -82,9 +97,9 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
             return;
         }
         var voteObj: TranslationVoteViewModel = {
-            guid: userGuid.value,
+            guid: this.props.userGuid,
             translationGuid: translationGuid,
-            userGuid: userGuid.value,
+            userGuid: this.props.userGuid,
         }
         var transKeyResult = await this.state.apiService.selectTranslationVote(voteObj);
         if (!transKeyResult.isSuccess) {
@@ -165,6 +180,12 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
         if (this.props.currentTranslation == null) {
             return (<div></div>);
         }
+
+        if (this.props.userGuid == null || this.props.userGuid.length < 1) return (
+            <Segment placeholder style={{ minHeight: 'unset' }}>
+                <p style={{ textAlign: 'center' }}>Please log in to vote</p>
+            </Segment>
+        );
 
         return (
             <>

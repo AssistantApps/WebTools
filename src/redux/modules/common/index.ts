@@ -3,7 +3,8 @@ import { StateCommonReducer } from '../../state/StateCommonReducer';
 
 const initialState: StateCommonReducer = {
     isLoading: false,
-    title: "Loading"
+    title: "Loading",
+    userGuid: '',
 }
 
 export const commonReducer = (state = initialState, action: any) => {
@@ -12,6 +13,14 @@ export const commonReducer = (state = initialState, action: any) => {
             return Object.assign({}, state, {
                 isLoading: action.isLoading,
                 text: action.text
+            });
+        case type.LOGIN:
+            return Object.assign({}, state, {
+                userGuid: action.userGuid
+            });
+        case type.LOGOUT:
+            return Object.assign({}, state, {
+                userGuid: '',
             });
         default:
             return state

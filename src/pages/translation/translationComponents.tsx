@@ -4,8 +4,14 @@ import { TranslationImages } from '../../components/translationImages';
 import { NetworkState } from '../../constants/networkState';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 
-export const renderMainTranslationPanel = (translationKeyStatus: NetworkState, currentTranslation: TranslationKeyViewModel) => {
-    if (translationKeyStatus === NetworkState.Loading) {
+interface IProps {
+    translationKeyStatus: NetworkState;
+    currentTranslation: TranslationKeyViewModel;
+    userGuid: string
+}
+
+export const MainTranslationPanel = (props: IProps) => {
+    if (props.translationKeyStatus === NetworkState.Loading) {
         return (
             <div className="row full">
                 <div className="col-12 pb2">
@@ -31,25 +37,28 @@ export const renderMainTranslationPanel = (translationKeyStatus: NetworkState, c
         );
     }
 
-    if (currentTranslation == null) {
+    if (props.currentTranslation == null) {
         return (<div></div>);
     }
 
     return (
         <div className="row full pt2">
             <div className="col-12" style={{ textAlign: 'center' }}>
-                <p className="pb1"><strong>Key: </strong>{currentTranslation.key}</p>
+                <p className="pb1"><strong>Key: </strong>{props.currentTranslation.key}</p>
             </div>
             <div className="col-12 col-md-6">
                 <Segment placeholder style={{ minHeight: 'unset' }}>
-                    <p>{currentTranslation.original}</p>
+                    <p>{props.currentTranslation.original}</p>
                 </Segment>
                 <i style={{ display: 'block' }}>
-                    <strong>Description: </strong>{currentTranslation.meta}
+                    <strong>Description: </strong>{props.currentTranslation.meta}
                 </i>
             </div>
             <div className="col-12 col-md-6">
-                <TranslationImages translationKeyGuid={currentTranslation.guid} />
+                <TranslationImages
+                    translationKeyGuid={props.currentTranslation.guid}
+                    userGuid={props.userGuid}
+                />
             </div>
         </div>
     );

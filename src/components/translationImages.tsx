@@ -6,6 +6,7 @@ import { SmallLoading } from './common/loading';
 
 import { ApiService } from '../services/ApiService';
 import Lightbox from 'react-image-lightbox';
+import { Segment } from 'semantic-ui-react';
 
 interface IState {
     status: NetworkState;
@@ -17,6 +18,7 @@ interface IState {
 
 interface IProps {
     translationKeyGuid: string;
+    userGuid: string;
 }
 
 export class TranslationImages extends React.Component<IProps, IState> {
@@ -43,6 +45,16 @@ export class TranslationImages extends React.Component<IProps, IState> {
     }
 
     fetchTranslationKeyImages = async () => {
+        if (this.props.userGuid == null || this.props.userGuid.length < 1) {
+            this.setState(() => {
+                return {
+                    images: [],
+                    status: NetworkState.Success
+                }
+            });
+            return;
+        }
+
         var imagesResult = await this.state.apiService.getTranslationImages(this.props.translationKeyGuid);
         if (!imagesResult.isSuccess) {
             this.setState(() => {
@@ -61,6 +73,11 @@ export class TranslationImages extends React.Component<IProps, IState> {
     }
     render() {
         if (this.state.status === NetworkState.Loading) return <SmallLoading />
+        if (this.props.userGuid == null || this.props.userGuid.length < 1) return (
+            <Segment placeholder style={{ minHeight: 'unset' }}>
+                <p style={{ textAlign: 'center' }}>Please log in to view images</p>
+            </Segment>
+        );
 
         const images = this.state.images.map((item: TranslationImageViewModel) => {
             return {
@@ -68,6 +85,12 @@ export class TranslationImages extends React.Component<IProps, IState> {
                 imageUrl: `${window.config.assistantAppsTranslationCdnUrl}/${item.imagePath}`,
             }
         });
+
+        if (images == null || images.length < 1) return (
+            <Segment placeholder style={{ minHeight: 'unset' }}>
+                <p style={{ textAlign: 'center' }}>No images</p>
+            </Segment>
+        );
 
         return (
             <div className="row" key={this.props.translationKeyGuid}>

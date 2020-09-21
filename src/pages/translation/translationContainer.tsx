@@ -1,17 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
 import { NetworkState } from '../../constants/networkState';
+import * as storageType from '../../constants/storageType';
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { TranslationPresenter } from './translationPresenter';
-
-import { mapDispatchToProps, mapStateToProps } from './translation.redux';
-
-import { ApiService } from '../../services/ApiService';
 import { TranslationSearchViewModel } from '../../contracts/generated/ViewModel/Translation/translationSearchViewModel';
+import { ApiService } from '../../services/ApiService';
+import { StorageService } from '../../services/StorageService';
+import { mapDispatchToProps, mapStateToProps } from './translation.redux';
+import { TranslationPresenter } from './translationPresenter';
 
 interface IState {
     status: NetworkState;
@@ -20,7 +19,9 @@ interface IState {
     langStatus: NetworkState;
     langDetails: Array<LanguageViewModel>;
     submissionStatus: NetworkState;
+
     apiService: ApiService;
+    storageServ: StorageService;
 
     selectedApps: Array<string>;
     selectedLanguage: string;
@@ -34,6 +35,7 @@ interface IProps {
     location: any;
     match: any;
     history: any;
+    userGuid: string;
 }
 
 export class TranslationContainerUnconnected extends React.Component<IProps, IState> {
@@ -48,6 +50,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
             langDetails: [],
             submissionStatus: NetworkState.Success,
             apiService: new ApiService(),
+            storageServ: new StorageService(),
             selectedApps: [],
             selectedLanguage: '',
             translationKeys: [],
@@ -135,6 +138,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
                 setLanguage={this.setLanguage}
                 setTranslationIndex={this.setTranslationIndex}
                 fetchTranslationKeys={this.fetchTranslationKeys}
+                userGuid={this.props.userGuid}
             />
         );
     }

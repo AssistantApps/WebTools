@@ -40,12 +40,13 @@ export class ApiService extends BaseApiService {
         return await this.post(apiEndpoints.translationVotes, data);
     }
 
-    async loginWithOAuth(oAuthObj: OAuthUserViewModel): Promise<Result> {
+    async loginWithOAuth(oAuthObj: OAuthUserViewModel): Promise<ResultWithValue<string>> {
+        var userGuid = '';
         var apiResult = await this.post(apiEndpoints.authUrl, oAuthObj, (headers) => {
             var token = headers.token;
             var tokenExpiry = headers.tokenExpiry;
-            var userGuid = headers.userguid;
             var username = headers.username;
+            userGuid = headers.userguid;
 
             this.setInterceptors(token);
             var expiry = moment().add(tokenExpiry, 'seconds');
@@ -57,6 +58,10 @@ export class ApiService extends BaseApiService {
         });
 
 
-        return apiResult;
+        return {
+            isSuccess: apiResult.isSuccess,
+            value: userGuid,
+            errorMessage: apiResult.errorMessage,
+        };
     }
 }
