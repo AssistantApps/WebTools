@@ -36,6 +36,12 @@ export class TranslationImages extends React.Component<IProps, IState> {
         this.fetchTranslationKeyImages();
     }
 
+    componentDidUpdate(prevProps: IProps) {
+        if (this.props.translationKeyGuid !== prevProps.translationKeyGuid) {
+            this.fetchTranslationKeyImages();
+        }
+    }
+
     fetchTranslationKeyImages = async () => {
         var imagesResult = await this.state.apiService.getTranslationImages(this.props.translationKeyGuid);
         if (!imagesResult.isSuccess) {
