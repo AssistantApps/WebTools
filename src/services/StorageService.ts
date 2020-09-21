@@ -1,36 +1,38 @@
+import moment from 'moment';
 import { ResultWithValue } from '../contracts/results/ResultWithValue';
 import { StorageItem } from '../contracts/storageItem';
 import { anyObject } from '../helper/typescriptHacks';
 
-const reactLocalStorage = require('reactjs-localstorage');
-
 export class StorageService {
     public get<T>(key: string): ResultWithValue<T> {
-        const item: StorageItem<T> = reactLocalStorage.get(key);
+        const itemString = localStorage.getItem(key) || '{}';
+        const item: StorageItem<T> = JSON.parse(itemString);
 
-        if (item == null || item.data == null || item.expiryDate == null || item.expiryDate.getTime() < (new Date()).getTime()) {
-            return {
-                isSuccess: false,
-                value: anyObject,
-                errorMessage: 'could not load item from strage',
+        if (item != null && item.data != null && item.expiryDate != null) {
+            if (moment(item.expiryDate).isBefore(moment())) {
+                return {
+                    isSuccess: true,
+                    value: item.data,
+                    errorMessage: '',
+                }
             }
         }
 
         return {
-            isSuccess: true,
-            value: item.data,
-            errorMessage: '',
+            isSuccess: false,
+            value: anyObject,
+            errorMessage: 'could not load item from strage',
         }
     }
 
     public set<T>(key: string, data: T, expiry?: Date): void {
-        var oneHourFromNow = new Date();
-        oneHourFromNow.setHours(oneHourFromNow.getHours() + 1);
+        var oneHourFromNow = moment().add(1, 'hour');
+
         const item: StorageItem<T> = {
             data: data,
-            expiryDate: expiry || oneHourFromNow
+            expiryDate: expiry || oneHourFromNow.toDate()
         };
 
-        reactLocalStorage.set(key, item);
+        localStorage.setItem(key, JSON.stringify(item));
     }
 }

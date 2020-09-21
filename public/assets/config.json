@@ -3,5 +3,6 @@
     "consoleLogDebug": true,
     "useServiceWorker": false,
     "apiUrl": "http://localhost:55555",
-    "googleClientId": "559605319918-fcp04g5jjm2ed8i7n03aaar81uo2nl3d.apps.googleusercontent.com"
+    "googleClientId": "559605319918-fcp04g5jjm2ed8i7n03aaar81uo2nl3d.apps.googleusercontent.com",
+    "assistantAppsTranslationCdnUrl": "http://localhost/"
 }

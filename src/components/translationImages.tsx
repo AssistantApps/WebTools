@@ -5,11 +5,14 @@ import { TranslationImageViewModel } from '../contracts/generated/ViewModel/tran
 import { SmallLoading } from './common/loading';
 
 import { ApiService } from '../services/ApiService';
+import Lightbox from 'react-image-lightbox';
 
 interface IState {
     status: NetworkState;
     apiService: ApiService;
     images: Array<TranslationImageViewModel>;
+    photoIndex: number,
+    isOpen: boolean,
 }
 
 interface IProps {
@@ -24,6 +27,8 @@ export class TranslationImages extends React.Component<IProps, IState> {
             status: NetworkState.Loading,
             apiService: new ApiService(),
             images: [],
+            photoIndex: 0,
+            isOpen: false,
         };
     }
 
@@ -50,21 +55,57 @@ export class TranslationImages extends React.Component<IProps, IState> {
     }
     render() {
         if (this.state.status === NetworkState.Loading) return <SmallLoading />
+
+        const images = this.state.images.map((item: TranslationImageViewModel) => {
+            return {
+                guid: item.guid,
+                imageUrl: `${window.config.assistantAppsTranslationCdnUrl}/${item.imagePath}`,
+            }
+        });
+
         return (
             <div className="row" key={this.props.translationKeyGuid}>
                 {
-                    this.state.images.map((item: TranslationImageViewModel) => {
+                    images.map((item: any, photoIndex: number) => {
                         return (
                             <div key={item.guid} className="col-6" style={{ textAlign: 'center' }}>
                                 <img
-                                    src={item.imagePath}
+                                    src={item.imageUrl}
                                     draggable="false"
                                     alt={item.guid}
-                                    style={{ maxWidth: '100px' }}
+                                    style={{ width: '100px', overflow: 'hidden' }}
+                                    className="pointer"
+                                    onClick={() => {
+                                        this.setState(() => {
+                                            return {
+                                                photoIndex,
+                                                isOpen: true,
+                                            }
+                                        })
+                                    }}
                                 />
                             </div>
                         );
                     })
+                }
+                {
+                    this.state.isOpen &&
+                    <Lightbox
+                        mainSrc={images[this.state.photoIndex].imageUrl}
+                        nextSrc={images[(this.state.photoIndex + 1) % images.length].imageUrl}
+                        prevSrc={images[(this.state.photoIndex + images.length - 1) % images.length].imageUrl}
+                        onCloseRequest={() => this.setState({ isOpen: false })}
+                        onMovePrevRequest={() =>
+                            this.setState({
+                                photoIndex: (this.state.photoIndex + images.length - 1) % images.length,
+                            })
+                        }
+                        onMoveNextRequest={() =>
+                            this.setState({
+                                photoIndex: (this.state.photoIndex + 1) % images.length,
+                            })
+                        }
+                    />
                 }
             </div>
         );
