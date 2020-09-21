@@ -3,7 +3,6 @@ import React from 'react';
 import { Form, Placeholder, Segment, TextArea, TextAreaProps } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { NetworkState } from '../../constants/networkState';
-import * as storageType from '../../constants/storageType';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationSubmissionViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
 import { TranslationSubmissionWithVotesViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
@@ -63,6 +62,9 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
         this.setState(() => {
             return {
                 status: NetworkState.Loading,
+                showOwnSubmissionTextBox: false,
+                translation: '',
+                voteOptions: [],
             }
         });
 
@@ -148,6 +150,23 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
         this.fetchVotes();
     }
 
+    toggleShowSubmissionTextBox = (e?: any) => {
+        if (e != null) e.preventDefault();
+        this.setState((prevState: IState) => {
+            return {
+                showOwnSubmissionTextBox: !prevState.showOwnSubmissionTextBox
+            }
+        })
+    }
+
+    setTranslationValue = (text: string) => {
+        this.setState(() => {
+            return {
+                translation: text
+            }
+        })
+    }
+
     render() {
         const textAreaFunc = (_: any, data: TextAreaProps) => {
             const text: any = data.value;
@@ -187,11 +206,14 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
             </Segment>
         );
 
+        const hasVoteOptions = this.state.voteOptions != null && this.state.voteOptions.length > 0;
+        const showOwnSubmissionTextBox = this.state.showOwnSubmissionTextBox || !hasVoteOptions;
+
         return (
             <>
                 <hr />
                 <div className="row full pt1">
-                    <div className="col-12">
+                    <div className={classNames("col-12", { inVisible: showOwnSubmissionTextBox })}>
                         <p>Submissions from previous Translators</p>
                         {
                             this.state.voteOptions.map((voteOpt: TranslationSubmissionWithVotesViewModel, index: number) => {
@@ -204,17 +226,25 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                                 );
                             })
                         }
-                        <p className={classNames("pt1", { inVisible: this.state.showOwnSubmissionTextBox })}>Don't see an option and would like to submit your own? <a href="!" onClick={(e: any) => {
-                            e.preventDefault();
-                            this.setState(() => {
-                                return {
-                                    showOwnSubmissionTextBox: true
-                                }
-                            })
-                        }}>click here</a></p>
+                        <p className={classNames("pt1", { inVisible: showOwnSubmissionTextBox })}>
+                            <span>Don't see an option you like and want to submit your own?&nbsp;</span>
+                            <a href="!" onClick={(e: any) => this.toggleShowSubmissionTextBox(e)}>click here</a>
+                        </p>
                     </div>
-                    <div className={classNames("col-12 pt1", { inVisible: !this.state.showOwnSubmissionTextBox })}>
-                        <p>Submit your own Translation</p>
+                    <div className={classNames("col-12", { inVisible: hasVoteOptions })}>
+                        <p style={{ textAlign: 'center' }}>There are no submissions yet</p>
+                    </div>
+                    <div className={classNames("col-12", { inVisible: !showOwnSubmissionTextBox })}>
+                        <p>
+                            <span>Submit your own Translation</span>
+                            {
+                                hasVoteOptions &&
+                                <>
+                                    <strong>&nbsp;OR&nbsp;</strong>
+                                    <a href="!" onClick={(e: any) => this.toggleShowSubmissionTextBox(e)}>Vote on existing translation</a>
+                                </>
+                            }
+                        </p>
                         <Form>
                             <TextArea
                                 placeholder={`Translation for: ${this.props.currentTranslation.original}`}
@@ -223,8 +253,20 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                                 onChange={textAreaFunc}
                             />
                         </Form>
+                        {
+                            this.state.voteOptions.map((voteOpt: TranslationSubmissionWithVotesViewModel, index: number) => {
+                                return (
+                                    <TranslationVoteItem
+                                        key={voteOpt.guid + '-edit'}
+                                        details={voteOpt}
+                                        isCopyTextMode={true}
+                                        onClick={() => this.setTranslationValue(voteOpt.text)}
+                                    />
+                                );
+                            })
+                        }
                         <ConditionalToolTip message='This will submit a translation for the currently visible item' showToolTip={true}>
-                            <button className={classNames('button full', { disabled: submitTranslationDisabled })}
+                            <button className={classNames('button full mt1', { disabled: submitTranslationDisabled })}
                                 onClick={this.submitTranslation}>Submit translation</button>
                         </ConditionalToolTip>
                     </div>

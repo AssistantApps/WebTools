@@ -43,8 +43,6 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
     if (props.status === NetworkState.Error) return <Error message="Something went wrong" />;
     if (props.status === NetworkState.Loading) return <Loading />;
 
-    console.log(props.userGuid);
-
     const appOptions = props.appDetails.map((item: AppViewModel) => {
         return {
             key: item.guid,
@@ -130,15 +128,25 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                         }
                     </div>
                     <div className="col-12 p1">
-                        <ConditionalToolTip message='Must select at least one App' showToolTip={translationButtonsDisabled}>
-                            <button className={classNames("button full", { disabled: translationButtonsDisabled })}
-                                onClick={() => props.fetchTranslationKeys(true)}>Load all items</button>
+                        <ConditionalToolTip
+                            message='Must select at least one App and a Language'
+                            showToolTip={translationButtonsDisabled}>
+                            <button
+                                className={classNames("button full", { disabled: translationButtonsDisabled })}
+                                onClick={() => !translationButtonsDisabled && props.fetchTranslationKeys(true)}>
+                                <span>Load all items</span>
+                            </button>
                         </ConditionalToolTip>
                     </div>
                     <div className="col-12">
-                        <ConditionalToolTip message='Must select at least one App and a Language' showToolTip={translationButtonsDisabled}>
-                            <button className={classNames("button full", { disabled: translationButtonsDisabled })}
-                                onClick={() => props.fetchTranslationKeys()}>Load untranslated items</button>
+                        <ConditionalToolTip
+                            message='Must select at least one App and a Language'
+                            showToolTip={translationButtonsDisabled}>
+                            <button
+                                className={classNames("button full", { disabled: translationButtonsDisabled })}
+                                onClick={() => !translationButtonsDisabled && props.fetchTranslationKeys()}>
+                                <span>Load untranslated items</span>
+                            </button>
                         </ConditionalToolTip>
                     </div>
                 </div>
