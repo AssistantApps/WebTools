@@ -1,3 +1,7 @@
+.home_banner_area .banner_inner:not(.small) {
+    min-height: 100vh !important;
+}
+
 .home_banner_area.small {
     // margin-top: 80px;
     min-height: 350px;

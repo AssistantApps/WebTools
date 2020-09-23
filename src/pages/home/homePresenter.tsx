@@ -14,10 +14,9 @@ export const HomePresenter: React.FC = () => {
                     <div className="row align-items-center">
                         <div className="col-lg-6">
                             <div className="area-heading">
-                                <h4>Form Female From<br />Cattle Evening. </h4>
-                                <h6>And appear great open bearing evening dominion vodi </h6>
-
-                                <p>There earth face earth behold. She'd stars made void two given do and also. Our own grass days.  Greater male Shall There faced earth behold She star</p>
+                                <h4>Custom built tools<br />just for you. </h4>
+                                <h6>These tools are created for you to have an impact on the apps</h6>
+                                <p>These tools help people contribute to the development of the Assistant Apps and make the apps even better <span role="img">💪</span></p>
                             </div>
                             <div className="row">
                                 <div className="col-md-6 col-lg-6">
@@ -26,19 +25,19 @@ export const HomePresenter: React.FC = () => {
                                             <i className="ti-thought"></i>
                                         </div>
                                         <div className="single-about-content">
-                                            <h5>Cloud Compatibility</h5>
-                                            <p>There earth face earth behold. She stars made void two given and also our own grass days. Greater </p>
+                                            <h5>Always online</h5>
+                                            <p>All the data is stored on the server and allows for the apps to dynamically get the data they require whenever it is needed</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-6 col-lg-6">
                                     <div className="single-about">
                                         <div className="about-icon">
-                                            <i className="ti-truck"></i>
+                                            <i className="ti-support"></i>
                                         </div>
                                         <div className="single-about-content">
-                                            <h5>On Time Delivery</h5>
-                                            <p>There earth face earth behold. She stars made void two given and also our own grass days. Greater </p>
+                                            <h5>Easy to use</h5>
+                                            <p>Designed to be easy to use, friendly UI / UX. Quick responses to support requests</p>
                                         </div>
                                     </div>
                                 </div>
@@ -54,29 +53,29 @@ export const HomePresenter: React.FC = () => {
 
                         <div className="offset-lg-6 col-lg-6">
                             <div className="area-heading light">
-                                <h4>Easy to Use <br />Mobile Application</h4>
-                                <p>There earth face earth behold. She'd stars made void two given do and also. Our own grass days.  Greater male Shall There faced earth behold She star</p>
+                                <h4>Enhance through<br />dynamic data</h4>
+                                <p>By keeping the data on the server and making the apps request the data when needed, we are able to be more agile and react to events a lot quicker than if the data was stored in the app. The App Stores can take anywhere from 12 to 192 hours for an update to be approved. </p>
                             </div>
                             <div className="row">
                                 <div className="col-">
                                     <div className="single-feature d-flex">
                                         <div className="feature-icon">
-                                            <i className="ti-layers"></i>
+                                            <i className="ti-comments-smiley"></i>
                                         </div>
                                         <div className="single-feature-content">
-                                            <h5>Add New Project</h5>
-                                            <p>There earth face earth behold. She stars made void two given and also our own grass days. Greater </p>
+                                            <h5>Language suport</h5>
+                                            <p>The AssistantApps are built with localization in mind from the beginning of their development. We want to be as inclusive as possible and realise that there are many many more languages other than English out there</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-">
                                     <div className="single-feature d-flex">
                                         <div className="feature-icon">
-                                            <i className="ti-layers"></i>
+                                            <i className="ti-book"></i>
                                         </div>
                                         <div className="single-feature-content">
-                                            <h5>Generating Leads</h5>
-                                            <p>There earth face earth behold. She stars made void two given and also our own grass days. Greater </p>
+                                            <h5>Guides</h5>
+                                            <p>We enjoy helping players help each other. We understand that we can always learn more, whether that is in terms of a specific game, app development, marketing etc. And so the Guide system is made to help those who know a lot, pass on their knowledge to others</p>
                                         </div>
                                     </div>
                                 </div>
@@ -89,134 +88,39 @@ export const HomePresenter: React.FC = () => {
             <section className="statics-area area-padding">
                 <div className="container">
                     <div className="row">
-
                         <div className="col-lg-5">
                             <div className="image-box">
                                 <img src="/assets/img/banner/about3.png" alt="" />
                             </div>
                         </div>
-
                         <div className="offset-lg-1 col-lg-6">
                             <div className="area-heading">
-                                <h4>Form Female From<br />Cattle Evening. </h4>
-                                <h6>And appear great open bearing evening dominion vodi </h6>
+                                <h4>Learning from<br />Feedback and Analytics</h4>
+                                <h6>We are constantly listening to feedback and keeping an eye on the analytics</h6>
 
-                                <p>There earth face earth behold. She'd stars made void two given do and also. Our own grass days.  Greater male Shall There faced earth behold She star</p>
+                                <p>We want to ensure that the apps are the best that they could be and so we are constantly looking for places to improve. Direct feedback from users is the most important tool at our dispossal</p>
+                            </div>
+                            <div className="single-data">
+                                <h6>Important factors for our users</h6>
                             </div>
                             <div className="single-data">
                                 <i className="ti-paint-bucket"></i>
-                                <p>Set dry signs spirit a kind First shall them.</p>
-                            </div>
-                            <div className="single-data">
-                                <i className="ti-check-box"></i>
-                                <p>He two face one moved dominion man you're likeness</p>
+                                <p>Customizability</p>
                             </div>
                             <div className="single-data">
                                 <i className="ti-ruler-pencil"></i>
-                                <p>Sea forth fill have divide be dominion from life</p>
+                                <p>Accuracy</p>
+                            </div>
+                            <div className="single-data">
+                                <i className="ti-check-box"></i>
+                                <p>Feature rich</p>
                             </div>
 
                         </div>
                     </div>
                 </div>
             </section>
-
-            <section className="pricing_area area-padding-top">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="area-heading">
-                                <h4>Our Pricing Plan</h4>
-                                <p>Life firmament under them evening make after called dont saying likeness<br /> isn't wherein also forth she'd air two without</p>
-                            </div>
-                        </div>
-                        <div className="col-sm-6 col-lg-3">
-                            <div className="single-pricing">
-                                <div className="pricing-icon">
-                                    <i className="ti-home"></i>
-                                </div>
-                                <div className="single-pricing-content">
-                                    <h5>Standard</h5>
-                                    <h4>$25<span className="currency_line">/</span><span>month</span></h4>
-                                    <ul>
-                                        <li>2GB Bandwidth</li>
-                                        <li>Two Account</li>
-                                        <li>15GB Storage</li>
-                                        <li>Sale After Service</li>
-                                        <li>3 Host Domain</li>
-                                        <li>24/7 Support</li>
-                                    </ul>
-                                    <a href="#">Purchase Now</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-sm-6 col-lg-3">
-                            <div className="single-pricing">
-                                <div className="pricing-icon">
-                                    <i className="ti-bag"></i>
-                                </div>
-                                <div className="single-pricing-content">
-                                    <h5>Business</h5>
-                                    <h4>$35<span className="currency_line">/</span><span>month</span></h4>
-                                    <ul>
-                                        <li>2GB Bandwidth</li>
-                                        <li>Two Account</li>
-                                        <li>15GB Storage</li>
-                                        <li>Sale After Service</li>
-                                        <li>3 Host Domain</li>
-                                        <li>24/7 Support</li>
-                                    </ul>
-                                    <a href="#">Purchase Now</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-sm-6 col-lg-3">
-                            <div className="single-pricing">
-                                <div className="pricing-icon">
-                                    <i className="ti-car"></i>
-                                </div>
-                                <div className="single-pricing-content">
-                                    <h5>Premium</h5>
-                                    <h4>$45<span className="currency_line">/</span><span>month</span></h4>
-                                    <ul>
-                                        <li>2GB Bandwidth</li>
-                                        <li>Two Account</li>
-                                        <li>15GB Storage</li>
-                                        <li>Sale After Service</li>
-                                        <li>3 Host Domain</li>
-                                        <li>24/7 Support</li>
-                                    </ul>
-                                    <a href="#">Purchase Now</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-sm-6 col-lg-3">
-                            <div className="single-pricing">
-                                <div className="pricing-icon">
-                                    <i className="ti-gift"></i>
-                                </div>
-                                <div className="single-pricing-content">
-                                    <h5>Ultimate</h5>
-                                    <h4>$55<span className="currency_line">/</span><span>month</span></h4>
-                                    <ul>
-                                        <li>2GB Bandwidth</li>
-                                        <li>Two Account</li>
-                                        <li>15GB Storage</li>
-                                        <li>Sale After Service</li>
-                                        <li>3 Host Domain</li>
-                                        <li>24/7 Support</li>
-                                    </ul>
-                                    <a href="#">Purchase Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
+            {/* 
             <section className="latest-blog-area area-padding">
                 <div className="container">
                     <div className="row justify-content-center">
@@ -322,7 +226,7 @@ export const HomePresenter: React.FC = () => {
 
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             <section className="brands-area area-padding-bottom">
                 <div className="container">
