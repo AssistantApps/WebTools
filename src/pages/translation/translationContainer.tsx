@@ -99,7 +99,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
         });
     }
 
-    fetchTranslationKeys = async (ignoreLanguage: boolean = false) => {
+    fetchTranslationKeys = async (onlyUntranslated: boolean = false) => {
         this.setState(() => {
             return {
                 translationKeyStatus: NetworkState.Loading
@@ -107,7 +107,8 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
         });
         var searchObj: TranslationSearchViewModel = {
             appGuidList: this.state.selectedApps,
-            languageGuid: ignoreLanguage ? null : this.state.selectedLanguage
+            languageGuid: this.state.selectedLanguage,
+            showOnlyUntranslated: onlyUntranslated,
         }
         var transKeyResult = await this.state.apiService.getTranslationKeys(searchObj);
         if (!transKeyResult.isSuccess) {

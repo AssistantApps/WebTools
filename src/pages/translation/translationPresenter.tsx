@@ -133,7 +133,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                             showToolTip={translationButtonsDisabled}>
                             <button
                                 className={classNames("button full", { disabled: translationButtonsDisabled })}
-                                onClick={() => !translationButtonsDisabled && props.fetchTranslationKeys(true)}>
+                                onClick={() => !translationButtonsDisabled && props.fetchTranslationKeys()}>
                                 <span>Load all items</span>
                             </button>
                         </ConditionalToolTip>
@@ -144,7 +144,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                             showToolTip={translationButtonsDisabled}>
                             <button
                                 className={classNames("button full", { disabled: translationButtonsDisabled })}
-                                onClick={() => !translationButtonsDisabled && props.fetchTranslationKeys()}>
+                                onClick={() => !translationButtonsDisabled && props.fetchTranslationKeys(true)}>
                                 <span>Load untranslated items</span>
                             </button>
                         </ConditionalToolTip>
