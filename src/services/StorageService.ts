@@ -9,7 +9,7 @@ export class StorageService {
         const item: StorageItem<T> = JSON.parse(itemString);
 
         if (item != null && item.data != null && item.expiryDate != null) {
-            if (moment(item.expiryDate).isBefore(moment())) {
+            if (moment(item.expiryDate).isAfter(moment())) {
                 return {
                     isSuccess: true,
                     value: item.data,

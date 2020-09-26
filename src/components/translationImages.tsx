@@ -39,7 +39,8 @@ export class TranslationImages extends React.Component<IProps, IState> {
     }
 
     componentDidUpdate(prevProps: IProps) {
-        if (this.props.translationKeyGuid !== prevProps.translationKeyGuid) {
+        if (this.props.userGuid !== prevProps.userGuid ||
+            this.props.translationKeyGuid !== prevProps.translationKeyGuid) {
             this.fetchTranslationKeyImages();
         }
     }

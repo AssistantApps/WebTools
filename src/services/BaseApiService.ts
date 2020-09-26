@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { ResultWithValue } from '../contracts/results/ResultWithValue';
+import * as storageType from '../constants/storageType';
+import { Result, ResultWithValue } from '../contracts/results/ResultWithValue';
 import { anyObject } from '../helper/typescriptHacks';
 import { StorageService } from './StorageService';
 
-import * as storageType from '../constants/storageType';
 
 declare global {
   interface Window { config: any }
@@ -56,6 +56,22 @@ export class BaseApiService {
       return {
         isSuccess: false,
         value: anyObject,
+        errorMessage: ex.message
+      }
+    }
+  }
+
+  protected async delete(url: string, manipulateHeaders?: (headers: any) => void): Promise<Result> {
+    try {
+      const result = await axios.delete(`${this._baseUrl}/${url}`);
+      if (manipulateHeaders != null) manipulateHeaders(result.headers);
+      return {
+        isSuccess: true,
+        errorMessage: ''
+      }
+    } catch (ex) {
+      return {
+        isSuccess: false,
         errorMessage: ex.message
       }
     }

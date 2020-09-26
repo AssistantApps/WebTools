@@ -16,7 +16,7 @@ export const HomePresenter: React.FC = () => {
                             <div className="area-heading">
                                 <h4>Custom built tools<br />just for you. </h4>
                                 <h6>These tools are created for you to have an impact on the apps</h6>
-                                <p>These tools help people contribute to the development of the Assistant Apps and make the apps even better <span role="img">💪</span></p>
+                                <p>These tools help people contribute to the development of the Assistant Apps and make the apps even better <span role="img" aria-label="muscle">💪</span></p>
                             </div>
                             <div className="row">
                                 <div className="col-md-6 col-lg-6">

@@ -6,7 +6,7 @@ import { NetworkState } from '../../constants/networkState';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationSubmissionViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
 import { TranslationSubmissionWithVotesViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
-import { TranslationVoteViewModel } from '../../contracts/generated/ViewModel/Translation/translationVoteViewModel';
+import { Result } from '../../contracts/results/ResultWithValue';
 import { ApiService } from '../../services/ApiService';
 import { StorageService } from '../../services/StorageService';
 import { ConditionalToolTip } from '../common/conditionalTooltip';
@@ -86,6 +86,18 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
     }
 
     setTranslation = async (translationGuid: string) => {
+        await this.translationApiCall(() => this.state.apiService.selectTranslationVote({
+            guid: this.props.userGuid,
+            translationGuid: translationGuid,
+            userGuid: this.props.userGuid,
+        }));
+    }
+
+    deleteTranslation = async (translationGuid: string) => {
+        await this.translationApiCall(() => this.state.apiService.deleteTranslation(translationGuid));
+    }
+
+    translationApiCall = async (apiFunc: () => Promise<Result>) => {
         this.setState(() => {
             return {
                 status: NetworkState.Loading
@@ -98,16 +110,10 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
             })
             return;
         }
-        var voteObj: TranslationVoteViewModel = {
-            guid: this.props.userGuid,
-            translationGuid: translationGuid,
-            userGuid: this.props.userGuid,
-        }
-        var transKeyResult = await this.state.apiService.selectTranslationVote(voteObj);
-        if (!transKeyResult.isSuccess) {
+        var apiResult = await apiFunc();
+        if (!apiResult.isSuccess) {
             this.setState(() => {
                 return {
-                    // voteOptions: [],
                     status: NetworkState.Error
                 }
             });
@@ -222,6 +228,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                                         key={voteOpt.guid}
                                         details={voteOpt}
                                         onClick={() => this.setTranslation(voteOpt.guid)}
+                                        onDelete={() => this.deleteTranslation(voteOpt.guid)}
                                     />
                                 );
                             })
@@ -261,6 +268,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                                         details={voteOpt}
                                         isCopyTextMode={true}
                                         onClick={() => this.setTranslationValue(voteOpt.text)}
+                                        onDelete={() => { }}
                                     />
                                 );
                             })

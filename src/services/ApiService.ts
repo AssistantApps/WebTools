@@ -36,6 +36,9 @@ export class ApiService extends BaseApiService {
     async submitTranslation(data: TranslationSubmissionViewModel): Promise<Result> {
         return await this.post(apiEndpoints.translation, data);
     }
+    async deleteTranslation(guid: string): Promise<Result> {
+        return await this.delete(`${apiEndpoints.translation}/${guid}`);
+    }
     async selectTranslationVote(data: TranslationVoteViewModel): Promise<Result> {
         return await this.post(apiEndpoints.translationVotes, data);
     }
@@ -44,7 +47,7 @@ export class ApiService extends BaseApiService {
         var userGuid = '';
         var apiResult = await this.post(apiEndpoints.authUrl, oAuthObj, (headers) => {
             var token = headers.token;
-            var tokenExpiry = headers.tokenExpiry;
+            var tokenExpiry = headers.tokenexpiry;
             var username = headers.username;
             userGuid = headers.userguid;
 
