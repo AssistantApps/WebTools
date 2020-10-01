@@ -22,4 +22,6 @@ export enum PermissionType {
     guideSubmissionManage,
     versionView,
     versionManage,
+    donationView,
+    donationManage,
 }
