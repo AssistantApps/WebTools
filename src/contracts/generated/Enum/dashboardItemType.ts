@@ -6,4 +6,6 @@ export enum DashboardItemType {
     numberOfTranslationKeysPerApp,
     numberOfTranslationSubmissions,
     numberOfSupportedLanguages,
+    numberOfDonations,
+    totalDonationAmount,
 }

@@ -8,8 +8,9 @@ export interface DonationViewModel {
     username: string;
     email: string;
     type: DonationType;
-    amount: number;
+    amount?: number;
     currency: string;
-    actualAmount: number;
+    actualAmount?: number;
+    isHidden: boolean;
     date: Date;
 }

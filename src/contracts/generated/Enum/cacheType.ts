@@ -5,5 +5,6 @@ export enum CacheType {
     dashboard,
     dashboardLoggedIn,
     guideSearch,
-    donationSearch,
+    donation,
+    version,
 }
