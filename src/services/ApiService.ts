@@ -9,7 +9,7 @@ import { TranslationSearchViewModel } from '../contracts/generated/ViewModel/Tra
 import { TranslationSubmissionViewModel } from '../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
 import { TranslationSubmissionWithVotesViewModel } from '../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
 import { TranslationVoteViewModel } from '../contracts/generated/ViewModel/Translation/translationVoteViewModel';
-import { TranslationImageViewModel } from '../contracts/generated/ViewModel/translationImageViewModel';
+import { TranslationImageViewModel } from '../contracts/generated/ViewModel/Translation/translationImageViewModel';
 import { Result, ResultWithValue } from '../contracts/results/ResultWithValue';
 import { BaseApiService } from './BaseApiService';
 import { StorageService } from './StorageService';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { NetworkState } from '../constants/networkState';
-import { TranslationImageViewModel } from '../contracts/generated/ViewModel/translationImageViewModel';
+import { TranslationImageViewModel } from '../contracts/generated/ViewModel/Translation/translationImageViewModel';
 import { SmallLoading } from './common/loading';
 
 import { ApiService } from '../services/ApiService';
