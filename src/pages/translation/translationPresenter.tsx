@@ -78,6 +78,8 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                 <Pagination
                     totalPages={props.translationKeys.length}
                     activePage={props.translationKeyIndex + 1}
+                    boundaryRange={0}
+                    siblingRange={2}
                     ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
                     firstItem={{ content: <Icon name='angle double left' />, icon: true }}
                     lastItem={{ content: <Icon name='angle double right' />, icon: true }}
@@ -133,7 +135,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                             showToolTip={translationButtonsDisabled}>
                             <button
                                 className={classNames("button full", { disabled: translationButtonsDisabled })}
-                                onClick={() => !translationButtonsDisabled && props.fetchTranslationKeys(true)}>
+                                onClick={() => !translationButtonsDisabled && props.fetchTranslationKeys()}>
                                 <span>Load all items</span>
                             </button>
                         </ConditionalToolTip>
@@ -144,7 +146,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                             showToolTip={translationButtonsDisabled}>
                             <button
                                 className={classNames("button full", { disabled: translationButtonsDisabled })}
-                                onClick={() => !translationButtonsDisabled && props.fetchTranslationKeys()}>
+                                onClick={() => !translationButtonsDisabled && props.fetchTranslationKeys(true)}>
                                 <span>Load untranslated items</span>
                             </button>
                         </ConditionalToolTip>
