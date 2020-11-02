@@ -6,6 +6,7 @@ import { NetworkState } from '../../constants/networkState';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationSubmissionViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
 import { TranslationSubmissionWithVotesViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
+import { TranslationReportViewModel } from '../../contracts/generated/ViewModel/Translation/translationReportViewModel';
 import { Result } from '../../contracts/results/ResultWithValue';
 import { ApiService } from '../../services/ApiService';
 import { StorageService } from '../../services/StorageService';
@@ -173,6 +174,52 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
         })
     }
 
+    reportTranslation = async (badTrans: TranslationSubmissionWithVotesViewModel) => {
+        const { value: additionalText } = await Swal.fire({
+            icon: 'question',
+            title: 'Extra Info',
+            text: 'Is there any extra information that you would like to point out? This may help us remove the translation item sooner',
+            input: 'text',
+            inputPlaceholder: 'Extra information',
+            showCancelButton: true,
+        });
+
+        if (additionalText == null) return;
+
+        this.setState(() => {
+            return {
+                status: NetworkState.Loading
+            }
+        });
+        var reportObj: TranslationReportViewModel = {
+            translationGuid: badTrans.guid,
+            translationKey: this.props.currentTranslation.key,
+            offendingText: badTrans.text,
+            origText: this.props.currentTranslation.original,
+            languageGuid: this.props.languageGuid,
+            additionalMessage: additionalText as string,
+        }
+        var reportResult = await this.state.apiService.reportTranslation(reportObj);
+        if (!reportResult.isSuccess) {
+            this.setState(() => {
+                return {
+                    status: NetworkState.Error
+                }
+            });
+            return;
+        }
+        Swal.fire({
+            icon: 'success',
+            title: 'Thank you!',
+            text: 'You are helping to make the AssistantApps Translations better!',
+        })
+        this.setState(() => {
+            return {
+                status: NetworkState.Success
+            }
+        });
+    }
+
     render() {
         const textAreaFunc = (_: any, data: TextAreaProps) => {
             const text: any = data.value;
@@ -219,29 +266,30 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
             <>
                 <hr />
                 <div className="row full pt1">
-                    <div className={classNames("col-12", { inVisible: showOwnSubmissionTextBox })}>
+                    <div className={classNames('col-12', { inVisible: showOwnSubmissionTextBox })}>
                         <p>Submissions from previous Translators</p>
                         {
-                            this.state.voteOptions.map((voteOpt: TranslationSubmissionWithVotesViewModel, index: number) => {
+                            this.state.voteOptions.map((voteOpt: TranslationSubmissionWithVotesViewModel) => {
                                 return (
                                     <TranslationVoteItem
                                         key={voteOpt.guid}
                                         details={voteOpt}
                                         onClick={() => this.setTranslation(voteOpt.guid)}
                                         onDelete={() => this.deleteTranslation(voteOpt.guid)}
+                                        onReport={this.reportTranslation}
                                     />
                                 );
                             })
                         }
-                        <p className={classNames("pt1", { inVisible: showOwnSubmissionTextBox })}>
+                        <p className={classNames('pt1', { inVisible: showOwnSubmissionTextBox })}>
                             <span>Don't see an option you like and want to submit your own?&nbsp;</span>
                             <a href="!" onClick={(e: any) => this.toggleShowSubmissionTextBox(e)}>click here</a>
                         </p>
                     </div>
-                    <div className={classNames("col-12", { inVisible: hasVoteOptions })}>
+                    <div className={classNames('col-12', { inVisible: hasVoteOptions })}>
                         <p style={{ textAlign: 'center' }}>There are no submissions yet</p>
                     </div>
-                    <div className={classNames("col-12", { inVisible: !showOwnSubmissionTextBox })}>
+                    <div className={classNames('col-12', { inVisible: !showOwnSubmissionTextBox })}>
                         <p>
                             <span>Submit your own Translation</span>
                             {
@@ -261,7 +309,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                             />
                         </Form>
                         {
-                            this.state.voteOptions.map((voteOpt: TranslationSubmissionWithVotesViewModel, index: number) => {
+                            this.state.voteOptions.map((voteOpt: TranslationSubmissionWithVotesViewModel) => {
                                 return (
                                     <TranslationVoteItem
                                         key={voteOpt.guid + '-edit'}
@@ -269,6 +317,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                                         isCopyTextMode={true}
                                         onClick={() => this.setTranslationValue(voteOpt.text)}
                                         onDelete={() => { }}
+                                        onReport={this.reportTranslation}
                                     />
                                 );
                             })

@@ -8,8 +8,9 @@ import { TranslationKeyViewModel } from '../contracts/generated/ViewModel/Transl
 import { TranslationSearchViewModel } from '../contracts/generated/ViewModel/Translation/translationSearchViewModel';
 import { TranslationSubmissionViewModel } from '../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
 import { TranslationSubmissionWithVotesViewModel } from '../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
-import { TranslationVoteViewModel } from '../contracts/generated/ViewModel/Translation/translationVoteViewModel';
+import { TranslationReportViewModel } from '../contracts/generated/ViewModel/Translation/translationReportViewModel';
 import { TranslationImageViewModel } from '../contracts/generated/ViewModel/Translation/translationImageViewModel';
+import { TranslationVoteViewModel } from '../contracts/generated/ViewModel/Translation/translationVoteViewModel';
 import { Result, ResultWithValue } from '../contracts/results/ResultWithValue';
 import { BaseApiService } from './BaseApiService';
 import { StorageService } from './StorageService';
@@ -41,6 +42,9 @@ export class ApiService extends BaseApiService {
     }
     async selectTranslationVote(data: TranslationVoteViewModel): Promise<Result> {
         return await this.post(apiEndpoints.translationVotes, data);
+    }
+    async reportTranslation(data: TranslationReportViewModel): Promise<Result> {
+        return await this.post(apiEndpoints.translationReports, data);
     }
 
     async loginWithOAuth(oAuthObj: OAuthUserViewModel): Promise<ResultWithValue<string>> {

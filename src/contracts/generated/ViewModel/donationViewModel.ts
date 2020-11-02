@@ -11,6 +11,6 @@ export interface DonationViewModel {
     amount?: number;
     currency: string;
     actualAmount?: number;
-    isHidden: boolean;
+    isHidden?: boolean;
     date: Date;
 }
