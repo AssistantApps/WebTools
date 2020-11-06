@@ -13,7 +13,8 @@
     cursor: pointer;
 }
 
-.notAllowed {
+.notAllowed,
+.notAllowed.ui.icon.button {
     cursor: not-allowed;
 }
 

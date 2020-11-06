@@ -122,7 +122,8 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
         this.setState(() => {
             return {
                 translationKeys: transKeyResult.value,
-                translationKeyStatus: NetworkState.Success
+                translationKeyStatus: NetworkState.Success,
+                translationKeyIndex: 0,
             }
         });
     }
