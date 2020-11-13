@@ -10,7 +10,7 @@ export const Footer = () => {
                         <h4>About Us</h4>
                         <p>AssistantApps creates Beautiful and fast cross-platform apps built to help you in your favourite games!</p>
                         <div className="footer-logo">
-                            <img src="/assets/img/logo.png" alt="" />
+                            <img src="/assets/img/logo-sm.png" alt="" />
                         </div>
                     </div>
 

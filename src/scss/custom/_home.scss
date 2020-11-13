@@ -1,0 +1,14 @@
+@media (max-width: 1199px) {
+    section.home_banner_area {
+        min-height: unset !important;
+
+        .banner_inner:not(.small) {
+            height: 50vh !important;
+            min-height: unset !important;
+        }
+    }
+
+    .area-padding {
+        padding: 3em 0;
+    }
+}

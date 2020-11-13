@@ -10,7 +10,8 @@ export const Header = () => {
 				<nav className="navbar navbar-expand-lg navbar-light">
 					<div className="container">
 						<a className="navbar-brand logo_h" href="/">
-							<h2 className="heading">AssistantApp Tools</h2>
+							<img src="/assets/img/logo-sm.png" alt="logo" style={{ height: '100%' }} />
+							<h2 className="heading" style={{ display: 'inline', paddingLeft: '1em' }}>AssistantApp Tools</h2>
 						</a>
 						<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 							<span className="icon-bar"></span>
