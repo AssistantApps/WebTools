@@ -9,7 +9,9 @@ interface IState {
     index: number;
     oldIndex: number;
     screenShots: Array<string>;
+    appName: string;
     indexIsNew: boolean;
+    animationIsPaused: boolean;
 }
 
 interface IProps {
@@ -20,19 +22,23 @@ export class ScreenshotSlider extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
 
+        const screenShotList = [
+            'NMS0',
+            'NMS1',
+            'NMS2',
+            'NMS3',
+            'SMS0',
+            'SMS1',
+            'SMS2'
+        ];
+
         this.state = {
             index: 0,
             oldIndex: 0,
             indexIsNew: false,
-            screenShots: [
-                'NMS0',
-                'NMS1',
-                'NMS2',
-                'NMS3',
-                'SMS0',
-                'SMS1',
-                'SMS2'
-            ]
+            animationIsPaused: false,
+            appName: this.getAppName(screenShotList[0]),
+            screenShots: screenShotList,
         };
     }
 
@@ -41,10 +47,11 @@ export class ScreenshotSlider extends React.Component<IProps, IState> {
             this.transitionImages();
             const secondsPerImage = this.props.secondsPerImage || 5;
             setInterval(() => this.transitionImages(), secondsPerImage * 1000);
-        }, 1000);
+        }, 2000);
     }
 
     transitionImages() {
+        if (this.state.animationIsPaused) return;
         this.setState(({ index, screenShots }) => {
             return ({
                 index: ((index + 1) >= screenShots.length) ? 0 : index + 1,
@@ -57,9 +64,10 @@ export class ScreenshotSlider extends React.Component<IProps, IState> {
             }));
             setTimeout(() => {
                 this.setState(({ index }) => ({
-                    oldIndex: index
+                    oldIndex: index,
+                    appName: this.getAppName(this.state.screenShots[index]),
                 }));
-            }, 2500);
+            }, 500);
         }, 1000);
     }
 
@@ -77,13 +85,15 @@ export class ScreenshotSlider extends React.Component<IProps, IState> {
         const currentImage = this.state.screenShots[this.state.index];
         return (
             <Popup
-                basic={true}
+                // basic={true}
                 flowing={true}
                 // header={<h4>Screenshot from</h4>}
                 // position="top center"
+
+                offset="200, 0"
                 content={<span>
                     <strong>Screenshot from&nbsp;</strong>
-                    {this.getAppName(currentImage)}
+                    {this.state.appName}
                 </span>
                 }
                 trigger={
