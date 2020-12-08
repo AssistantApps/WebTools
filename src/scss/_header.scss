@@ -24,7 +24,7 @@
         }
 
         .navbar-brand {
-            padding-top: 0;
+            padding: 0;
         }
 
         .nav {
@@ -153,7 +153,7 @@
             top: -71px;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: #1D1D1B;
             transform: translateY(70px);
             transition: transform 500ms ease, background 500ms ease;
             -webkit-transition: transform 500ms ease, background 500ms ease;
