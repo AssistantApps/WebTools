@@ -31,6 +31,7 @@ interface IProps {
     translationKeys: Array<TranslationKeyViewModel>;
     translationKeyIndex: number;
     translationKeyStatus: NetworkState;
+    hasLoadedtranslationKeys: boolean;
 
     userGuid: string;
 
@@ -229,6 +230,12 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                         currentTranslation={currentTranslation}
                         userGuid={props.userGuid}
                     />
+                }
+            </div>
+            <div className="container pt1" style={{ textAlign: 'center' }}>
+                {
+                    props.hasLoadedtranslationKeys && (props.translationKeys.length === 0) &&
+                    <h2>No items to display</h2>
                 }
             </div>
 

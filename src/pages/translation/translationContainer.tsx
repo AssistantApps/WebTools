@@ -7,7 +7,6 @@ import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageV
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationSearchViewModel } from '../../contracts/generated/ViewModel/Translation/translationSearchViewModel';
 import { ApiService } from '../../services/ApiService';
-import { StorageService } from '../../services/StorageService';
 import { mapDispatchToProps, mapStateToProps } from './translation.redux';
 import { TranslationPresenter } from './translationPresenter';
 
@@ -27,6 +26,7 @@ interface IState {
     translationKeys: Array<TranslationKeyViewModel>;
     translationKeyIndex: number;
     translationKeyStatus: NetworkState;
+    hasLoadedtranslationKeys: boolean;
 }
 
 interface IProps {
@@ -53,6 +53,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
             translationKeys: [],
             translationKeyIndex: 0,
             translationKeyStatus: NetworkState.Success,
+            hasLoadedtranslationKeys: false,
         };
     }
 
@@ -112,7 +113,8 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
         if (!transKeyResult.isSuccess) {
             this.setState(() => {
                 return {
-                    translationKeyStatus: NetworkState.Error
+                    translationKeyStatus: NetworkState.Error,
+                    hasLoadedtranslationKeys: true,
                 }
             });
             return;
@@ -122,6 +124,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
                 translationKeys: transKeyResult.value,
                 translationKeyStatus: NetworkState.Success,
                 translationKeyIndex: 0,
+                hasLoadedtranslationKeys: true,
             }
         });
     }
@@ -138,6 +141,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
                 setTranslationIndex={this.setTranslationIndex}
                 fetchTranslationKeys={this.fetchTranslationKeys}
                 userGuid={this.props.userGuid}
+                hasLoadedtranslationKeys={this.state.hasLoadedtranslationKeys}
             />
         );
     }
