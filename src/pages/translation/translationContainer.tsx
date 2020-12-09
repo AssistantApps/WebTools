@@ -20,7 +20,6 @@ interface IState {
     submissionStatus: NetworkState;
 
     apiService: ApiService;
-    storageServ: StorageService;
 
     selectedApps: Array<string>;
     selectedLanguage: string;
@@ -49,7 +48,6 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
             langDetails: [],
             submissionStatus: NetworkState.Success,
             apiService: new ApiService(),
-            storageServ: new StorageService(),
             selectedApps: [],
             selectedLanguage: '',
             translationKeys: [],

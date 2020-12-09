@@ -17,6 +17,9 @@ interface IState {
 
 interface IProps {
     isLoading?: boolean;
+    children?: React.ReactNode;
+    iconStyle?: any;
+    colour?: "grey" | "red" | "orange" | "yellow" | "olive" | "green" | "teal" | "blue" | "violet" | "purple" | "pink" | "brown" | "black";
     setLoadingStatus?: (isLoading: boolean) => void;
     login?: (userGuid: string) => void;
 }
@@ -77,18 +80,26 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
 
     render() {
         return (
-            <div style={{ lineHeight: '63px' }}>
-                <Icon
-                    name='user'
-                    color='grey' inverted
-                    size='large'
-                    className="pointer"
-                    onClick={this.toggleModalOpen}
-                />
+            <>
+                {
+                    this.props.children != null
+                        ? <div className="pointer" onClick={this.toggleModalOpen}>
+                            {this.props.children}
+                        </div>
+                        : <Icon
+                            inverted
+                            name="user"
+                            color={this.props.colour || "grey"}
+                            size="large"
+                            className="pointer"
+                            style={this.props.iconStyle || { lineHeight: '63px' }}
+                            onClick={this.toggleModalOpen}
+                        />
+                }
 
                 <Modal
-                    size='tiny'
-                    dimmer='blurring'
+                    size="tiny"
+                    dimmer="blurring"
                     open={this.state.isModalOpen}
                     onClose={this.toggleModalOpen}
                 >
@@ -113,7 +124,7 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
                         </div>
                     </Modal.Content>
                 </Modal>
-            </div>
+            </>
         );
     }
 }
