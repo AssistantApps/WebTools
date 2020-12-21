@@ -1,6 +1,4 @@
-import classNames from 'classnames';
 import React from 'react';
-import { Form, Placeholder, Segment, TextArea, TextAreaProps } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
 import { NetworkState } from '../../constants/networkState';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
@@ -10,8 +8,7 @@ import { TranslationReportViewModel } from '../../contracts/generated/ViewModel/
 import { Result } from '../../contracts/results/ResultWithValue';
 import { ApiService } from '../../services/ApiService';
 import { StorageService } from '../../services/StorageService';
-import { ConditionalToolTip } from '../common/conditionalTooltip';
-import { TranslationVoteItem } from './translationVoteItem';
+import { TranslationVotePresenter } from './translationVotePresenter';
 
 interface IState {
     status: NetworkState;
@@ -161,7 +158,8 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
         if (e != null) e.preventDefault();
         this.setState((prevState: IState) => {
             return {
-                showOwnSubmissionTextBox: !prevState.showOwnSubmissionTextBox
+                translation: '',
+                showOwnSubmissionTextBox: !prevState.showOwnSubmissionTextBox,
             }
         })
     }
@@ -169,7 +167,8 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
     setTranslationValue = (text: string) => {
         this.setState(() => {
             return {
-                translation: text
+                translation: text,
+                showOwnSubmissionTextBox: true,
             }
         })
     }
@@ -221,114 +220,21 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
     }
 
     render() {
-        const textAreaFunc = (_: any, data: TextAreaProps) => {
-            const text: any = data.value;
-            this.setState(() => {
-                return {
-                    translation: text
-                }
-            });
-        };
-
-        const submitTranslationDisabled = this.state.translation == null || this.state.translation.length < 2;
-
-        if (this.state.status === NetworkState.Loading) {
-            return (
-                <>
-                    <hr />
-                    <div className="row full">
-                        <div className="col-12 pb2">
-                            <Placeholder style={{ margin: '0 auto' }}>
-                                <Placeholder.Line />
-                                <Placeholder.Line />
-                                <Placeholder.Line />
-                            </Placeholder>
-                        </div>
-                    </div>
-                </>
-            );
-        }
-
-        if (this.props.currentTranslation == null) {
-            return (<div></div>);
-        }
-
-        if (this.props.userGuid == null || this.props.userGuid.length < 1) return (
-            <Segment placeholder style={{ minHeight: 'unset' }}>
-                <p style={{ textAlign: 'center' }}>Please log in to vote</p>
-            </Segment>
-        );
-
-        const hasVoteOptions = this.state.voteOptions != null && this.state.voteOptions.length > 0;
-        const showOwnSubmissionTextBox = this.state.showOwnSubmissionTextBox || !hasVoteOptions;
-
         return (
-            <>
-                <hr />
-                <div className="row full pt1">
-                    <div className={classNames('col-12', { inVisible: showOwnSubmissionTextBox })}>
-                        <p>Submissions from previous Translators</p>
-                        {
-                            this.state.voteOptions.map((voteOpt: TranslationSubmissionWithVotesViewModel) => {
-                                return (
-                                    <TranslationVoteItem
-                                        key={voteOpt.guid}
-                                        details={voteOpt}
-                                        onClick={() => this.setTranslation(voteOpt.guid)}
-                                        onDelete={() => this.deleteTranslation(voteOpt.guid)}
-                                        onReport={this.reportTranslation}
-                                    />
-                                );
-                            })
-                        }
-                        <p className={classNames('pt1', { inVisible: showOwnSubmissionTextBox })}>
-                            <span>Don't see an option you like and want to submit your own?&nbsp;</span>
-                            <a href="!" onClick={(e: any) => this.toggleShowSubmissionTextBox(e)}>click here</a>
-                        </p>
-                    </div>
-                    <div className={classNames('col-12', { inVisible: hasVoteOptions })}>
-                        <p style={{ textAlign: 'center' }}>There are no submissions yet</p>
-                    </div>
-                    <div className={classNames('col-12', { inVisible: !showOwnSubmissionTextBox })}>
-                        <p>
-                            <span>Submit your own Translation</span>
-                            {
-                                hasVoteOptions &&
-                                <>
-                                    <strong>&nbsp;OR&nbsp;</strong>
-                                    <a href="!" onClick={(e: any) => this.toggleShowSubmissionTextBox(e)}>Vote on existing translation</a>
-                                </>
-                            }
-                        </p>
-                        <Form>
-                            <TextArea
-                                placeholder={`Translation for: ${this.props.currentTranslation.original}`}
-                                style={{ marginBottom: '1em' }}
-                                value={this.state.translation}
-                                onChange={textAreaFunc}
-                            />
-                        </Form>
-                        {
-                            this.state.voteOptions.map((voteOpt: TranslationSubmissionWithVotesViewModel) => {
-                                return (
-                                    <TranslationVoteItem
-                                        key={voteOpt.guid + '-edit'}
-                                        details={voteOpt}
-                                        isCopyTextMode={true}
-                                        onClick={() => this.setTranslationValue(voteOpt.text)}
-                                        onDelete={() => { }}
-                                        onReport={this.reportTranslation}
-                                    />
-                                );
-                            })
-                        }
-                        <ConditionalToolTip message='This will submit a translation for the currently visible item' showToolTip={true}>
-                            <button className={classNames('button full mt1', { disabled: submitTranslationDisabled })}
-                                onClick={this.submitTranslation}>Submit translation</button>
-                        </ConditionalToolTip>
-                    </div>
-                </div>
-            </>
+            <TranslationVotePresenter
+                userGuid={this.props.userGuid}
+                currentTranslation={this.props.currentTranslation}
+                submitTranslation={this.submitTranslation}
+                setTranslation={this.setTranslation}
+                deleteTranslation={this.deleteTranslation}
+                setTranslationValue={this.setTranslationValue}
+                toggleShowSubmissionTextBox={this.toggleShowSubmissionTextBox}
+                reportTranslation={this.reportTranslation}
+                status={this.state.status}
+                translation={this.state.translation}
+                showOwnSubmissionTextBox={this.state.showOwnSubmissionTextBox}
+                voteOptions={this.state.voteOptions}
+            />
         );
     }
 };

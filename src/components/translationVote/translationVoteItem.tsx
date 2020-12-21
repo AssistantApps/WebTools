@@ -8,6 +8,7 @@ interface IProps {
     details: TranslationSubmissionWithVotesViewModel;
     isCopyTextMode?: boolean;
     onClick: () => void;
+    onEdit?: (currentValue: string) => void;
     onDelete: () => void;
     onReport: (badTrans: TranslationSubmissionWithVotesViewModel) => void;
 }
@@ -37,30 +38,31 @@ export const TranslationVoteItem: React.FC<IProps> = (props: IProps) => {
         var options = [];
         var subOptions = [];
 
-        if (localProps.details.belongsToUser) {
+        if (localProps.onEdit != null) {
+            const onEdit = localProps.onEdit;
             subOptions.push(
                 {
                     guid: `edit-${localProps.details.guid}`,
                     component: (
-                        <Popup wide
-                            content='This feature is disabled, This is to prevent people from changing the text of an approved translation to something incorrect or inappropriate which would keep the number of votes and therefore look as if it was chosen as the correct translation'
-                            trigger={
-                                <Label key={`edit-${localProps.details.guid}`}
-                                    basic color="grey" className="notAllowed">
-                                    <Icon name="edit" />
-                                    <s><span>Edit</span></s>
-                                </Label>
-                            }
-                        />
+                        <Label key={`edit-${localProps.details.guid}`}
+                            onClick={() => onEdit(localProps.details.text)}
+                            basic color="grey" className="pointer noselect">
+                            <Icon name="edit" />
+                            <span>Edit</span>
+                        </Label>
                     )
                 }
             );
+        }
+
+        if (localProps.details.belongsToUser) {
             subOptions.push(
                 {
                     guid: `delete-${localProps.details.guid}`,
                     component: (
-                        <Label key={`delete-${localProps.details.guid}`} onClick={localProps.onDelete}
-                            basic color="red" className="pointer" >
+                        <Label key={`delete-${localProps.details.guid}`}
+                            onClick={() => localProps.onDelete()}
+                            basic color="red" className="pointer noselect" >
                             <Icon name="trash" />
                             <span>Delete</span>
                         </Label>
@@ -73,7 +75,7 @@ export const TranslationVoteItem: React.FC<IProps> = (props: IProps) => {
                     guid: `report-${localProps.details.guid}`,
                     component: (
                         <Label key={`report-${localProps.details.guid}`} onClick={() => localProps.onReport(localProps.details)}
-                            basic color="red" className="pointer" >
+                            basic color="red" className="pointer noselect" >
                             <Icon name="announcement" />
                             <span>Report</span>
                         </Label>
