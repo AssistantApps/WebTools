@@ -1,6 +1,6 @@
 import React from 'react';
 import { Placeholder, Segment } from 'semantic-ui-react';
-import { TranslationImages } from '../../components/translationImages';
+import { TranslationImages } from '../../components/translationImages/translationImages';
 import { NetworkState } from '../../constants/networkState';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 

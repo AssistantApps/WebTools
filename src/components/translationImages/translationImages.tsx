@@ -1,10 +1,12 @@
 import React from 'react';
 import Lightbox from 'react-image-lightbox';
 import { Segment } from 'semantic-ui-react';
-import { NetworkState } from '../constants/networkState';
-import { TranslationImageViewModel } from '../contracts/generated/ViewModel/Translation/translationImageViewModel';
-import { ApiService } from '../services/ApiService';
-import { SmallLoading } from './common/loading';
+import { NetworkState } from '../../constants/networkState';
+import { TranslationImageViewModel } from '../../contracts/generated/ViewModel/Translation/translationImageViewModel';
+import { ApiService } from '../../services/ApiService';
+import { SmallLoading } from '../common/loading';
+
+import 'translationImages.scss';
 
 interface IState {
     status: NetworkState;
@@ -96,13 +98,12 @@ export class TranslationImages extends React.Component<IProps, IState> {
                 {
                     images.map((item: any, photoIndex: number) => {
                         return (
-                            <div key={item.guid} className="col-6" style={{ textAlign: 'center' }}>
+                            <div key={item.guid} className="col-4" style={{ textAlign: 'center' }}>
                                 <img
                                     src={item.imageUrl}
                                     draggable="false"
                                     alt={item.guid}
-                                    style={{ width: '100px', overflow: 'hidden' }}
-                                    className="pointer"
+                                    className="translation-preview pointer"
                                     onClick={() => {
                                         this.setState(() => {
                                             return {
