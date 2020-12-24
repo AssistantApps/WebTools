@@ -6,7 +6,7 @@ import { TranslationImageViewModel } from '../../contracts/generated/ViewModel/T
 import { ApiService } from '../../services/ApiService';
 import { SmallLoading } from '../common/loading';
 
-import 'translationImages.scss';
+import './translationImages.scss';
 
 interface IState {
     status: NetworkState;
