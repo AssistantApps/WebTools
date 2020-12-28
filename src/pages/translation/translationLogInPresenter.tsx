@@ -10,7 +10,7 @@ export const TranslationLogInPresenter: React.FC<IProps> = (props: IProps) => {
 
     return (
         <div className="container">
-            <div className="row full pt3 pb3">
+            <div className="row full pb3">
                 <div className="col-12 pt1">
                     <Segment placeholder style={{ minHeight: 'unset' }}>
                         <h2 style={{ textAlign: 'center', padding: '.25em' }}>
