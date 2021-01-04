@@ -1,4 +1,6 @@
 import React from 'react';
+
+import packageJson from '../../../../package.json';
 import { ExternalUrls } from '../../../constants/externalUrls';
 
 export const Footer = () => {
@@ -30,7 +32,7 @@ export const Footer = () => {
                 </div>
                 <div className="footer-bottom row align-items-center text-center text-lg-left no-gutters">
                     <p className="footer-text m-0 col-lg-8 col-md-12">
-                        Copyright &copy;{new Date().getFullYear()} All rights reserved | <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer">Kurt Lourens</a>
+                        Copyright &copy;{new Date().getFullYear()} All rights reserved | <a href={ExternalUrls.kurtlourens} target="_blank" rel="noopener noreferrer">Kurt Lourens</a> | {packageJson.version}
                     </p>
                     <div className="col-lg-4 col-md-12 text-center text-lg-right footer-social">
                         <a href={ExternalUrls.kurtlourensFacebook} target="_blank" rel="noopener noreferrer"><i className="ti-facebook"></i></a>
