@@ -26,7 +26,7 @@ export const DropDown: React.FC<IProps> = (props: IProps) => {
             placeholder={props.placeholder || 'Please Select'}
             fluid
             selection
-            value={props.value || ((props.multiple || false) ? [] : undefined)}
+            value={props.value || undefined}
             multiple={props.multiple || false}
             loading={props.isLoading || false}
             options={props.options}

@@ -3,12 +3,14 @@ import { LanguageViewModel } from '../contracts/generated/ViewModel/languageView
 import { getImageUrlFromCountryCode } from '../helper/countryCodeHelper';
 
 export const languageDetailsToLanguageDropDownMapper = (appDetails: Array<LanguageViewModel>): Array<DropDownWithIcon> => {
-    return appDetails.map((item: LanguageViewModel) => {
-        return {
-            key: item.guid,
-            text: item.name,
-            value: item.guid,
-            image: { src: getImageUrlFromCountryCode(item.countryCode) },
-        };
-    });
+
+    return appDetails.filter((item: LanguageViewModel) => item.isVisible)
+        .map((item: LanguageViewModel) => {
+            return {
+                key: item.guid,
+                text: item.name,
+                value: item.guid,
+                image: { src: getImageUrlFromCountryCode(item.countryCode) },
+            };
+        });
 }
