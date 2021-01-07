@@ -1,6 +1,8 @@
+$screenshotHeight: 65vh;
+
 .screenshotSlider {
     position: relative;
-    height: 50vh;
+    height: $screenshotHeight;
     overflow-y: hidden;
 
     transform: perspective(1500px) rotateY(20deg) translateY(-10%);
@@ -34,7 +36,7 @@
 
     .screenshotSliderFrame {
         position: absolute;
-        height: 50vh;
+        height: $screenshotHeight;
         top: 0;
         left: 0;
         // transform: scale(1);

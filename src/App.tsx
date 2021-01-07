@@ -8,6 +8,7 @@ import { ScrollToTop } from './components/common/scrollToTop/scrollToTop';
 import * as route from './constants/route';
 import { HomePresenter } from './pages/home/homePresenter';
 import { TranslationContainer } from './pages/translation/translationContainer';
+import { StatisticsPresenter } from './pages/stats/statsPresenter';
 import { NotFoundPresenter } from './pages/notFoundPresenter';
 import { StateSettingReducer } from './redux/state/StateSettingReducer';
 import { Loading } from './components/common/loading';
@@ -26,6 +27,7 @@ const AppUnconnected: React.FC<any> = (props: IProps) => {
 				<Switch>
 					<Route exact={true} path={route.home} component={HomePresenter} />
 					<Route path={route.translation} component={TranslationContainer} />
+					<Route path={route.stats} component={StatisticsPresenter} />
 					<Route component={NotFoundPresenter} />
 				</Switch>
 			</ScrollToTop>

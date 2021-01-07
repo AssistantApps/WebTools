@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Pagination, PaginationProps, Icon, Segment, Button } from 'semantic-ui-react';
+import { Pagination, PaginationProps, Icon } from 'semantic-ui-react';
 
 import { SmallBanner } from '../../components/common/banner/banner';
 import { DropDown } from '../../components/common/dropDown/dropDown';
@@ -10,21 +10,20 @@ import { ConditionalToolTip } from '../../components/common/conditionalTooltip';
 import { MainTranslationPanel } from './translationComponents';
 
 import { NetworkState } from '../../constants/networkState';
-import { getImageUrlFromCountryCode } from '../../helper/countryCodeHelper';
 
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationVoteContainer } from '../../components/translationVote/translationVoteContainer';
+import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
 
 import { TranslationLogInPresenter } from './translationLogInPresenter';
 
 interface IProps {
     status: NetworkState;
     appStatus: NetworkState;
-    appDetails: Array<AppViewModel>;
+    appDropDowns: Array<DropDownWithIcon>;
     langStatus: NetworkState;
-    langDetails: Array<LanguageViewModel>;
+    langDropDowns: Array<DropDownWithIcon>;
 
     selectedApps: Array<string>;
     selectedLanguage: string;
@@ -45,27 +44,6 @@ interface IProps {
 export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
     if (props.status === NetworkState.Error) return <Error message="Something went wrong" />;
     if (props.status === NetworkState.Loading) return <Loading />;
-
-    const appOptions = props.appDetails.map((item: AppViewModel) => {
-        return {
-            key: item.guid,
-            text: item.gameName,
-            value: item.guid,
-            image: { src: item.iconUrl },
-        };
-    });
-
-
-    const langOptions = props.langDetails
-        .filter((item: LanguageViewModel) => item.languageCode !== 'en')
-        .map((item: LanguageViewModel) => {
-            return {
-                key: item.guid,
-                text: item.name,
-                value: item.guid,
-                image: { src: getImageUrlFromCountryCode(item.countryCode) },
-            };
-        });
 
     var isNotLoggedIn = props.userGuid == null || props.userGuid.length < 1;
     var translationButtonsDisabled = props.selectedApps == null || props.selectedApps.length < 1 ||
@@ -132,7 +110,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                             (props.appStatus !== NetworkState.Error)
                                 ? <DropDown
                                     placeholder="Select Apps"
-                                    options={appOptions}
+                                    options={props.appDropDowns}
                                     multiple={true}
                                     isLoading={props.appStatus === NetworkState.Loading}
                                     onChange={(apps: any) => props.setApps(apps)}
@@ -146,7 +124,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                             (props.langStatus !== NetworkState.Error)
                                 ? <DropDown
                                     placeholder="Select Language"
-                                    options={langOptions}
+                                    options={props.langDropDowns}
                                     isLoading={props.langStatus === NetworkState.Loading}
                                     onChange={props.setLanguage}
                                 />

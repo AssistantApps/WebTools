@@ -2,3 +2,30 @@
     text-transform: none;
     line-height: 2.5;
 }
+
+.navbar-collapse {
+    transition: all .35s ease;
+
+    &.collapse {
+        padding-top: 0 !important;
+    }
+
+    .nav-item .nav-link {
+        display: block !important;
+
+        &:hover {
+            i.icon {
+                color: #4bd0f8 !important;
+            }
+        }
+    }
+}
+
+.header_area .navbar .container .nav .nav-item {
+    margin-right: 30px;
+}
+
+.collapse:not(.show) {
+    height: 0;
+    padding: 0 !important;
+}

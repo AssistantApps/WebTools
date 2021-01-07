@@ -1,7 +1,7 @@
 import React from 'react';
 import { DropDown } from '../common/dropDown/dropDown'
 import { publishedAppsDetails } from '../../constants/appDetails';
-import { appDetailsConstantToDropDownMapper } from '../../mapper/appDetailsConstantToDropDownMapper';
+import { appDetailsConstantToDropDownMapper } from '../../mapper/appDetailsMapper';
 
 interface IProps {
     onChange: (key: string) => void

@@ -7,4 +7,5 @@ export enum CacheType {
     guideSearch,
     donation,
     version,
+    guideContent,
 }

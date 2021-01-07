@@ -4,7 +4,9 @@ import * as storageType from '../constants/storageType';
 import { AppViewModel } from '../contracts/generated/ViewModel/appViewModel';
 import { LanguageViewModel } from '../contracts/generated/ViewModel/languageViewModel';
 import { OAuthUserViewModel } from '../contracts/generated/ViewModel/oAuthUserViewModel';
+import { TranslationGetGraphViewModel } from '../contracts/generated/ViewModel/Translation/translationGetGraphViewModel';
 import { TranslationKeyViewModel } from '../contracts/generated/ViewModel/Translation/translationKeyViewModel';
+import { TranslationsPerLanguageGraphViewModel } from '../contracts/generated/ViewModel/Translation/translationsPerLanguageGraphViewModel';
 import { TranslationSearchViewModel } from '../contracts/generated/ViewModel/Translation/translationSearchViewModel';
 import { TranslationSubmissionViewModel } from '../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
 import { TranslationSubmissionWithVotesViewModel } from '../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
@@ -45,6 +47,9 @@ export class ApiService extends BaseApiService {
     }
     async reportTranslation(data: TranslationReportViewModel): Promise<Result> {
         return await this.post(apiEndpoints.translationReports, data);
+    }
+    async getTranslationsPerLangGraphData(data: TranslationGetGraphViewModel): Promise<ResultWithValue<Array<TranslationsPerLanguageGraphViewModel>>> {
+        return await this.post(apiEndpoints.translationsPerLangGraph, data);
     }
 
     async loginWithOAuth(oAuthObj: OAuthUserViewModel): Promise<ResultWithValue<string>> {

@@ -86,15 +86,17 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
                         ? <div className="pointer" onClick={this.toggleModalOpen}>
                             {this.props.children}
                         </div>
-                        : <Icon
-                            inverted
-                            name="user"
-                            color={this.props.colour || "grey"}
-                            size="large"
-                            className="pointer"
-                            style={this.props.iconStyle || { lineHeight: '63px' }}
-                            onClick={this.toggleModalOpen}
-                        />
+                        : <span className="nav-link pointer"
+                            onClick={this.toggleModalOpen}>
+                            <Icon
+                                inverted
+                                name="user"
+                                color={this.props.colour || "grey"}
+                                size="large"
+                                className="pointer"
+                                style={this.props.iconStyle || {}}
+                            />Login</span>
+
                 }
 
                 <Modal

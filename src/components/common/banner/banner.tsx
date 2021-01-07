@@ -12,10 +12,12 @@ export const Banner = () => {
 				<div className="overlay"></div>
 				<div className="container">
 					<div className="row">
-						<div className="col-lg-4 col-xl-5">
-							<ScreenshotSlider />
+						<div className="col-xl-5 col-lg-3 offset-xl-0 offset-lg-1" style={{ position: 'relative' }}>
+							<div style={{ position: 'absolute', inset: 0, overflow: 'visible' }}>
+								<ScreenshotSlider />
+							</div>
 						</div>
-						<div className="col-lg-8 col-xl-7">
+						<div className="col-xl-7 col-lg-8">
 							<div className="banner_content">
 								<h3>Help make your favourite apps better!</h3>
 								<p style={{ fontSize: '1.5em' }}>Your feedback and help is appreciated! The Assistant Apps are only as good as they are now, thanks to the efforts of all the contributors, Patrons, donators and those who give feedback! <span role="img" aria-label="smiley">😁</span></p>

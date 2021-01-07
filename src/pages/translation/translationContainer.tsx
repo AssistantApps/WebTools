@@ -1,14 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
 import { NetworkState } from '../../constants/networkState';
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationSearchViewModel } from '../../contracts/generated/ViewModel/Translation/translationSearchViewModel';
-import { ApiService } from '../../services/ApiService';
+
 import { mapDispatchToProps, mapStateToProps } from './translation.redux';
+import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
+import { languageDetailsToLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
+
 import { TranslationPresenter } from './translationPresenter';
+
+import { ApiService } from '../../services/ApiService';
 
 interface IState {
     status: NetworkState;
@@ -136,6 +142,8 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
     render() {
         return (
             <TranslationPresenter {...this.state}
+                appDropDowns={appDetailsToAppDropDownMapper(this.state.appDetails)}
+                langDropDowns={languageDetailsToLanguageDropDownMapper(this.state.langDetails)}
                 setApps={this.setApps}
                 setLanguage={this.setLanguage}
                 setTranslationIndex={this.setTranslationIndex}
