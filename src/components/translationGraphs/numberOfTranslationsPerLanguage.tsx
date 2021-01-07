@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, Label, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { Menu, Tab, TabProps } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 
 import { NetworkState } from '../../constants/networkState';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
@@ -122,8 +122,8 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
     }
 
     render() {
-        if (this.state.graphDataStatus == NetworkState.Loading) return <SmallLoading />
-        if (this.state.graphDataStatus == NetworkState.Error) return <p>Error</p>
+        if (this.state.graphDataStatus === NetworkState.Loading) return <SmallLoading />
+        if (this.state.graphDataStatus === NetworkState.Error) return <p>Error</p>
 
         return (
             <>
@@ -150,7 +150,7 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
                                 this.state.tabPaneData.map((data: any) => {
                                     return (
                                         <Menu.Item link
-                                            active={data.isFlagMode == this.state.isFlagMode}
+                                            active={data.isFlagMode === this.state.isFlagMode}
                                             onClick={() => this.changeMode(data.isFlagMode)}>
                                             {data.menuItem}
                                         </Menu.Item>

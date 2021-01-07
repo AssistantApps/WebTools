@@ -11,7 +11,6 @@ import { MainTranslationPanel } from './translationComponents';
 
 import { NetworkState } from '../../constants/networkState';
 
-import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationVoteContainer } from '../../components/translationVote/translationVoteContainer';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';

@@ -4,7 +4,7 @@ import { getImageUrlFromCountryCode } from '../../../helper/countryCodeHelper';
 export class FlagAxisTick extends React.PureComponent<any> {
     render() {
         const {
-            x, y, stroke, payload,
+            x, y, payload,
         } = this.props;
 
         return (
@@ -16,7 +16,7 @@ export class FlagAxisTick extends React.PureComponent<any> {
 export class SteppedAxisTick extends React.PureComponent<any> {
     render() {
         const {
-            x, y, stroke, payload,
+            x, y, payload,
         } = this.props;
 
         return (
