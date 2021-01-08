@@ -6,4 +6,5 @@ export interface TranslationsPerLanguageGraphViewModel {
     languageCode: string;
     countryCode: string;
     numTranslations: number;
+    percentage: number;
 }

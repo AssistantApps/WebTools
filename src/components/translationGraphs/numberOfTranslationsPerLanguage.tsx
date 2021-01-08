@@ -150,6 +150,7 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
                                 this.state.tabPaneData.map((data: any) => {
                                     return (
                                         <Menu.Item link
+                                            key={data.menuItem}
                                             active={data.isFlagMode === this.state.isFlagMode}
                                             onClick={() => this.changeMode(data.isFlagMode)}>
                                             {data.menuItem}
@@ -177,13 +178,13 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
                                         fill='#676767' />
                                 </XAxis>
                                 <YAxis>
-                                    <Label value="Number of Translations" offset={0} position="left"
+                                    <Label value="Percentage Complete" offset={0} position="left"
                                         angle={-90}
                                         fontSize={14}
                                         fill='#676767' />
                                 </YAxis>
                                 <Tooltip content={<TooltipWithFlag />} />
-                                <Bar dataKey="numTranslations" name="Translations" fill="#3ad7ec">
+                                <Bar dataKey="percentage" name="Percentage" fill="#3ad7ec">
                                     {
                                         this.state.graphData.map((entry: TranslationsPerLanguageGraphViewModel, index) => (
                                             <Cell
