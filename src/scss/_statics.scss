@@ -2,35 +2,32 @@
 ======================================================================= */
 
 .single-data {
+
     i {
-        float: left;
         margin-right: 25px;
-        font-size: 18px;
+        font-size: 25px;
     }
 
     p {
         font-weight: 300;
-
+        font-size: 18px;
+        display: inline-block;
     }
 
     .ti-paint-bucket {
         color: $circle1;
     }
 
-    .ti-check-box {
+    .ti-ruler-pencil {
         color: $circle2;
     }
 
-    .ti-ruler-pencil {
+    .ti-check-box {
         color: $circle3;
     }
 }
 
 .statics-area {
-    background-image: url('/assets/img/background/pattern1.png');
-    background-position: top left;
-    background-repeat: no-repeat;
-
     .area-heading {
         margin-bottom: 40px;
 

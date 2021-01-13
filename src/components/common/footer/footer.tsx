@@ -10,7 +10,7 @@ export const Footer = () => {
                 <div className="row">
                     <div className="col-lg-4 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
                         <h4>About Us</h4>
-                        <p>AssistantApps creates Beautiful and fast cross-platform apps built to help you in your favourite games!</p>
+                        <p>AssistantApps creates beautiful and fast cross-platform apps built to help you in your favourite games!</p>
                         <div className="footer-logo">
                             <img src="/assets/img/logo-sm.png" alt="" />
                         </div>

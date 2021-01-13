@@ -4,7 +4,7 @@ interface IFeatureItem {
     icon: string;
     title: string;
     descrip: string;
-    link: string;
+    link?: string;
 }
 interface IProps {
     items: Array<IFeatureItem>;
@@ -12,7 +12,7 @@ interface IProps {
 
 export const AsymmetricBoxes = (props: IProps) => {
     return (
-        <section className="service-area area-padding">
+        <section className="service-area area-padding-5">
             <div className="container">
                 <div className="row">
                     {
@@ -27,7 +27,9 @@ export const AsymmetricBoxes = (props: IProps) => {
                                             <div className="service-content">
                                                 <h5>{item.title}</h5>
                                                 <p>{item.descrip}</p>
-                                                <a href={item.link}>Read More</a>
+                                                {
+                                                    item.link && <a href={item.link}>Read More</a>
+                                                }
                                             </div>
                                         </div>
                                     </div>

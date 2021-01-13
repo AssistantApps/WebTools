@@ -1,29 +1,7 @@
 /* Feature Area css
 ============================================================================================ */
 .feature-area {
-
     position: relative;
-
-    &:after {
-        content: '';
-        position: absolute;
-        width: 50%;
-        height: 100%;
-        background-image: url('/assets/img/banner/about2.png');
-        background-position: center left;
-        background-repeat: no-repeat;
-        left: 165px;
-        top: 0;
-
-    }
-
-    @media (max-width: 1199px) {
-        &:after {
-            left: 25px;
-            background-size: contain;
-            width: 40%;
-        }
-    }
 
     .area-heading {
         margin-bottom: 50px;
@@ -32,8 +10,6 @@
     .single-feature {
         text-align: left;
         @include transition;
-
-        &:hover {}
 
         .feature-icon {
             width: 80px;
@@ -82,20 +58,21 @@
         }
     }
 
-    .col-:nth-child(1) .single-feature {
-        .feature-icon:after {
-            background: $circle1;
+    .list {
+        .col-12:nth-child(1) .single-feature {
+            .feature-icon:after {
+                background: $circle3;
+            }
+
         }
 
-    }
+        .col-12:nth-child(2) .single-feature {
+            .feature-icon:after {
+                background: $circle1;
+            }
 
-    .col-:nth-child(2) .single-feature {
-        .feature-icon:after {
-            background: $circle2;
         }
-
     }
-
 }
 
 

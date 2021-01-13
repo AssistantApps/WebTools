@@ -9,14 +9,14 @@ export const HomePresenter: React.FC = () => {
         <>
             <Banner />
             <AsymmetricBoxes items={asymmetricBoxItems} />
-            <section className="about-area area-padding-bottom">
+            <section className="about-area area-padding-5">
                 <div className="container">
                     <div className="row align-items-center">
-                        <div className="col-lg-6">
+                        <div className="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div className="area-heading">
-                                <h4>Custom built tools<br />just for you. </h4>
-                                <h6>These tools are created for you to have an impact on the apps</h6>
-                                <p>These tools help people contribute to the development of the Assistant Apps and make the apps even better <span role="img" aria-label="muscle">💪</span></p>
+                                <h4>Custom built tools&nbsp;<br />just for you. </h4>
+                                <h6>These tools are created for you to have an impact on the apps.</h6>
+                                <p>These tools help people contribute to the development of the Assistant Apps and make the apps even better <span role="img" aria-label="muscle">💪</span>.</p>
                             </div>
                             <div className="row">
                                 <div className="col-md-6 col-lg-6">
@@ -26,7 +26,7 @@ export const HomePresenter: React.FC = () => {
                                         </div>
                                         <div className="single-about-content">
                                             <h5>Always online</h5>
-                                            <p>All the data is stored on the server and allows for the apps to dynamically get the data they require whenever it is needed</p>
+                                            <p>All the data is stored on the server and allows for the apps to dynamically get the data they require whenever it is needed.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -37,45 +37,50 @@ export const HomePresenter: React.FC = () => {
                                         </div>
                                         <div className="single-about-content">
                                             <h5>Easy to use</h5>
-                                            <p>Designed to be easy to use, friendly UI / UX. Quick responses to support requests</p>
+                                            <p>Designed to be easy to use, friendly UI / UX. Quick responses to support requests.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div className="col-0 col-xl-6 col-lg-6 col-md-6 col-sm-0 col-xs-0">
+                            <img src="/assets/img/infographics/mobileApp.svg" alt="Custom built tools" />
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section className="feature-area area-padding bg_one">
+            <section className="feature-area area-padding-5 bg_one">
                 <div className="container">
                     <div className="row align-items-center">
-
-                        <div className="offset-lg-6 col-lg-6">
+                        <div className="col-lg-6">
+                            <img src="/assets/img/infographics/data.svg" alt="dynamic data" />
+                        </div>
+                        <div className="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-0 col-xs-0">
                             <div className="area-heading light">
-                                <h4>Enhance through<br />dynamic data</h4>
-                                <p>By keeping the data on the server and making the apps request the data when needed, we are able to be more agile and react to events a lot quicker than if the data was stored in the app. The App Stores can take anywhere from 12 to 192 hours for an update to be approved. </p>
+                                <h4>Enhance through&nbsp;<br />dynamic data.</h4>
+                                <p>By keeping the data on the server and making the apps request the data when needed, we are able to be more agile and react to events a lot quicker than if the data was stored in the app. The App Stores can take anywhere from 12 to 192 hours for an update to be approved.</p>
                             </div>
-                            <div className="row">
-                                <div className="col-">
+                            <div className="row list">
+                                <div className="col-12">
                                     <div className="single-feature d-flex">
                                         <div className="feature-icon">
-                                            <i className="ti-comments-smiley"></i>
+                                            <i className="ti-comment-alt"></i>
                                         </div>
                                         <div className="single-feature-content">
                                             <h5>Language suport</h5>
-                                            <p>The AssistantApps are built with localization in mind from the beginning of their development. We want to be as inclusive as possible and realise that there are many many more languages other than English out there</p>
+                                            <p>The AssistantApps are built with localization in mind from the beginning of their development. We want to be as inclusive as possible and realise that there are many languages.</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-">
+                                <div className="col-12">
                                     <div className="single-feature d-flex">
                                         <div className="feature-icon">
                                             <i className="ti-book"></i>
                                         </div>
                                         <div className="single-feature-content">
                                             <h5>Guides</h5>
-                                            <p>We enjoy helping players help each other. We understand that we can always learn more, whether that is in terms of a specific game, app development, marketing etc. And so the Guide system is made to help those who know a lot, pass on their knowledge to others</p>
+                                            <p>We enjoy helping players help each other. We understand that we can always learn more, whether that is in terms of a specific game, app development, marketing etc. And so the Guide system is made to help those who know a lot, pass on their knowledge to others.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -85,23 +90,22 @@ export const HomePresenter: React.FC = () => {
                 </div>
             </section>
 
-            <section className="statics-area area-padding">
+            <section className="statics-area area-padding-5-top">
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-5">
+                        <div className="col-lg-6">
                             <div className="image-box">
-                                <img src="/assets/img/banner/about3.png" alt="" />
+                                <img src="/assets/img/infographics/report.svg" alt="reports" className="pr-5" />
                             </div>
                         </div>
-                        <div className="offset-lg-1 col-lg-6">
+                        <div className="col-lg-6">
                             <div className="area-heading">
-                                <h4>Learning from<br />Feedback and Analytics</h4>
-                                <h6>We are constantly listening to feedback and keeping an eye on the analytics</h6>
-
-                                <p>We want to ensure that the apps are the best that they could be and so we are constantly looking for places to improve. Direct feedback from users is the most important tool at our dispossal</p>
+                                <h4>Learning from&nbsp;<br />Feedback and Analytics.</h4>
+                                <h6>We are constantly listening to feedback and keeping an eye on the analytics&nbsp;<span role="img" aria-label="analytics">📈</span>.</h6>
+                                <p>We want to ensure that the apps are the best that they could be and so we are constantly looking for places to improve. Direct feedback from users is the most important tool at our dispossal.</p>
                             </div>
-                            <div className="single-data">
-                                <h6>Important factors for our users</h6>
+                            <div className="single-data mb-3">
+                                <h3>Important factors for our users</h3>
                             </div>
                             <div className="single-data">
                                 <i className="ti-paint-bucket"></i>

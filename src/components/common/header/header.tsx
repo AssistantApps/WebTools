@@ -22,6 +22,7 @@ export class Header extends React.Component<IProps, IState> {
 			isOpen: false,
 			links: [
 				{ route: '/', iconName: 'home', text: 'Home' },
+				{ route: '/translation', iconName: 'conversation', text: 'Translate' },
 				{ route: '/stats', iconName: 'line graph', text: 'Stats' },
 				// { route: '/stats', iconName: 'wpforms', text: 'Contact' },
 			]

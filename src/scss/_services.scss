@@ -2,17 +2,17 @@
 ============================================================================================ */
 
 .service-area {
+    background-color: rgba(200, 200, 200, 0.2);
+
     .single-service {
         border: 1px solid #edf1f6;
         background: #fff;
         text-align: left;
         padding: 40px 30px 45px;
-        background-image: url('/assets/img/elements/single_bg.png');
+        background-image: url('/assets/img/background/tileCorner.webp');
         background-position: right top;
         background-repeat: no-repeat;
         @include transition;
-
-        &:hover {}
 
         .service-icon {
             width: 170px;
@@ -118,9 +118,8 @@
 }
 
 .area-heading {
-    margin-bottom: 90px;
+    margin-bottom: 50px;
     text-align: center;
-    margin-top: 15px;
 
     h3 {
         font-size: 30px;
