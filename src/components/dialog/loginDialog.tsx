@@ -76,6 +76,11 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
 
     oAuthLoginFailure = () => {
         this.setLoadingStatus(false);
+        this.setState(() => {
+            return {
+                isModalOpen: false
+            }
+        });
         Swal.fire({
             title: 'Login error!',
             text: 'Something went wrong and we could not log you in',
