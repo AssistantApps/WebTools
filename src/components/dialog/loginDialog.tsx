@@ -64,13 +64,18 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
         }
 
         var loginResult = await this.state.apiService.loginWithOAuth(apiObj);
-        if (this.props.setLoadingStatus) this.props.setLoadingStatus(false);
+        this.setLoadingStatus(false);
         if (loginResult.isSuccess) {
             if (this.props.login) this.props.login(loginResult.value);
         }
     }
 
+    setLoadingStatus = (isLoading: boolean) => {
+        if (this.props.setLoadingStatus) this.props.setLoadingStatus(isLoading);
+    }
+
     oAuthLoginFailure = () => {
+        this.setLoadingStatus(false);
         Swal.fire({
             title: 'Login error!',
             text: 'Something went wrong and we could not log you in',
@@ -112,7 +117,7 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
                                 clientId={window.config.googleClientId}
                                 render={renderProps => (
                                     <GoogleLoginButton onClick={() => {
-                                        if (this.props.setLoadingStatus) this.props.setLoadingStatus(true);
+                                        this.setLoadingStatus(true);
                                         renderProps.onClick();
                                     }}
                                         style={{ opacity: renderProps.disabled ? '50%' : null, maxWidth: '50%' }}
