@@ -50,7 +50,7 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
             response.profileObj.email == null ||
             response.profileObj.imageUrl == null ||
             response.profileObj.name == null) {
-            this.oAuthLoginFailure();
+            this.oAuthLoginFailure({ custom: 'manual failure, response did not have expected values' });
             return;
         }
         this.toggleModalOpen();
@@ -74,7 +74,8 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
         if (this.props.setLoadingStatus) this.props.setLoadingStatus(isLoading);
     }
 
-    oAuthLoginFailure = () => {
+    oAuthLoginFailure = (error: any) => {
+        console.warn(error);
         this.setLoadingStatus(false);
         this.setState(() => {
             return {
@@ -83,9 +84,9 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
         });
         Swal.fire({
             title: 'Login error!',
-            text: 'Something went wrong and we could not log you in',
+            text: `Something went wrong and we could not log you in. ${error.details}`,
             icon: 'error',
-        })
+        });
     }
 
     render() {
