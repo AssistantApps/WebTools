@@ -15,7 +15,7 @@ export const StatisticsPresenter: React.FC = () => {
                 <Segment>
                     <div className="row align-items-center">
                         <div className="col-12">
-                            <h1 style={{ textAlign: 'center' }} className="pt-2 mb-0">Translations submitted per Language</h1>
+                            <h1 className="pt-2 pb1 mb-0 ta-center">Translations submitted per Language</h1>
                             <NumberOfTranslationsPerLanguageGraph />
                         </div>
                     </div>

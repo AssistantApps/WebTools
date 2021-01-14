@@ -24,7 +24,7 @@ export const TooltipWithFlag = (props: IProps | any) => {
                             <p><b>Complete:</b>&nbsp;{props.payload[0].payload.percentage} %</p>
                         </li>
                         <li>
-                            <p><b>Number of Translations:</b>&nbsp;{props.payload[0].payload.numTranslations}</p>
+                            <p><b>Num. translations:</b>&nbsp;{props.payload[0].payload.numTranslations}</p>
                         </li>
                     </ul>
                 </>

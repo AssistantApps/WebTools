@@ -11,11 +11,11 @@ interface IProps {
 }
 
 export const AsymmetricBoxes = (props: IProps) => {
-    if (props != null && props.items != null && props.items.length > 0) {
+    if (props == null || props.items == null || props.items.length < 1) {
         return (<div></div>);
     }
     return (
-        <section className="service-area area-padding-5">
+        <section className="service-area bg_darker_white area-padding-5">
             <div className="container">
                 <div className="row">
                     {

@@ -18,6 +18,8 @@ import { getColourFromLanguageCode } from '../../mapper/languageColourMapper';
 
 import { ApiService } from '../../services/ApiService';
 
+import './numberOfTranslationsPerLanguage.scss';
+
 interface IState {
     searchObj: TranslationGetGraphViewModel;
     graphData: Array<TranslationsPerLanguageGraphViewModel>;
@@ -127,8 +129,8 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
 
         return (
             <>
-                <div className="row justify-content-center pl-4 pb-2">
-                    <div className="col-12 col-lg-10">
+                <div className="row justify-content-center pr-4 pb-2 pl-4">
+                    <div className="col-12 col-lg-9 col-md-8 col-sm-7">
                         <label>Please select Apps to display data for</label>
                         {
                             (this.state.appStatus !== NetworkState.Error)
@@ -143,7 +145,7 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
                                 : <p>Error loading apps, please refresh the page or contact us</p>
                         }
                     </div>
-                    <div className="col-12 col-lg-1">
+                    <div className="col-12 col-lg-2 col-md-3 col-sm-4 ta-center col-sm-pt1">
                         <label>Chart mode</label><br />
                         <Menu compact>
                             {
@@ -163,7 +165,7 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <ResponsiveContainer width="100%" height={500} className="m-4">
+                        <ResponsiveContainer width="100%" height={500} className="m-4 unset-width">
                             <BarChart
                                 data={this.state.graphData}
                                 margin={{ top: 0, right: 50, left: 20, bottom: 30 }}
