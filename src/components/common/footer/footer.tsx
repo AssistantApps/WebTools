@@ -11,9 +11,6 @@ export const Footer = () => {
                     <div className="col-lg-4 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
                         <h4>About Us</h4>
                         <p>AssistantApps creates beautiful and fast cross-platform apps built to help you in your favourite games!</p>
-                        <div className="footer-logo">
-                            <img src="/assets/img/logo-sm.png" alt="" />
-                        </div>
                     </div>
 
                     <div className="col-lg-4 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
@@ -28,6 +25,12 @@ export const Footer = () => {
                     <div className="col-lg-4 col-md-8 mb-4 mb-xl-0 single-footer-widget">
                         <h4>News</h4>
                         <p>Join the <a href={ExternalUrls.patreon} target="_blank" rel="noopener noreferrer">Patreon page</a> to get early access and a behind-the-scenes look at we are building.</p>
+                    </div>
+
+                    <div className="col-lg-4 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
+                        <div className="footer-logo">
+                            <img src="/assets/img/logo-sm.png" alt="" />
+                        </div>
                     </div>
                 </div>
                 <div className="footer-bottom row align-items-center text-center text-lg-left no-gutters">

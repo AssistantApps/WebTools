@@ -45,7 +45,7 @@ export class Header extends React.Component<IProps, IState> {
 						<div className="container">
 							<a className="navbar-brand logo_h" href="/">
 								<img src="/assets/img/logo-sm.png" alt="logo" style={{ height: '100%' }} />
-								<h2 className="heading" style={{ display: 'inline', paddingLeft: '1em' }}>AssistantApp Tools</h2>
+								<h2 className="heading col-md-0" style={{ display: 'inline', paddingLeft: '1em' }}>AssistantApp Tools</h2>
 							</a>
 							<button className="navbar-toggler"
 								type="button"
@@ -63,7 +63,7 @@ export class Header extends React.Component<IProps, IState> {
 										this.state.links.map((item: any) => {
 											return (
 												<li key={`${item.text}-${item.route}`} className="nav-item">
-													<Link className="nav-link" to={item.route}>
+													<Link className="nav-link" to={item.route} onClick={this.toggleOpen}>
 														<Icon
 															inverted
 															name={item.iconName}

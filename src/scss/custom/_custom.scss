@@ -19,6 +19,24 @@
     cursor: not-allowed;
 }
 
+.col-md-0 {
+    @media (max-width:992px) {
+        display: none !important;
+    }
+}
+
+.col-sm-0 {
+    @media (max-width:768px) {
+        display: none !important;
+    }
+}
+
+.col-xs-0 {
+    @media (max-width:576px) {
+        display: none !important;
+    }
+}
+
 .m0 {
     margin: 0;
 }

@@ -8,7 +8,9 @@
         padding: 40px 0 0;
         @include transition;
 
-        &:hover {}
+        @media (max-width: 768px) {
+            text-align: center;
+        }
 
         .about-icon {
             width: 170px;
@@ -18,6 +20,10 @@
             position: relative;
             z-index: 1;
             line-height: 112px;
+
+            @media (max-width: 768px) {
+                margin: 0 auto;
+            }
 
             &:after {
                 content: '';

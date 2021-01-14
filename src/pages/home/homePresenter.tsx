@@ -12,7 +12,7 @@ export const HomePresenter: React.FC = () => {
             <section className="about-area area-padding-5">
                 <div className="container">
                     <div className="row align-items-center">
-                        <div className="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div className="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                             <div className="area-heading">
                                 <h4>Custom built tools&nbsp;<br />just for you. </h4>
                                 <h6>These tools are created for you to have an impact on the apps.</h6>
@@ -43,7 +43,7 @@ export const HomePresenter: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-0 col-xl-6 col-lg-6 col-md-6 col-sm-0 col-xs-0">
+                        <div className="col-0 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-0">
                             <img src="/assets/img/infographics/mobileApp.svg" alt="Custom built tools" />
                         </div>
                     </div>
@@ -53,10 +53,10 @@ export const HomePresenter: React.FC = () => {
             <section className="feature-area area-padding-5 bg_one">
                 <div className="container">
                     <div className="row align-items-center">
-                        <div className="col-lg-6">
+                        <div className="col-12 col-xl-6 col-lg-6 col-md-0 col-sm-0 col-xs-0">
                             <img src="/assets/img/infographics/data.svg" alt="dynamic data" />
                         </div>
-                        <div className="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-0 col-xs-0">
+                        <div className="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                             <div className="area-heading light">
                                 <h4>Enhance through&nbsp;<br />dynamic data.</h4>
                                 <p>By keeping the data on the server and making the apps request the data when needed, we are able to be more agile and react to events a lot quicker than if the data was stored in the app. The App Stores can take anywhere from 12 to 192 hours for an update to be approved.</p>
