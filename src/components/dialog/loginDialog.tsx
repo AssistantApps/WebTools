@@ -9,6 +9,8 @@ import { OAuthUserViewModel } from '../../contracts/generated/ViewModel/oAuthUse
 import { OAuthProviderType } from '../../contracts/generated/Enum/oAuthProviderType';
 import { mapStateToProps, mapDispatchToProps } from './loginDialog.redux';
 import { ApiService } from '../../services/ApiService';
+import { ILoginProps } from '../../contracts/login';
+import { ConditionalToolTip } from '../common/conditionalTooltip';
 
 interface IState {
     isModalOpen: boolean;
@@ -20,8 +22,14 @@ interface IProps {
     children?: React.ReactNode;
     iconStyle?: any;
     colour?: "grey" | "red" | "orange" | "yellow" | "olive" | "green" | "teal" | "blue" | "violet" | "purple" | "pink" | "brown" | "black";
+
+    userGuid?: string;
+    userProfileUrl?: string;
+    userName?: string;
+
     setLoadingStatus?: (isLoading: boolean) => void;
-    login?: (userGuid: string) => void;
+    login?: (loginData: ILoginProps) => void;
+    logout?: () => void;
 }
 
 export class LoginDialogUnconnected extends React.Component<IProps, IState> {
@@ -65,8 +73,12 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
 
         var loginResult = await this.state.apiService.loginWithOAuth(apiObj);
         this.setLoadingStatus(false);
-        if (loginResult.isSuccess) {
-            if (this.props.login) this.props.login(loginResult.value);
+        if (loginResult.isSuccess && this.props.login) {
+            this.props.login({
+                userGuid: loginResult.value,
+                userProfileUrl: response.profileObj.imageUrl,
+                userName: response.profileObj.name,
+            });
         }
     }
 
@@ -89,7 +101,44 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
         });
     }
 
+    oAuthLogout = () => {
+        Swal.fire({
+            title: 'Logout?',
+            text: `Are you sure that you want to logout?`,
+            icon: 'question',
+            allowEnterKey: true,
+            allowEscapeKey: true,
+            showCancelButton: true,
+        }).then((answer: any) => {
+            if (answer.isConfirmed) {
+                if (this.props.logout) this.props.logout();
+            }
+        });
+    }
+
     render() {
+        const LoginComponent = (this.props.userGuid != null && this.props.userGuid.length > 5)
+            ? (
+                <span className="nav-link pointer" onClick={this.oAuthLogout}>
+                    <ConditionalToolTip
+                        message={this.props.userName || ''}
+                        showToolTip={this.props.userName != null && this.props.userName.length > 1}>
+                        <img className="oauth-circle" src={this.props.userProfileUrl} alt={this.props.userName} />
+                    </ConditionalToolTip>
+                </span>
+            )
+            : (
+                <span className="nav-link pointer"
+                    onClick={this.toggleModalOpen}>
+                    <Icon
+                        inverted
+                        name="user"
+                        color={this.props.colour || "grey"}
+                        size="large"
+                        className="pointer"
+                        style={this.props.iconStyle || {}}
+                    />Login</span>
+            )
         return (
             <>
                 {
@@ -97,16 +146,7 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
                         ? <div className="pointer" onClick={this.toggleModalOpen}>
                             {this.props.children}
                         </div>
-                        : <span className="nav-link pointer"
-                            onClick={this.toggleModalOpen}>
-                            <Icon
-                                inverted
-                                name="user"
-                                color={this.props.colour || "grey"}
-                                size="large"
-                                className="pointer"
-                                style={this.props.iconStyle || {}}
-                            />Login</span>
+                        : LoginComponent
 
                 }
 

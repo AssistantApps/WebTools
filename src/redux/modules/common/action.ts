@@ -1,4 +1,5 @@
 import * as type from "./type";
+import { ILoginProps } from '../../../contracts/login';
 
 export const setLoadingStatus = (isLoading: boolean, text?: string) => {
     return {
@@ -8,9 +9,10 @@ export const setLoadingStatus = (isLoading: boolean, text?: string) => {
     }
 }
 
-export const login = (userGuid: string) => {
+
+export const login = (login: ILoginProps) => {
     return {
-        userGuid,
+        ...login,
         type: type.LOGIN,
     }
 }
