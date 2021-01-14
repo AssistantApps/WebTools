@@ -117,6 +117,7 @@ export class TranslationImages extends React.Component<IProps, IState> {
                         );
                     })
                 }
+                <div className="col-12 ta-center"><i>Click to enlarge <span role="img" aria-label="magnify">🔍</span></i></div>
                 {
                     this.state.isOpen &&
                     <Lightbox
