@@ -27,6 +27,7 @@ const AppUnconnected: React.FC<any> = (props: IProps) => {
 				<Switch>
 					<Route exact={true} path={route.home} component={HomePresenter} />
 					<Route path={route.translation} component={TranslationContainer} />
+					<Route path={route.translationAlt} component={TranslationContainer} />
 					<Route path={route.stats} component={StatisticsPresenter} />
 					<Route component={NotFoundPresenter} />
 				</Switch>
