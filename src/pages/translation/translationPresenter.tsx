@@ -8,6 +8,7 @@ import { Error } from '../../components/common/error';
 import { Loading } from '../../components/common/loading';
 import { ConditionalToolTip } from '../../components/common/conditionalTooltip';
 import { MainTranslationPanel } from './translationComponents';
+import { TranslationSearch } from '../../components/translationSearch/translationSearch';
 
 import { NetworkState } from '../../constants/networkState';
 
@@ -102,7 +103,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
             />
 
             <div className="container">
-                <div className="row full pt3 pb3">
+                <div className="row full pt3 pb1">
                     <div className="col-12 col-md-6">
                         <label>Please select Apps you would like to translate for</label>
                         {
@@ -155,6 +156,11 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                 </div>
             </div>
 
+            <TranslationSearch
+                currentTranslation={currentTranslation}
+                translationKeys={props.translationKeys}
+                setTranslationIndex={props.setTranslationIndex}
+            />
             {paginationComp}
 
             <div className="container">

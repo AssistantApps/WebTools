@@ -2,6 +2,7 @@ import React from 'react';
 import { Popup } from 'semantic-ui-react';
 import { ScreenshotFrame } from './screenshotFrame';
 import { ScreenshotImage } from './screenshotImage';
+import { wait } from '../../helper/timeoutHelper';
 
 import './screenshotSlider.scss';
 
@@ -19,6 +20,7 @@ interface IProps {
 }
 
 export class ScreenshotSlider extends React.Component<IProps, IState> {
+    intervalId: any = 0;
     constructor(props: IProps) {
         super(props);
 
@@ -42,15 +44,19 @@ export class ScreenshotSlider extends React.Component<IProps, IState> {
         };
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.transitionImages();
-            const secondsPerImage = this.props.secondsPerImage || 5;
-            setInterval(() => this.transitionImages(), secondsPerImage * 1000);
-        }, 2000);
+    async componentDidMount() {
+        await wait(2000);
+
+        this.transitionImages();
+        const secondsPerImage = this.props.secondsPerImage || 5;
+        this.intervalId = setInterval(() => this.transitionImages(), secondsPerImage * 1000);
     }
 
-    transitionImages() {
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
+    }
+
+    transitionImages = async () => {
         if (this.state.animationIsPaused) return;
         this.setState(({ index, screenShots }) => {
             return ({
@@ -58,17 +64,17 @@ export class ScreenshotSlider extends React.Component<IProps, IState> {
                 indexIsNew: true,
             });
         });
-        setTimeout(() => {
-            this.setState(() => ({
-                indexIsNew: false
-            }));
-            setTimeout(() => {
-                this.setState(({ index }) => ({
-                    oldIndex: index,
-                    appName: this.getAppName(this.state.screenShots[index]),
-                }));
-            }, 500);
-        }, 1000);
+
+        await wait(1000);
+        this.setState(() => ({
+            indexIsNew: false
+        }));
+
+        await wait(500);
+        this.setState(({ index }) => ({
+            oldIndex: index,
+            appName: this.getAppName(this.state.screenShots[index]),
+        }));
     }
 
     getAppName(currentImage: string): string {

@@ -137,7 +137,12 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
 
     setApps = (apps: Array<string>) => this.setState(() => { return { selectedApps: apps } });
     setLanguage = (language: string) => this.setState(() => { return { selectedLanguage: language } });
-    setTranslationIndex = (newIndex: number) => this.setState(() => { return { translationKeyIndex: newIndex } });
+    setTranslationIndex = (newIndex: number) => this.setState(() => {
+        let actualPageNum: number = newIndex;
+        if (newIndex < 0) actualPageNum = 0;
+        if (newIndex > this.state.translationKeys.length) actualPageNum = (this.state.translationKeys.length - 1);
+        return { translationKeyIndex: +actualPageNum }
+    });
 
     render() {
         return (
