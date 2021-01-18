@@ -1,12 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
-import Lightbox from 'react-image-lightbox';
-import { Button, Icon, Input, Popup, Segment } from 'semantic-ui-react';
+import { Button, Icon, Popup } from 'semantic-ui-react';
 import { NetworkState } from '../../constants/networkState';
-import { TranslationImageViewModel } from '../../contracts/generated/ViewModel/Translation/translationImageViewModel';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { ApiService } from '../../services/ApiService';
-import { SmallLoading } from '../common/loading';
 import Autosuggest, { InputProps } from 'react-autosuggest';
 
 import './translationSearch.scss';
