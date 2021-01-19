@@ -96,7 +96,7 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
         }
         this.setState(() => {
             return {
-                graphData: appsResult.value.slice(0, 10),
+                graphData: appsResult.value.slice(0, 15),
                 graphDataStatus: NetworkState.Success
             }
         });
