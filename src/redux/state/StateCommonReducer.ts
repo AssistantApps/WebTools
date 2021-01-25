@@ -4,4 +4,5 @@ export class StateCommonReducer {
     public userGuid!: string;
     public userName!: string;
     public userProfileUrl!: string;
+    public userDetailsExpiryDate!: Date;
 }

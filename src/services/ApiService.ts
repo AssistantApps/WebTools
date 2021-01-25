@@ -16,6 +16,7 @@ import { TranslationVoteViewModel } from '../contracts/generated/ViewModel/Trans
 import { Result, ResultWithValue } from '../contracts/results/ResultWithValue';
 import { BaseApiService } from './BaseApiService';
 import { StorageService } from './StorageService';
+import { ILoginProps } from '../contracts/login';
 
 export class ApiService extends BaseApiService {
     async getApps(): Promise<ResultWithValue<Array<AppViewModel>>> {
@@ -52,27 +53,33 @@ export class ApiService extends BaseApiService {
         return await this.post(apiEndpoints.translationsPerLangGraph, data);
     }
 
-    async loginWithOAuth(oAuthObj: OAuthUserViewModel): Promise<ResultWithValue<string>> {
+    async loginWithOAuth(oAuthObj: OAuthUserViewModel): Promise<ResultWithValue<ILoginProps>> {
         var userGuid = '';
+        var timeTillExpiry = 0;
         var apiResult = await this.post(apiEndpoints.authUrl, oAuthObj, (headers) => {
             var token = headers.token;
-            var tokenExpiry = headers.tokenexpiry;
-            var username = headers.username;
+            timeTillExpiry = headers.tokenexpiry;
             userGuid = headers.userguid;
 
             this.setInterceptors(token);
-            var expiry = moment().add(tokenExpiry, 'seconds');
+            var expiry = moment().add(timeTillExpiry, 'seconds');
 
             var storageServ = new StorageService();
             storageServ.set(storageType.token, token, expiry.toDate());
             storageServ.set(storageType.userGuid, userGuid, expiry.toDate());
-            storageServ.set(storageType.userName, username, expiry.toDate());
+            storageServ.set(storageType.userName, oAuthObj.username, expiry.toDate());
         });
 
+        const loginData: ILoginProps = {
+            userGuid: userGuid,
+            userName: oAuthObj.username,
+            secondsTillExpire: timeTillExpiry,
+            userProfileUrl: oAuthObj.profileUrl,
+        };
 
         return {
             isSuccess: apiResult.isSuccess,
-            value: userGuid,
+            value: loginData,
             errorMessage: apiResult.errorMessage,
         };
     }
