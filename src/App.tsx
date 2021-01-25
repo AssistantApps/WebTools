@@ -4,7 +4,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { mapDispatchToProps, mapStateToProps } from './App.redux';
 import { Footer } from './components/common/footer/footer';
 import { Header } from './components/common/header/header';
-import { ScrollToTop } from './components/common/scrollToTop/scrollToTop';
+import { ScrollToTop } from './components/common/scroll/scrollToTop';
 import * as route from './constants/route';
 import { HomePresenter } from './pages/home/homePresenter';
 import { TranslationContainer } from './pages/translation/translationContainer';

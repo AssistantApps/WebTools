@@ -94,9 +94,17 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
             });
             return;
         }
+        const screenWidth = window.innerWidth;
+        let graphCols = 15;
+        if (screenWidth < 1000) {
+            graphCols = 10
+        }
+        if (screenWidth < 700) {
+            graphCols = 5
+        }
         this.setState(() => {
             return {
-                graphData: appsResult.value.slice(0, 15),
+                graphData: appsResult.value.slice(0, graphCols),
                 graphDataStatus: NetworkState.Success
             }
         });

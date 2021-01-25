@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ScreenshotSlider } from '../../../components/screenshotSlider/screenshotSlider';
+import { ScreenshotSlider } from '../../screenshotSlider/screenshotSlider';
+import { ScrollDownArrowsIndicator } from '../scroll/scrollDownIndicator';
 import * as route from '../../../constants/route';
 
 import './banner.scss';
@@ -8,7 +9,7 @@ import './banner.scss';
 export const Banner = () => {
 	return (
 		<section className="home_banner_area">
-			<div className="scroll-down col-md-0"></div>
+			<ScrollDownArrowsIndicator />
 			<div className="banner_inner d-flex align-items-center">
 				<div className="overlay"></div>
 				<div className="container">
