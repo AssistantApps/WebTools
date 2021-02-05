@@ -172,8 +172,9 @@
     }
 
     .header_area .navbar-collapse {
-        max-height: 340px;
-        overflow-y: scroll;
+        /* max-height: 340px; */
+        height: 50vh;
+        overflow-y: hidden;
     }
 
     .header_area .navbar .nav .nav-item.submenu ul .nav-item .nav-link {
@@ -575,7 +576,8 @@
     /* Main Menu Area css
 	============================================================================================ */
     .header_area .navbar-collapse {
-        max-height: 280px;
+        /* max-height: 300px; */
+        height: 50vh;
     }
 
     /* End Main Menu Area css

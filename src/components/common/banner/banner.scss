@@ -21,3 +21,13 @@
         }
     }
 }
+
+.screenshot-holder {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+
+    @media (min-width: 1200px) {
+        top: -25%;
+    }
+}

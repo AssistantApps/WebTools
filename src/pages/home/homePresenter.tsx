@@ -58,7 +58,7 @@ export const HomePresenter: React.FC = () => {
                         </div>
                         <div className="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                             <div className="area-heading light">
-                                <h4>Enhance through&nbsp;<br />dynamic data.</h4>
+                                <h4>Enhance through dynamic data.</h4>
                                 <p>By keeping the data on the server and making the apps request the data when needed, we are able to be more agile and react to events a lot quicker than if the data was stored in the app. The App Stores can take anywhere from 12 to 192 hours for an update to be approved.</p>
                             </div>
                             <div className="row list">
@@ -100,7 +100,7 @@ export const HomePresenter: React.FC = () => {
                         </div>
                         <div className="col-lg-6">
                             <div className="area-heading">
-                                <h4>Learning from&nbsp;<br />Feedback and Analytics.</h4>
+                                <h4>Learning from Feedback and Analytics.</h4>
                                 <h6>We are constantly listening to feedback and keeping an eye on the analytics&nbsp;<span role="img" aria-label="analytics">📈</span>.</h6>
                                 <p>We want to ensure that the apps are the best that they could be and so we are constantly looking for places to improve. Direct feedback from users is the most important tool at our dispossal.</p>
                             </div>

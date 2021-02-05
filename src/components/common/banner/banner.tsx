@@ -15,7 +15,7 @@ export const Banner = () => {
 				<div className="container">
 					<div className="row">
 						<div className="offset-xl-0 col-xl-5 col-lg-5 col-md-0" style={{ position: 'relative' }}>
-							<div style={{ position: 'absolute', inset: 0, overflow: 'visible' }}>
+							<div className="screenshot-holder">
 								<ScreenshotSlider />
 							</div>
 						</div>

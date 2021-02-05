@@ -3,12 +3,27 @@
         min-height: unset !important;
 
         .banner_inner:not(.small) {
-            height: 50vh !important;
+            // height: 50vh !important;
             min-height: unset !important;
+            padding: 2em 0;
+
+            &.d-flex {
+                display: block;
+            }
         }
     }
 
     .area-padding {
         padding: 3em 0;
+    }
+}
+
+.nav {
+
+    .nav-item:last-child {
+
+        .nav-link {
+            border-bottom: unset !important;
+        }
     }
 }

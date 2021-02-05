@@ -133,7 +133,11 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
 
     render() {
         if (this.state.graphDataStatus === NetworkState.Loading) return <SmallLoading />
-        if (this.state.graphDataStatus === NetworkState.Error) return <p>Error</p>
+        if (this.state.graphDataStatus === NetworkState.Error) return (
+            <p style={{ textAlign: 'center' }}>
+                <span aria-label="cross" role="img">❌</span>Error getting chart data
+            </p>
+        );
 
         return (
             <>

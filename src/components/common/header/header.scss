@@ -8,6 +8,10 @@
 
     &.collapse {
         padding-top: 0 !important;
+
+        // &:not(.show) {
+        //     overflow-y: scroll;
+        // }
     }
 
     .nav-item .nav-link {

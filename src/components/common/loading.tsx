@@ -28,12 +28,12 @@ export const SmallLoading = () => {
             <ul className="row">
                 <div className="col-12" style={{ textAlign: 'center' }}>
                     <img
-                        src="/assets/img/loader.svg"
+                        src="/assets/img/loader_secondary.svg"
                         draggable="false"
                         alt="loading-animation"
-                        style={{ maxWidth: '100px' }}
+                        style={{ height: '75px', display: 'inline' }}
                     />
-                    <h2 className="largeHeading">Loading...</h2>
+                    <h2 className="largeHeading" style={{ display: 'inline', verticalAlign: 'middle' }}>Loading...</h2>
                 </div>
             </ul>
         </div>
