@@ -103,6 +103,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
         });
         if (this.props.userGuid == null || this.props.userGuid.length < 1) {
             Swal.fire({
+                icon: 'info',
                 title: 'Login required',
                 text: 'You are not logged in, you need to be logged in in order to submit translations or vote on translation. Please log in by clicking the icon in the top right.',
             })
@@ -138,6 +139,13 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
         }
         var transResult = await this.state.apiService.submitTranslation(voteObj);
         if (!transResult.isSuccess) {
+            if (transResult.statusCode != null && transResult.statusCode === 409) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Translation Exists!',
+                    text: 'The translation you submitted already exists, please consider voting on an existing translation instead or submit a translation that does not exactly match an existing translation.',
+                });
+            }
             this.setState(() => {
                 return {
                     // votes: [],

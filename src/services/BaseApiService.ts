@@ -49,6 +49,7 @@ export class BaseApiService {
       if (manipulateHeaders != null) manipulateHeaders(result.headers);
       return {
         isSuccess: true,
+        // statusCode: result.status,
         value: result.data,
         errorMessage: ''
       }
@@ -56,6 +57,7 @@ export class BaseApiService {
       return {
         isSuccess: false,
         value: anyObject,
+        statusCode: ex.response.status,
         errorMessage: ex.message
       }
     }

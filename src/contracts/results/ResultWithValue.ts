@@ -1,5 +1,6 @@
 export interface Result {
   isSuccess: boolean;
+  statusCode?: number;
   errorMessage: string;
 }
 
