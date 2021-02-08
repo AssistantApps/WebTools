@@ -98,7 +98,7 @@ export const TranslationVoteItem: React.FC<IProps> = (props: IProps) => {
             );
         } else {
             options.push(
-                <Label basic pointing='left' onClick={props.onClick}>
+                <Label key="options-copy" basic pointing='left' onClick={props.onClick}>
                     <Icon name="copy" />
                     <span>Copy</span>
                 </Label>
@@ -111,7 +111,7 @@ export const TranslationVoteItem: React.FC<IProps> = (props: IProps) => {
             //     return options;
             // }
             options.push(
-                <Popup wide on='click'
+                <Popup key="options-ellipses" wide on='click'
                     trigger={
                         <Label basic>
                             <Icon name="ellipsis vertical" className="m-0" />

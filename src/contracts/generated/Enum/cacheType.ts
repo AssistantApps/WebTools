@@ -8,4 +8,7 @@ export enum CacheType {
     donation,
     version,
     guideContent,
+    appReview,
+    steamNews,
+    steamBranches,
 }

@@ -13,6 +13,7 @@ import { TranslationSearch } from '../../components/translationSearch/translatio
 import { NetworkState } from '../../constants/networkState';
 
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
+import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
 import { TranslationVoteContainer } from '../../components/translationVote/translationVoteContainer';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
 
@@ -31,7 +32,8 @@ interface IProps {
     translationKeys: Array<TranslationKeyViewModel>;
     translationKeyIndex: number;
     translationKeyStatus: NetworkState;
-    hasLoadedtranslationKeys: boolean;
+    translationKeyDropdown: Array<TranslationKeySearchDropdownViewModel>;
+    translationKeyDropdownStatus: NetworkState;
 
     userGuid: string;
 
@@ -158,7 +160,8 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
 
             <TranslationSearch
                 currentTranslation={currentTranslation}
-                translationKeys={props.translationKeys}
+                translationKeyDropdown={props.translationKeyDropdown}
+                translationKeyDropdownStatus={props.translationKeyDropdownStatus}
                 setTranslationIndex={props.setTranslationIndex}
             />
             {paginationComp}
@@ -182,7 +185,8 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
             </div>
             <div className="container pt1" style={{ textAlign: 'center' }}>
                 {
-                    props.hasLoadedtranslationKeys && (props.translationKeys.length === 0) &&
+                    props.translationKeyStatus === NetworkState.Success &&
+                    (props.translationKeys.length === 0) &&
                     <h2>No items to display</h2>
                 }
             </div>

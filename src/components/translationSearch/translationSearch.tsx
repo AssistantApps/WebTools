@@ -1,26 +1,27 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { createRef } from 'react';
+import Swal from 'sweetalert2';
 import { Button, Icon, Popup } from 'semantic-ui-react';
-import { NetworkState } from '../../constants/networkState';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { ApiService } from '../../services/ApiService';
 import Autosuggest, { InputProps } from 'react-autosuggest';
 
-import './translationSearch.scss';
-import Swal from 'sweetalert2';
+import { Error } from '../../components/common/error';
+import { NetworkState } from '../../constants/networkState';
+import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
+import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
 
-interface IState {
-    status: NetworkState;
-    apiService: ApiService;
-    isOpen: boolean,
-    value: string,
-    suggestions: Array<TranslationKeyViewModel>;
-}
+import './translationSearch.scss';
 
 interface IProps {
     currentTranslation: TranslationKeyViewModel;
-    translationKeys: Array<TranslationKeyViewModel>;
+    translationKeyDropdown: Array<TranslationKeySearchDropdownViewModel>;
+    translationKeyDropdownStatus: NetworkState;
     setTranslationIndex: (newIndex: number) => void;
+}
+
+interface IState {
+    isOpen: boolean,
+    value: string,
+    suggestions: Array<TranslationKeySearchDropdownViewModel>;
 }
 
 export class TranslationSearch extends React.Component<IProps, IState> {
@@ -28,8 +29,6 @@ export class TranslationSearch extends React.Component<IProps, IState> {
         super(props);
 
         this.state = {
-            status: NetworkState.Success,
-            apiService: new ApiService(),
             value: '',
             suggestions: [],
             isOpen: false,
@@ -43,13 +42,16 @@ export class TranslationSearch extends React.Component<IProps, IState> {
     };
 
     getSuggestions = (value: string) => {
-        const list = this.props.translationKeys.filter(tk => {
-            return tk.key.includes(value) || tk.original.includes(value)
+        const lowerValue = value.toLowerCase();
+        const list = this.props.translationKeyDropdown.filter(tkd => {
+            return tkd.key.toLowerCase().includes(lowerValue)
+                || tkd.value.toLowerCase().includes(lowerValue)
+                || tkd.translation?.toLowerCase().includes(lowerValue)
         });
         return (list || []).slice(0, 10);
     }
 
-    getSuggestionValue = (value: TranslationKeyViewModel) => {
+    getSuggestionValue = (value: TranslationKeySearchDropdownViewModel) => {
         return value.key;
     }
 
@@ -59,10 +61,10 @@ export class TranslationSearch extends React.Component<IProps, IState> {
         });
     };
 
-    onSuggestionsSelected = (event: React.FormEvent<any>, params: Autosuggest.SuggestionSelectedEventData<TranslationKeyViewModel>) => {
+    onSuggestionsSelected = (event: React.FormEvent<any>, params: Autosuggest.SuggestionSelectedEventData<TranslationKeySearchDropdownViewModel>) => {
         const guidToLookup = params?.suggestion?.guid;
         if (guidToLookup != null) {
-            const index = this.props.translationKeys.findIndex(tk => tk.guid === guidToLookup)
+            const index = this.props.translationKeyDropdown.findIndex(tkd => tkd.guid === guidToLookup)
             if (index >= 0) {
                 this.props.setTranslationIndex(index);
             }
@@ -85,12 +87,28 @@ export class TranslationSearch extends React.Component<IProps, IState> {
             return (<div></div>);
         }
 
-        const renderSuggestion = (suggestion: TranslationKeyViewModel) => (
+        if (this.props.translationKeyDropdownStatus === NetworkState.Error) {
+            return (<Error message="Something went wrong" />);
+        }
+
+        const renderSuggestion = (suggestion: TranslationKeySearchDropdownViewModel) => (
             <Popup wide
-                content={`The word in bold is the Key of the translation and the text below it is the English translation`}
+                content={
+                    <span>
+                        The word in <strong>bold</strong> is the <strong>English translation</strong><br />
+                        The Text in <i>italics</i> is the <i>current translation</i>
+                    </span>
+                }
                 trigger={<div className="suggestion-option">
-                    <p className="suggestion-heading">{suggestion.key}</p>
-                    <p className="suggestion-body text-truncate">{suggestion.original}</p>
+                    <p className="suggestion-heading text-truncate">{suggestion.value}</p>
+                    {
+                        suggestion.translation != null &&
+                        <p className="suggestion-body text-truncate">
+                            <i>
+                                {suggestion.translation}<br />
+                            </i>
+                        </p>
+                    }
                 </div>}
             />
 
@@ -98,10 +116,10 @@ export class TranslationSearch extends React.Component<IProps, IState> {
 
         const { value, suggestions } = this.state;
 
-        const inputProps: InputProps<TranslationKeyViewModel> = {
+        const inputProps: InputProps<TranslationKeySearchDropdownViewModel> = {
             placeholder: 'Enter the Key or English translation',
             value,
-            onChange: this.onChange
+            onChange: this.onChange,
         };
 
         return (
@@ -125,7 +143,13 @@ export class TranslationSearch extends React.Component<IProps, IState> {
                                     isOpen: !prevState.isOpen
                                 }
                             })
-                        }}><Icon name='search' /></Button>
+                        }}>
+                            {
+                                this.props.translationKeyDropdownStatus === NetworkState.Loading
+                                    ? <Icon name='spinner' />
+                                    : <Icon name='search' />
+                            }
+                        </Button>
                     )}
                 />
                 <Popup

@@ -5,4 +5,6 @@ export enum RedisCacheType {
     appRatingGooglePlay,
     appRatingAppleAppStore,
     patreonList,
+    steamNews,
+    steamBranches,
 }

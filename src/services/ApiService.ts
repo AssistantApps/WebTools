@@ -8,6 +8,7 @@ import { TranslationGetGraphViewModel } from '../contracts/generated/ViewModel/T
 import { TranslationKeyViewModel } from '../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationsPerLanguageGraphViewModel } from '../contracts/generated/ViewModel/Translation/translationsPerLanguageGraphViewModel';
 import { TranslationSearchViewModel } from '../contracts/generated/ViewModel/Translation/translationSearchViewModel';
+import { TranslationKeySearchDropdownViewModel } from '../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
 import { TranslationSubmissionViewModel } from '../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
 import { TranslationSubmissionWithVotesViewModel } from '../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
 import { TranslationReportViewModel } from '../contracts/generated/ViewModel/Translation/translationReportViewModel';
@@ -27,6 +28,9 @@ export class ApiService extends BaseApiService {
     }
     async getTranslationKeys(searchObj: TranslationSearchViewModel): Promise<ResultWithValue<Array<TranslationKeyViewModel>>> {
         return await this.post<Array<TranslationKeyViewModel>>(apiEndpoints.translationKeySearch, searchObj);
+    }
+    async getTranslationKeysSearchDropdown(searchObj: TranslationSearchViewModel): Promise<ResultWithValue<Array<TranslationKeySearchDropdownViewModel>>> {
+        return await this.post<Array<TranslationKeySearchDropdownViewModel>>(apiEndpoints.translationKeySearchDropdown, searchObj);
     }
     async getTranslationImages(translationKeyGuid: string): Promise<ResultWithValue<Array<TranslationImageViewModel>>> {
         return await this.get<Array<TranslationImageViewModel>>(`${apiEndpoints.translationKeyImages}/${translationKeyGuid}`);

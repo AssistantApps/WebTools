@@ -15,6 +15,7 @@ import { languageDetailsToLanguageDropDownMapper } from '../../mapper/languageDe
 import { TranslationPresenter } from './translationPresenter';
 
 import { ApiService } from '../../services/ApiService';
+import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
 
 interface IState {
     status: NetworkState;
@@ -32,7 +33,8 @@ interface IState {
     translationKeys: Array<TranslationKeyViewModel>;
     translationKeyIndex: number;
     translationKeyStatus: NetworkState;
-    hasLoadedtranslationKeys: boolean;
+    translationKeyDropdown: Array<TranslationKeySearchDropdownViewModel>;
+    translationKeyDropdownStatus: NetworkState;
 }
 
 interface IProps {
@@ -58,8 +60,9 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
             selectedLanguage: '',
             translationKeys: [],
             translationKeyIndex: 0,
-            translationKeyStatus: NetworkState.Success,
-            hasLoadedtranslationKeys: false,
+            translationKeyStatus: NetworkState.Pending,
+            translationKeyDropdown: [],
+            translationKeyDropdownStatus: NetworkState.Success,
         };
     }
 
@@ -120,7 +123,6 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
             this.setState(() => {
                 return {
                     translationKeyStatus: NetworkState.Error,
-                    hasLoadedtranslationKeys: true,
                 }
             });
             return;
@@ -130,7 +132,34 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
                 translationKeys: transKeyResult.value,
                 translationKeyStatus: NetworkState.Success,
                 translationKeyIndex: 0,
-                hasLoadedtranslationKeys: true,
+            }
+        });
+    }
+
+    fetchTranslationKeySearchDropdowns = async (onlyUntranslated: boolean = false) => {
+        this.setState(() => {
+            return {
+                translationKeyDropdownStatus: NetworkState.Loading
+            }
+        });
+        var searchObj: TranslationSearchViewModel = {
+            appGuidList: this.state.selectedApps,
+            languageGuid: this.state.selectedLanguage,
+            showOnlyUntranslated: onlyUntranslated,
+        }
+        var transKeySearchDropDownResult = await this.state.apiService.getTranslationKeysSearchDropdown(searchObj);
+        if (!transKeySearchDropDownResult.isSuccess) {
+            this.setState(() => {
+                return {
+                    translationKeyDropdownStatus: NetworkState.Error,
+                }
+            });
+            return;
+        }
+        this.setState(() => {
+            return {
+                translationKeyDropdown: transKeySearchDropDownResult.value,
+                translationKeyDropdownStatus: NetworkState.Success,
             }
         });
     }
@@ -152,9 +181,11 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
                 setApps={this.setApps}
                 setLanguage={this.setLanguage}
                 setTranslationIndex={this.setTranslationIndex}
-                fetchTranslationKeys={this.fetchTranslationKeys}
+                fetchTranslationKeys={() => {
+                    this.fetchTranslationKeys();
+                    this.fetchTranslationKeySearchDropdowns();
+                }}
                 userGuid={this.props.userGuid}
-                hasLoadedtranslationKeys={this.state.hasLoadedtranslationKeys}
             />
         );
     }
