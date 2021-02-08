@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { createRef } from 'react';
+import React from 'react';
 import Swal from 'sweetalert2';
 import { Button, Icon, Popup } from 'semantic-ui-react';
 import Autosuggest, { InputProps } from 'react-autosuggest';
