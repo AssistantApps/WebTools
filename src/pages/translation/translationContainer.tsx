@@ -181,8 +181,8 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
                 setApps={this.setApps}
                 setLanguage={this.setLanguage}
                 setTranslationIndex={this.setTranslationIndex}
-                fetchTranslationKeys={() => {
-                    this.fetchTranslationKeys();
+                fetchTranslationKeys={(ignoreLanguage?: boolean) => {
+                    this.fetchTranslationKeys(ignoreLanguage);
                     this.fetchTranslationKeySearchDropdowns();
                 }}
                 userGuid={this.props.userGuid}
