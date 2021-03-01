@@ -160,6 +160,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
 
             <TranslationSearch
                 currentTranslation={currentTranslation}
+                translationKeys={props.translationKeys}
                 translationKeyDropdown={props.translationKeyDropdown}
                 translationKeyDropdownStatus={props.translationKeyDropdownStatus}
                 setTranslationIndex={props.setTranslationIndex}

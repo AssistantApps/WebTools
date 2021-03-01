@@ -13,6 +13,7 @@ import './translationSearch.scss';
 
 interface IProps {
     currentTranslation: TranslationKeyViewModel;
+    translationKeys: Array<TranslationKeyViewModel>;
     translationKeyDropdown: Array<TranslationKeySearchDropdownViewModel>;
     translationKeyDropdownStatus: NetworkState;
     setTranslationIndex: (newIndex: number) => void;
@@ -22,17 +23,42 @@ interface IState {
     isOpen: boolean,
     value: string,
     suggestions: Array<TranslationKeySearchDropdownViewModel>;
+    filteredDropdownList: Array<TranslationKeySearchDropdownViewModel>;
 }
 
 export class TranslationSearch extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
 
+        const filtered = this.getFilteredDropdownList(props.translationKeys, props.translationKeyDropdown);
         this.state = {
             value: '',
             suggestions: [],
+            filteredDropdownList: filtered,
             isOpen: false,
         };
+    }
+
+    getFilteredDropdownList = (translationKeys: Array<TranslationKeyViewModel>, translationKeyDropdown: Array<TranslationKeySearchDropdownViewModel>) => {
+        const filtered = translationKeyDropdown
+            .filter(tkd => translationKeys.findIndex(tk => tk.guid === tkd.guid) >= 0);
+        return filtered;
+    };
+
+    componentDidUpdate(prevProps: IProps, prevState: IState) {
+        const { translationKeys, translationKeyDropdown } = this.props;
+        if (translationKeys.length !== prevProps.translationKeys.length ||
+            translationKeyDropdown.length !== prevProps.translationKeyDropdown.length
+        ) {
+            const filtered = this.getFilteredDropdownList(translationKeys, translationKeyDropdown);
+            if (filtered.length !== prevState.filteredDropdownList.length) {
+                this.setState(() => {
+                    return {
+                        filteredDropdownList: filtered,
+                    }
+                })
+            }
+        }
     }
 
     onChange = (event: React.FormEvent<any>, params: Autosuggest.ChangeEvent) => {
@@ -43,7 +69,7 @@ export class TranslationSearch extends React.Component<IProps, IState> {
 
     getSuggestions = (value: string) => {
         const lowerValue = value.toLowerCase();
-        const list = this.props.translationKeyDropdown.filter(tkd => {
+        const list = this.state.filteredDropdownList.filter(tkd => {
             return tkd.key.toLowerCase().includes(lowerValue)
                 || tkd.value.toLowerCase().includes(lowerValue)
                 || tkd.translation?.toLowerCase().includes(lowerValue)
@@ -64,7 +90,7 @@ export class TranslationSearch extends React.Component<IProps, IState> {
     onSuggestionsSelected = (event: React.FormEvent<any>, params: Autosuggest.SuggestionSelectedEventData<TranslationKeySearchDropdownViewModel>) => {
         const guidToLookup = params?.suggestion?.guid;
         if (guidToLookup != null) {
-            const index = this.props.translationKeyDropdown.findIndex(tkd => tkd.guid === guidToLookup)
+            const index = this.props.translationKeys.findIndex(tkd => tkd.guid === guidToLookup)
             if (index >= 0) {
                 this.props.setTranslationIndex(index);
             }
@@ -92,25 +118,17 @@ export class TranslationSearch extends React.Component<IProps, IState> {
         }
 
         const renderSuggestion = (suggestion: TranslationKeySearchDropdownViewModel) => (
-            <Popup wide
-                content={
-                    <span>
-                        The word in <strong>bold</strong> is the <strong>English translation</strong><br />
-                        The Text in <i>italics</i> is the <i>current translation</i>
-                    </span>
+            <div className="suggestion-option">
+                <p className="suggestion-heading text-truncate">{suggestion.value}</p>
+                {
+                    suggestion.translation != null &&
+                    <p className="suggestion-body text-truncate">
+                        <i>
+                            {suggestion.translation}<br />
+                        </i>
+                    </p>
                 }
-                trigger={<div className="suggestion-option">
-                    <p className="suggestion-heading text-truncate">{suggestion.value}</p>
-                    {
-                        suggestion.translation != null &&
-                        <p className="suggestion-body text-truncate">
-                            <i>
-                                {suggestion.translation}<br />
-                            </i>
-                        </p>
-                    }
-                </div>}
-            />
+            </div>
 
         );
 
