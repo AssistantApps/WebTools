@@ -16,7 +16,7 @@
         }
 
         p {
-            color: #7b838a;
+            color: rgb(180, 180, 180);
         }
 
         h4 {
@@ -37,15 +37,6 @@
         ul {
             li {
                 margin-bottom: 10px;
-
-                a {
-                    @include transition();
-                    color: #888888;
-
-                    &:hover {
-                        color: $baseColor;
-                    }
-                }
             }
         }
 
