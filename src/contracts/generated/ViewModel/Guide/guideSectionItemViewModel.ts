@@ -3,7 +3,7 @@
 import { GuideSectionItemType } from "./../../Enum/guideSectionItemType";
 
 export interface GuideSectionItemViewModel {
-    guid: any;
+    guid: string;
     type: GuideSectionItemType;
     content: string;
     additionalContent: string;

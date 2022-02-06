@@ -24,4 +24,9 @@ export enum PermissionType {
     versionManage,
     donationView,
     donationManage,
+    steamBranchManage,
+    teamMemberView,
+    teamMemberManage,
+    translationReportView,
+    translationReportManage,
 }

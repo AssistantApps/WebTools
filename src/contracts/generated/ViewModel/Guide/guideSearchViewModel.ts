@@ -3,7 +3,7 @@
 import { SortDirection } from "./../../Enum/sortDirection";
 
 export interface GuideSearchViewModel {
-    appGuid: any;
+    appGuid: string;
     tag: string;
     name: string;
     orderByName: SortDirection;

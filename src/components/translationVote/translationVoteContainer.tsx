@@ -4,7 +4,7 @@ import { NetworkState } from '../../constants/networkState';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationSubmissionViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
 import { TranslationSubmissionWithVotesViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
-import { TranslationReportViewModel } from '../../contracts/generated/ViewModel/Translation/translationReportViewModel';
+import { TranslationReportAddViewModel } from '../../contracts/generated/ViewModel/Translation/translationReportAddViewModel';
 import { Result } from '../../contracts/results/ResultWithValue';
 import { ApiService } from '../../services/ApiService';
 import { StorageService } from '../../services/StorageService';
@@ -198,7 +198,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
                 status: NetworkState.Loading
             }
         });
-        var reportObj: TranslationReportViewModel = {
+        var reportObj: TranslationReportAddViewModel = {
             translationGuid: badTrans.guid,
             translationKey: this.props.currentTranslation.key,
             offendingText: badTrans.text,

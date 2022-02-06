@@ -11,13 +11,15 @@ import { TranslationSearchViewModel } from '../contracts/generated/ViewModel/Tra
 import { TranslationKeySearchDropdownViewModel } from '../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
 import { TranslationSubmissionViewModel } from '../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
 import { TranslationSubmissionWithVotesViewModel } from '../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
-import { TranslationReportViewModel } from '../contracts/generated/ViewModel/Translation/translationReportViewModel';
+import { TranslationReportAddViewModel } from '../contracts/generated/ViewModel/Translation/translationReportAddViewModel';
 import { TranslationImageViewModel } from '../contracts/generated/ViewModel/Translation/translationImageViewModel';
 import { TranslationVoteViewModel } from '../contracts/generated/ViewModel/Translation/translationVoteViewModel';
+import { TranslatorLeaderboardItemViewModel } from '../contracts/generated/ViewModel/Translation/translatorLeaderboardItemViewModel';
 import { Result, ResultWithValue } from '../contracts/results/ResultWithValue';
 import { BaseApiService } from './BaseApiService';
 import { StorageService } from './StorageService';
 import { ILoginProps } from '../contracts/login';
+import { anyObject } from '../helper/typescriptHacks';
 
 export class ApiService extends BaseApiService {
     async getApps(): Promise<ResultWithValue<Array<AppViewModel>>> {
@@ -50,11 +52,14 @@ export class ApiService extends BaseApiService {
     async selectTranslationVote(data: TranslationVoteViewModel): Promise<Result> {
         return await this.post(apiEndpoints.translationVotes, data);
     }
-    async reportTranslation(data: TranslationReportViewModel): Promise<Result> {
+    async reportTranslation(data: TranslationReportAddViewModel): Promise<Result> {
         return await this.post(apiEndpoints.translationReports, data);
     }
     async getTranslationsPerLangGraphData(data: TranslationGetGraphViewModel): Promise<ResultWithValue<Array<TranslationsPerLanguageGraphViewModel>>> {
         return await this.post(apiEndpoints.translationsPerLangGraph, data);
+    }
+    async getTranslators(data: any): Promise<ResultWithValue<Array<TranslatorLeaderboardItemViewModel>>> {
+        return await this.post(apiEndpoints.translatorLeaderboard, anyObject);
     }
 
     async loginWithOAuth(oAuthObj: OAuthUserViewModel): Promise<ResultWithValue<ILoginProps>> {

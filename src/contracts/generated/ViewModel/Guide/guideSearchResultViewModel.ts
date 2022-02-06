@@ -3,14 +3,14 @@
 import { AdminApprovalStatus } from "./../../Enum/adminApprovalStatus";
 
 export interface GuideSearchResultViewModel {
-    guid: any;
-    guideDetailGuid: any;
+    guid: string;
+    guideDetailGuid: string;
     title: string;
     subTitle: string;
     showCreatedByUser: boolean;
-    userGuid: any;
+    userGuid: string;
     userName: string;
-    translatorGuid: any;
+    translatorGuid: string;
     translatorName: string;
     minutes: number;
     tags: any[];

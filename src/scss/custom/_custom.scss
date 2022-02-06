@@ -93,10 +93,33 @@
     text-align: center;
 }
 
-
 .col-sm-pt1 {
     @media (max-width:768px) {
         padding-top: 1em;
+    }
+}
+
+.translator {
+    margin-left: 1em;
+
+    &:before {
+        top: 50% !important;
+        transform: translateY(-50%);
+        margin-left: -3rem !important;
+        font-size: 2em;
+    }
+
+    img {
+        border-radius: 5px;
+    }
+
+    .content {
+        margin-top: 0.5em;
+        margin-left: 1em;
+
+        h3 {
+            margin-top: 0.5em;
+        }
     }
 }
 

@@ -11,4 +11,10 @@ export enum CacheType {
     appReview,
     steamNews,
     steamBranches,
+    emojiLeaderboard,
+    kurtBlogRss,
+    kurtIsLive,
+    teamMembers,
+    translators,
+    translatorLeaderboard,
 }
