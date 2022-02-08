@@ -1,8 +1,8 @@
-import { publishedAppsDetailsType } from '../constants/appDetails';
+import { PublishedAppsDetailsType } from '../constants/appDetails';
 import { DropDownWithIcon } from '../contracts/dropdown/dropDownWithIcon';
 import { AppViewModel } from '../contracts/generated/ViewModel/appViewModel';
 
-export const appDetailsConstantToDropDownMapper = (publishedAppsDetail: publishedAppsDetailsType) => {
+export const appDetailsConstantToDropDownMapper = (publishedAppsDetail: PublishedAppsDetailsType) => {
     if (!publishedAppsDetail.publiclyVisible) return null;
     return {
         key: publishedAppsDetail.appType,

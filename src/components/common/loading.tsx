@@ -25,7 +25,7 @@ export const Loading = () => {
 export const SmallLoading = () => {
     return (
         <div className="container">
-            <ul className="row">
+            <ul className="row full pt3 pb1">
                 <div className="col-12" style={{ textAlign: 'center' }}>
                     <img
                         src="/assets/img/loader_secondary.svg"

@@ -1,6 +1,6 @@
 import { AppType } from './appType';
 
-export interface publishedAppsDetailsType {
+export interface PublishedAppsDetailsType {
     name: string;
     gameName: string;
     appType: AppType;
@@ -11,7 +11,7 @@ export interface publishedAppsDetailsType {
     publiclyVisible: boolean;
 }
 
-export const publishedAppsDetails: Array<publishedAppsDetailsType> = [
+export const publishedAppsDetails: Array<PublishedAppsDetailsType> = [
     {
         name: 'Assistant for No Man\'s Sky',
         gameName: 'No Man\'s Sky',

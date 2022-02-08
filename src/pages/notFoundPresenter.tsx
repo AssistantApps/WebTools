@@ -7,7 +7,7 @@ export const NotFoundPresenter: React.FC = () => {
                 <div className="row align-items-center">
 
                     <div className="col-lg-6">
-                        <h4>No Found</h4>
+                        <h4>Not Found</h4>
                     </div>
                 </div>
             </div>

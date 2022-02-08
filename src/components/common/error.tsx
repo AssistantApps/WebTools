@@ -10,6 +10,7 @@ export const Error: React.FC<IProps> = (props: IProps) => {
             <div className="row full p3">
                 <div className="col-12" style={{ textAlign: 'center' }}>
                     <img src="/assets/img/error.png"
+                        className="error"
                         alt="error"
                     />
                 </div>

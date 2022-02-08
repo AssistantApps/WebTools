@@ -8,3 +8,16 @@ export const translationVotes = 'translationvote';
 export const translationReports = 'translation/Report';
 export const translationsPerLangGraph = 'translation/Graph/TranslationsPerLanguage';
 export const authUrl = 'Account/Login';
+
+export const guideParam = {
+    getGuideById: ':guid',
+    editGuide: ':guid',
+    deleteGuide: ':guid',
+}
+export const guide = {
+    getForCurrentUser: 'GuideDetail/User',
+    getGuideById: `GuideContent/${guideParam.getGuideById}`,
+    submitGuide: 'GuideDetail',
+    editGuide: `GuideDetail/${guideParam.editGuide}`,
+    deleteGuide: `GuideDetail/${guideParam.deleteGuide}`,
+}

@@ -1,24 +1,27 @@
 import React from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, Label, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Menu } from 'semantic-ui-react';
-
 import { NetworkState } from '../../constants/networkState';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { TranslationGetGraphViewModel } from '../../contracts/generated/ViewModel/Translation/translationGetGraphViewModel';
 import { TranslationsPerLanguageGraphViewModel } from '../../contracts/generated/ViewModel/Translation/translationsPerLanguageGraphViewModel';
-
-import { SmallLoading } from '../common/loading';
-import { DropDown } from '../common/dropDown/dropDown';
-import { SteppedAxisTick, FlagAxisTick } from '../common/graph/xAxis';
-import { TooltipWithFlag } from '../common/graph/tooltipWithFlag';
-
+import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
 import { getColourFromLanguageCode } from '../../mapper/languageColourMapper';
+import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
+import { DropDown } from '../common/dropDown/dropDown';
+import { TooltipWithFlag } from '../common/graph/tooltipWithFlag';
+import { FlagAxisTick, SteppedAxisTick } from '../common/graph/xAxis';
+import { SmallLoading } from '../common/loading';
 
-import { ApiService } from '../../services/ApiService';
+interface IWithDepInj {
+    assistantAppsApiService: AssistantAppsApiService;
+}
+interface IWithoutDepInj {
+}
 
-import './numberOfTranslationsPerLanguage.scss';
+interface IProps extends IWithDepInj, IWithoutDepInj { }
 
 interface IState {
     searchObj: TranslationGetGraphViewModel;
@@ -30,14 +33,9 @@ interface IState {
     appStatus: NetworkState;
     appDropDowns: Array<DropDownWithIcon>;
     selectedApps: Array<string>;
-
-    apiService: ApiService;
 }
 
-interface IProps {
-}
-
-export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps, IState> {
+export class NumberOfTranslationsPerLanguageGraphUnconnected extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
 
@@ -54,8 +52,6 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
             appStatus: NetworkState.Loading,
             appDropDowns: Array<DropDownWithIcon>(),
             selectedApps: Array<string>(),
-
-            apiService: new ApiService(),
         };
     }
 
@@ -65,7 +61,7 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
     }
 
     fetchAppData = async () => {
-        var appsResult = await this.state.apiService.getApps();
+        var appsResult = await this.props.assistantAppsApiService.getApps();
         if (!appsResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -85,7 +81,7 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
     }
 
     fetchGraphData = async (searchObj: TranslationGetGraphViewModel) => {
-        var appsResult = await this.state.apiService.getTranslationsPerLangGraphData(searchObj);
+        var appsResult = await this.props.assistantAppsApiService.getTranslationsPerLangGraphData(searchObj);
         if (!appsResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -150,7 +146,7 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
                                     placeholder="Select Apps"
                                     options={this.state.appDropDowns}
                                     multiple={true}
-                                    value={this.state.selectedApps}
+                                    defaultValue={this.state.selectedApps}
                                     isLoading={this.state.appStatus === NetworkState.Loading}
                                     onChange={(apps: any) => this.setApps(apps)}
                                 />
@@ -217,3 +213,10 @@ export class NumberOfTranslationsPerLanguageGraph extends React.Component<IProps
         );
     }
 }
+
+export const NumberOfTranslationsPerLanguageGraph = withServices<IWithoutDepInj, IWithDepInj>(
+    NumberOfTranslationsPerLanguageGraphUnconnected,
+    (services: IDependencyInjection) => ({
+        assistantAppsApiService: services.assistantAppsApiService,
+    })
+);

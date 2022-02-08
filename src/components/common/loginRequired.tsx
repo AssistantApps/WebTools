@@ -6,7 +6,7 @@ import { LoginDialog } from '../../components/dialog/loginDialog';
 interface IProps {
 }
 
-export const TranslationLogInPresenter: React.FC<IProps> = (props: IProps) => {
+export const LoginRequired: React.FC<IProps> = (props: IProps) => {
 
     return (
         <div className="container">

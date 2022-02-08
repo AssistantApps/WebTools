@@ -41,6 +41,7 @@ export const saveStateToLocalStorage = (store: any) => {
         || storedCommonReducer.userGuid !== currentCommonReducer.userGuid
         || storedCommonReducer.userName !== currentCommonReducer.userName
         || storedCommonReducer.userProfileUrl !== currentCommonReducer.userProfileUrl
+        || storedCommonReducer.userDetailsExpiryDate !== currentCommonReducer.userDetailsExpiryDate
     ) {
         currentCommonReducer.isLoading = false;
         localStorage.setItem(CacheKey.CommonReducerKey, JSON.stringify(currentCommonReducer));

@@ -3,4 +3,5 @@ export interface ILoginProps {
     userName: string;
     userProfileUrl: string;
     secondsTillExpire: number;
+    userDetailsExpiryDate: Date;
 }

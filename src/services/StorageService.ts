@@ -1,6 +1,6 @@
-import moment from 'moment';
 import { ResultWithValue } from '../contracts/results/ResultWithValue';
 import { StorageItem } from '../contracts/storageItem';
+import { isInTheFuture, oneHourFromNow } from '../helper/dateHelper';
 import { anyObject } from '../helper/typescriptHacks';
 
 export class StorageService {
@@ -9,7 +9,7 @@ export class StorageService {
         const item: StorageItem<T> = JSON.parse(itemString);
 
         if (item != null && item.data != null && item.expiryDate != null) {
-            if (moment(item.expiryDate).isAfter(moment())) {
+            if (isInTheFuture(item.expiryDate)) {
                 return {
                     isSuccess: true,
                     value: item.data,
@@ -26,11 +26,11 @@ export class StorageService {
     }
 
     public set<T>(key: string, data: T, expiry?: Date): void {
-        var oneHourFromNow = moment().add(1, 'hour');
+        const oneHourFromNw = oneHourFromNow();
 
         const item: StorageItem<T> = {
             data: data,
-            expiryDate: expiry || oneHourFromNow.toDate()
+            expiryDate: expiry || oneHourFromNw
         };
 
         localStorage.setItem(key, JSON.stringify(item));

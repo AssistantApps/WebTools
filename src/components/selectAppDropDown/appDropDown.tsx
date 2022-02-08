@@ -8,7 +8,8 @@ interface IProps {
 }
 
 export const AppDropDown: React.FC<IProps> = (props: IProps) => {
-    var options = publishedAppsDetails.map(appDetailsConstantToDropDownMapper).filter(opt => opt);
+    const options = publishedAppsDetails.map(appDetailsConstantToDropDownMapper).filter(opt => opt);
+
     return (
         <DropDown
             placeholder='Select App'

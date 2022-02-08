@@ -1,23 +1,22 @@
-import React from 'react'
-import Swal from 'sweetalert2';
-import { connect } from 'react-redux';
-import { Icon, Modal } from 'semantic-ui-react'
+import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
+import { connect } from 'react-redux';
 import { GoogleLoginButton } from "react-social-login-buttons";
-
-import { OAuthUserViewModel } from '../../contracts/generated/ViewModel/oAuthUserViewModel';
+import { Icon, Modal } from 'semantic-ui-react';
+import Swal from 'sweetalert2';
 import { OAuthProviderType } from '../../contracts/generated/Enum/oAuthProviderType';
-import { mapStateToProps, mapDispatchToProps } from './loginDialog.redux';
-import { ApiService } from '../../services/ApiService';
+import { OAuthUserViewModel } from '../../contracts/generated/ViewModel/oAuthUserViewModel';
 import { ILoginProps } from '../../contracts/login';
+import { errorDialog } from '../../helper/dialogHelper';
+import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
+import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
 import { ConditionalToolTip } from '../common/conditionalTooltip';
+import { mapDispatchToProps, mapStateToProps } from './loginDialog.redux';
 
-interface IState {
-    isModalOpen: boolean;
-    apiService: ApiService;
+interface IWithDepInj {
+    assistantAppsApiService: AssistantAppsApiService;
 }
-
-interface IProps {
+interface IWithoutDepInj {
     isLoading?: boolean;
     children?: React.ReactNode;
     iconStyle?: any;
@@ -32,25 +31,16 @@ interface IProps {
     logout?: () => void;
 }
 
-export class LoginDialogUnconnected extends React.Component<IProps, IState> {
-    constructor(props: IProps) {
-        super(props);
+interface IProps extends IWithDepInj, IWithoutDepInj { }
 
-        this.state = {
-            isModalOpen: false,
-            apiService: new ApiService(),
-        };
-    }
+interface IState {
+    isModalOpen: boolean;
+}
 
-    toggleModalOpen = () => {
-        this.setState((prevState: IState) => {
-            return {
-                isModalOpen: !prevState.isModalOpen
-            }
-        });
-    }
+export const LoginDialogUnconnected: React.FC<IProps> = (props: IProps) => {
+    const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
-    responseGoogle = (type: OAuthProviderType) => async (response: any) => {
+    const responseGoogle = (type: OAuthProviderType) => async (response: any) => {
         if (response == null ||
             response.tokenId == null ||
             response.profileObj == null ||
@@ -58,11 +48,11 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
             response.profileObj.email == null ||
             response.profileObj.imageUrl == null ||
             response.profileObj.name == null) {
-            this.oAuthLoginFailure({ custom: 'manual failure, response did not have expected values' });
+            oAuthLoginFailure({ custom: 'manual failure, response did not have expected values' });
             return;
         }
-        this.toggleModalOpen();
-        var apiObj: OAuthUserViewModel = {
+        setModalOpen(!isModalOpen);
+        const apiObj: OAuthUserViewModel = {
             accessToken: response.accessToken,
             tokenId: response.tokenId,
             email: response.profileObj.email,
@@ -71,25 +61,24 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
             username: response.profileObj.name,
         }
 
-        var loginResult = await this.state.apiService.loginWithOAuth(apiObj);
-        this.setLoadingStatus(false);
-        if (loginResult.isSuccess && this.props.login) {
-            this.props.login(loginResult.value);
+        const loginResult = await props.assistantAppsApiService.loginWithOAuth(apiObj);
+        setLoadingStatus(false);
+        if (loginResult.isSuccess && props.login) {
+            props.login(loginResult.value);
+        } else {
+            console.error(loginResult.errorMessage);
+            errorDialog('Login failed', 'Unable to log in, please try again');
         }
     }
 
-    setLoadingStatus = (isLoading: boolean) => {
-        if (this.props.setLoadingStatus) this.props.setLoadingStatus(isLoading);
+    const setLoadingStatus = (isLoading: boolean) => {
+        if (props.setLoadingStatus) props.setLoadingStatus(isLoading);
     }
 
-    oAuthLoginFailure = (error: any) => {
+    const oAuthLoginFailure = (error: any) => {
         console.warn(error);
-        this.setLoadingStatus(false);
-        this.setState(() => {
-            return {
-                isModalOpen: false
-            }
-        });
+        setLoadingStatus(false);
+        setModalOpen(false);
         Swal.fire({
             title: 'Login error!',
             text: `Something went wrong and we could not log you in. ${error.details}`,
@@ -97,7 +86,7 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
         });
     }
 
-    oAuthLogout = () => {
+    const oAuthLogout = () => {
         Swal.fire({
             title: 'Logout?',
             text: `Are you sure that you want to logout?`,
@@ -107,75 +96,80 @@ export class LoginDialogUnconnected extends React.Component<IProps, IState> {
             showCancelButton: true,
         }).then((answer: any) => {
             if (answer.isConfirmed) {
-                if (this.props.logout) this.props.logout();
+                if (props.logout) props.logout();
             }
         });
     }
 
-    render() {
-        const LoginComponent = (this.props.userGuid != null && this.props.userGuid.length > 5)
-            ? (
-                <span className="nav-link pointer" onClick={this.oAuthLogout}>
-                    <ConditionalToolTip
-                        message={this.props.userName || ''}
-                        showToolTip={this.props.userName != null && this.props.userName.length > 1}>
-                        <img className="oauth-circle" src={this.props.userProfileUrl} alt={this.props.userName} />
-                    </ConditionalToolTip>
-                </span>
-            )
-            : (
-                <span className="nav-link pointer"
-                    onClick={this.toggleModalOpen}>
-                    <Icon
-                        inverted
-                        name="user"
-                        color={this.props.colour || "grey"}
-                        size="large"
-                        className="pointer"
-                        style={this.props.iconStyle || {}}
-                    />Login</span>
-            )
-        return (
-            <>
-                {
-                    this.props.children != null
-                        ? <div className="pointer" onClick={this.toggleModalOpen}>
-                            {this.props.children}
-                        </div>
-                        : LoginComponent
+    const toggleModalOpen = () => setModalOpen(!isModalOpen);
 
-                }
+    const LoginComponent = (props.userGuid != null && props.userGuid.length > 5)
+        ? (
+            <span className="nav-link pointer" onClick={oAuthLogout}>
+                <ConditionalToolTip
+                    message={props.userName || ''}
+                    showToolTip={props.userName != null && props.userName.length > 1}>
+                    <img className="oauth-circle" src={props.userProfileUrl} alt={props.userName} />
+                </ConditionalToolTip>
+            </span>
+        )
+        : (
+            <span className="nav-link pointer"
+                onClick={toggleModalOpen}>
+                <Icon
+                    inverted
+                    name="user"
+                    color={props.colour || "grey"}
+                    size="large"
+                    className="pointer"
+                    style={props.iconStyle || {}}
+                />Login</span>
+        )
+    return (
+        <>
+            {
+                props.children != null
+                    ? <div className="pointer" onClick={toggleModalOpen}>
+                        {props.children}
+                    </div>
+                    : LoginComponent
 
-                <Modal
-                    size="tiny"
-                    dimmer="blurring"
-                    open={this.state.isModalOpen}
-                    onClose={this.toggleModalOpen}
-                >
-                    <Modal.Header>AssistantApps Login</Modal.Header>
-                    <Modal.Content>
-                        <div>
-                            <GoogleLogin
-                                clientId={window.config.googleClientId}
-                                render={renderProps => (
-                                    <GoogleLoginButton onClick={() => {
-                                        this.setLoadingStatus(true);
-                                        renderProps.onClick();
-                                    }}
-                                        style={{ opacity: renderProps.disabled ? '50%' : null, maxWidth: '50%' }}
-                                    />
-                                )}
-                                buttonText="Login"
-                                onSuccess={this.responseGoogle(OAuthProviderType.google)}
-                                onFailure={this.oAuthLoginFailure}
-                                cookiePolicy={'single_host_origin'}
-                            />
-                        </div>
-                    </Modal.Content>
-                </Modal>
-            </>
-        );
-    }
+            }
+
+            <Modal
+                size="tiny"
+                dimmer="blurring"
+                open={isModalOpen}
+                onClose={toggleModalOpen}
+            >
+                <Modal.Header>AssistantApps Login</Modal.Header>
+                <Modal.Content>
+                    <div>
+                        <GoogleLogin
+                            clientId={window.config.googleClientId}
+                            render={renderProps => (
+                                <GoogleLoginButton onClick={() => {
+                                    setLoadingStatus(true);
+                                    renderProps.onClick();
+                                }}
+                                    style={{ opacity: renderProps.disabled ? '50%' : null, maxWidth: '50%' }}
+                                />
+                            )}
+                            buttonText="Login"
+                            onSuccess={responseGoogle(OAuthProviderType.google)}
+                            onFailure={oAuthLoginFailure}
+                            cookiePolicy={'single_host_origin'}
+                        />
+                    </div>
+                </Modal.Content>
+            </Modal>
+        </>
+    );
 }
 
-export const LoginDialog = connect(mapStateToProps, mapDispatchToProps)(LoginDialogUnconnected);
+export const LoginDialog = withServices<IWithoutDepInj, IWithDepInj>(
+    connect(mapStateToProps, mapDispatchToProps)(LoginDialogUnconnected),
+    (services: IDependencyInjection) => ({
+        assistantAppsApiService: services.assistantAppsApiService,
+    })
+);

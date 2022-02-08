@@ -6,33 +6,37 @@ import { TranslationSubmissionViewModel } from '../../contracts/generated/ViewMo
 import { TranslationSubmissionWithVotesViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
 import { TranslationReportViewModel } from '../../contracts/generated/ViewModel/Translation/translationReportViewModel';
 import { Result } from '../../contracts/results/ResultWithValue';
-import { ApiService } from '../../services/ApiService';
 import { StorageService } from '../../services/StorageService';
 import { TranslationVotePresenter } from './translationVotePresenter';
+import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
+import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
 
-interface IState {
-    status: NetworkState;
-    translation: string;
-    apiService: ApiService;
-    showOwnSubmissionTextBox: boolean;
-    voteOptions: Array<TranslationSubmissionWithVotesViewModel>;
-    storageServ: StorageService;
+interface IWithDepInj {
+    assistantAppsApiService: AssistantAppsApiService;
 }
-
-interface IProps {
+interface IWithoutDepInj {
     userGuid: string;
     languageGuid: string;
     currentTranslation: TranslationKeyViewModel;
 }
 
-export class TranslationVoteContainer extends React.Component<IProps, IState> {
+interface IProps extends IWithDepInj, IWithoutDepInj { }
+
+interface IState {
+    status: NetworkState;
+    translation: string;
+    showOwnSubmissionTextBox: boolean;
+    voteOptions: Array<TranslationSubmissionWithVotesViewModel>;
+    storageServ: StorageService;
+}
+
+export class TranslationVoteContainerUnconnected extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
 
         this.state = {
             status: NetworkState.Success,
             translation: '',
-            apiService: new ApiService(),
             showOwnSubmissionTextBox: false,
             voteOptions: [],
             storageServ: new StorageService(),
@@ -66,7 +70,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
             }
         });
 
-        var translationVotesResult = await this.state.apiService.getSubmittedTranslations(this.props.currentTranslation.guid, this.props.languageGuid);
+        var translationVotesResult = await this.props.assistantAppsApiService.getSubmittedTranslations(this.props.currentTranslation.guid, this.props.languageGuid);
         if (!translationVotesResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -84,7 +88,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
     }
 
     setTranslation = async (translationGuid: string) => {
-        await this.translationApiCall(() => this.state.apiService.selectTranslationVote({
+        await this.translationApiCall(() => this.props.assistantAppsApiService.selectTranslationVote({
             guid: this.props.userGuid,
             translationGuid: translationGuid,
             userGuid: this.props.userGuid,
@@ -92,7 +96,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
     }
 
     deleteTranslation = async (translationGuid: string) => {
-        await this.translationApiCall(() => this.state.apiService.deleteTranslation(translationGuid));
+        await this.translationApiCall(() => this.props.assistantAppsApiService.deleteTranslation(translationGuid));
     }
 
     translationApiCall = async (apiFunc: () => Promise<Result>) => {
@@ -137,7 +141,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
             languageGuid: this.props.languageGuid,
             text: this.state.translation,
         }
-        var transResult = await this.state.apiService.submitTranslation(voteObj);
+        var transResult = await this.props.assistantAppsApiService.submitTranslation(voteObj);
         if (!transResult.isSuccess) {
             if (transResult.statusCode != null && transResult.statusCode === 409) {
                 Swal.fire({
@@ -206,7 +210,7 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
             languageGuid: this.props.languageGuid,
             additionalMessage: additionalText as string,
         }
-        var reportResult = await this.state.apiService.reportTranslation(reportObj);
+        var reportResult = await this.props.assistantAppsApiService.reportTranslation(reportObj);
         if (!reportResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -246,3 +250,11 @@ export class TranslationVoteContainer extends React.Component<IProps, IState> {
         );
     }
 };
+
+
+export const TranslationVoteContainer = withServices<IWithoutDepInj, IWithDepInj>(
+    TranslationVoteContainerUnconnected,
+    (services: IDependencyInjection) => ({
+        assistantAppsApiService: services.assistantAppsApiService,
+    })
+);

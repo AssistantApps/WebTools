@@ -9,6 +9,8 @@ import * as route from './constants/route';
 import { HomePresenter } from './pages/home/homePresenter';
 import { TranslationContainer } from './pages/translation/translationContainer';
 import { StatisticsPresenter } from './pages/stats/statsPresenter';
+import { GuideListPage } from './pages/guide/guideListPage';
+import { CreateGuidePage } from './pages/guide/createGuidePage';
 import { NotFoundPresenter } from './pages/notFoundPresenter';
 import { StateSettingReducer } from './redux/state/StateSettingReducer';
 import { Loading } from './components/common/loading';
@@ -29,6 +31,9 @@ const AppUnconnected: React.FC<any> = (props: IProps) => {
 					<Route path={route.translation} component={TranslationContainer} />
 					<Route path={route.translationAlt} component={TranslationContainer} />
 					<Route path={route.stats} component={StatisticsPresenter} />
+					<Route path={route.guides} component={GuideListPage} />
+					<Route path={route.createGuide} component={CreateGuidePage} />
+					<Route path={route.editGuide} component={CreateGuidePage} />
 					<Route component={NotFoundPresenter} />
 				</Switch>
 			</ScrollToTop>

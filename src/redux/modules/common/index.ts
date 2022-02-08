@@ -1,6 +1,5 @@
 import * as type from './type'
 import { StateCommonReducer } from '../../state/StateCommonReducer';
-import moment from 'moment';
 
 export const initialCommonState: StateCommonReducer = {
     isLoading: false,
@@ -23,7 +22,7 @@ export const commonReducer = (state = initialCommonState, action: any) => {
                 userGuid: action.userGuid,
                 userName: action.userName,
                 userProfileUrl: action.userProfileUrl,
-                userDetailsExpiryDate: moment().add(action.secondsTillExpire, 'seconds'),
+                userDetailsExpiryDate: action.userDetailsExpiryDate,
             });
         case type.LOGOUT:
             return Object.assign({}, state, {

@@ -3,31 +3,33 @@ import Lightbox from 'react-image-lightbox';
 import { Segment } from 'semantic-ui-react';
 import { NetworkState } from '../../constants/networkState';
 import { TranslationImageViewModel } from '../../contracts/generated/ViewModel/Translation/translationImageViewModel';
-import { ApiService } from '../../services/ApiService';
+import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
+import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
 import { SmallLoading } from '../common/loading';
 
-import './translationImages.scss';
+interface IWithDepInj {
+    assistantAppsApiService: AssistantAppsApiService;
+}
+interface IWithoutDepInj {
+    translationKeyGuid: string;
+    userGuid: string;
+}
+
+interface IProps extends IWithDepInj, IWithoutDepInj { }
 
 interface IState {
     status: NetworkState;
-    apiService: ApiService;
     images: Array<TranslationImageViewModel>;
     photoIndex: number,
     isOpen: boolean,
 }
 
-interface IProps {
-    translationKeyGuid: string;
-    userGuid: string;
-}
-
-export class TranslationImages extends React.Component<IProps, IState> {
+export class TranslationImagesUnconnected extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
 
         this.state = {
             status: NetworkState.Loading,
-            apiService: new ApiService(),
             images: [],
             photoIndex: 0,
             isOpen: false,
@@ -56,7 +58,7 @@ export class TranslationImages extends React.Component<IProps, IState> {
             return;
         }
 
-        var imagesResult = await this.state.apiService.getTranslationImages(this.props.translationKeyGuid);
+        var imagesResult = await this.props.assistantAppsApiService.getTranslationImages(this.props.translationKeyGuid);
         if (!imagesResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -141,3 +143,10 @@ export class TranslationImages extends React.Component<IProps, IState> {
         );
     }
 };
+
+export const TranslationImages = withServices<IWithoutDepInj, IWithDepInj>(
+    TranslationImagesUnconnected,
+    (services: IDependencyInjection) => ({
+        assistantAppsApiService: services.assistantAppsApiService,
+    })
+);

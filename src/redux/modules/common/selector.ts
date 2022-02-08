@@ -1,4 +1,4 @@
-import moment from "moment";
+import { isInThePast } from "../../../helper/dateHelper";
 import State from "../../state";
 
 export const getIsLoading = (state: State): boolean =>
@@ -25,6 +25,7 @@ export const getUserName = (state: State): string => {
 export const getIsExpiredUserDetailsDate = (state: State): boolean => {
     const value = state?.commonReducer?.userDetailsExpiryDate;
     if (value == null) return true;
-    if (moment().isAfter(value)) return true;
+    if (isInThePast(value)) return true;
+
     return false;
 }

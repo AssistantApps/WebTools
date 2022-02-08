@@ -1,23 +1,19 @@
-import React from 'react';
 import classNames from 'classnames';
-import { Pagination, PaginationProps, Icon } from 'semantic-ui-react';
-
+import React from 'react';
+import { Icon, Pagination, PaginationProps } from 'semantic-ui-react';
 import { SmallBanner } from '../../components/common/banner/banner';
+import { ConditionalToolTip } from '../../components/common/conditionalTooltip';
 import { DropDown } from '../../components/common/dropDown/dropDown';
 import { Error } from '../../components/common/error';
 import { Loading } from '../../components/common/loading';
-import { ConditionalToolTip } from '../../components/common/conditionalTooltip';
-import { MainTranslationPanel } from './translationComponents';
+import { LoginRequired } from '../../components/common/loginRequired';
 import { TranslationSearch } from '../../components/translationSearch/translationSearch';
-
-import { NetworkState } from '../../constants/networkState';
-
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
 import { TranslationVoteContainer } from '../../components/translationVote/translationVoteContainer';
+import { NetworkState } from '../../constants/networkState';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
-
-import { TranslationLogInPresenter } from './translationLogInPresenter';
+import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
+import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
+import { MainTranslationPanel } from './translationComponents';
 
 interface IProps {
     status: NetworkState;
@@ -47,15 +43,15 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
     if (props.status === NetworkState.Error) return <Error message="Something went wrong" />;
     if (props.status === NetworkState.Loading) return <Loading />;
 
-    var isNotLoggedIn = props.userGuid == null || props.userGuid.length < 1;
-    var translationButtonsDisabled = props.selectedApps == null || props.selectedApps.length < 1 ||
+    const isNotLoggedIn = props.userGuid == null || props.userGuid.length < 1;
+    const translationButtonsDisabled = props.selectedApps == null || props.selectedApps.length < 1 ||
         props.selectedLanguage == null || props.selectedLanguage.length < 1 || isNotLoggedIn;
-    var showPagination = props.translationKeys != null && props.translationKeys.length > 0
+    const showPagination = props.translationKeys != null && props.translationKeys.length > 0
         && props.translationKeyStatus === NetworkState.Success;
 
-    var currentTranslation = props.translationKeys[props.translationKeyIndex];
+    const currentTranslation = props.translationKeys[props.translationKeyIndex];
 
-    var paginationComp = (<div></div>);
+    let paginationComp = (<div></div>);
     if (showPagination) {
         paginationComp = (
             <div className="container" style={{ textAlign: 'center', overflowX: 'auto' }}>
@@ -72,7 +68,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                     prevItem={{ content: <Icon name="angle left" />, icon: true }}
                     nextItem={{ content: <Icon name="angle right" />, icon: true }}
                     onPageChange={(event: any, pageData: PaginationProps) => {
-                        var newIndex: any = pageData.activePage;
+                        const newIndex: any = pageData.activePage;
                         props.setTranslationIndex(newIndex - 1);
                     }}
                 />
@@ -80,30 +76,29 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
         );
     }
 
+    const banner = (
+        <SmallBanner
+            title="Translation"
+            descrip="Translation tool for the Assistant Apps"
+        />
+    );
+
     if (isNotLoggedIn) {
         return (
             <>
-                <SmallBanner
-                    title="Translation"
-                    descrip="Translation tool for the Assistant Apps"
-                />
-
+                {banner}
                 <div className="container">
                     <div className="row full pt3 pb3">
-                        <TranslationLogInPresenter />
+                        <LoginRequired />
                     </div>
                 </div>
             </>
         );
     }
-
+    console.log(props.appDropDowns)
     return (
         <>
-            <SmallBanner
-                title="Translation"
-                descrip="Translation tool for the Assistant Apps"
-            />
-
+            {banner}
             <div className="container">
                 <div className="row full pt3 pb1">
                     <div className="col-12 col-md-6">

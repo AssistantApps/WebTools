@@ -3,6 +3,10 @@
 @import "buttons";
 @import "dropdown";
 @import "home";
+@import "guide";
+@import "screenshotSlider";
+@import "translationImages";
+@import "numberOfTranslationsPerLanguage";
 
 .ui.modal {
     position: relative !important;
@@ -93,6 +97,31 @@
     text-align: center;
 }
 
+img.error {
+    max-width: 500px;
+}
+
+.row.justify {
+    justify-content: center;
+}
+
+.ui.form .react-tag-input>.react-tag-input__input {
+    width: auto;
+    padding: 0 0.5em;
+    margin: 0.25em 0.5em;
+    border: none;
+}
+
+.footer-area {
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+}
+
+.ReactModal__Overlay {
+    z-index: 101;
+}
 
 .col-sm-pt1 {
     @media (max-width:768px) {

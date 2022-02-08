@@ -1,21 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
 import { NetworkState } from '../../constants/networkState';
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
+import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { TranslationSearchViewModel } from '../../contracts/generated/ViewModel/Translation/translationSearchViewModel';
-
-import { mapDispatchToProps, mapStateToProps } from './translation.redux';
+import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
 import { languageDetailsToLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
-
+import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
+import { mapDispatchToProps, mapStateToProps } from './translation.redux';
 import { TranslationPresenter } from './translationPresenter';
 
-import { ApiService } from '../../services/ApiService';
-import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
+interface IWithDepInj {
+    assistantAppsApiService: AssistantAppsApiService;
+}
+interface IWithoutDepInj {
+    location: any;
+    match: any;
+    history: any;
+    userGuid: string;
+}
+
+interface IProps extends IWithDepInj, IWithoutDepInj { }
 
 interface IState {
     status: NetworkState;
@@ -25,8 +34,6 @@ interface IState {
     langDetails: Array<LanguageViewModel>;
     submissionStatus: NetworkState;
 
-    apiService: ApiService;
-
     selectedApps: Array<string>;
     selectedLanguage: string;
 
@@ -35,13 +42,6 @@ interface IState {
     translationKeyStatus: NetworkState;
     translationKeyDropdown: Array<TranslationKeySearchDropdownViewModel>;
     translationKeyDropdownStatus: NetworkState;
-}
-
-interface IProps {
-    location: any;
-    match: any;
-    history: any;
-    userGuid: string;
 }
 
 export class TranslationContainerUnconnected extends React.Component<IProps, IState> {
@@ -55,7 +55,6 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
             langStatus: NetworkState.Loading,
             langDetails: [],
             submissionStatus: NetworkState.Success,
-            apiService: new ApiService(),
             selectedApps: [],
             selectedLanguage: '',
             translationKeys: [],
@@ -72,7 +71,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
     }
 
     fetchAppData = async () => {
-        var appsResult = await this.state.apiService.getApps();
+        var appsResult = await this.props.assistantAppsApiService.getApps();
         if (!appsResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -90,7 +89,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
     }
 
     fetchLanguageData = async () => {
-        var langResult = await this.state.apiService.getLanguages();
+        var langResult = await this.props.assistantAppsApiService.getLanguages();
         if (!langResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -118,7 +117,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
             languageGuid: this.state.selectedLanguage,
             showOnlyUntranslated: onlyUntranslated,
         }
-        var transKeyResult = await this.state.apiService.getTranslationKeys(searchObj);
+        var transKeyResult = await this.props.assistantAppsApiService.getTranslationKeys(searchObj);
         if (!transKeyResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -147,7 +146,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
             languageGuid: this.state.selectedLanguage,
             showOnlyUntranslated: onlyUntranslated,
         }
-        var transKeySearchDropDownResult = await this.state.apiService.getTranslationKeysSearchDropdown(searchObj);
+        var transKeySearchDropDownResult = await this.props.assistantAppsApiService.getTranslationKeysSearchDropdown(searchObj);
         if (!transKeySearchDropDownResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -191,4 +190,9 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
     }
 };
 
-export const TranslationContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(TranslationContainerUnconnected));
+export const TranslationContainer = withServices<IWithoutDepInj, IWithDepInj>(
+    connect(mapStateToProps, mapDispatchToProps)(withRouter(TranslationContainerUnconnected)),
+    (services: IDependencyInjection) => ({
+        assistantAppsApiService: services.assistantAppsApiService,
+    })
+);

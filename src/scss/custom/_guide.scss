@@ -1,0 +1,54 @@
+.card.guide {
+    .card-body {
+        h3 {
+            text-align: center;
+        }
+    }
+}
+
+.guide-add-item {
+    cursor: pointer;
+
+    .ui.card>.image>img {
+        max-width: 100px;
+        margin: 0 auto;
+        padding: 0.25em
+    }
+
+    .content .header {
+        text-align: center;
+    }
+}
+
+.guide-item {
+    .card-header {
+        border-bottom: none;
+    }
+}
+
+.action-buttons {
+    position: absolute;
+    top: 0.3em;
+    right: 1.25rem;
+}
+
+// .card-header .ui.floating.label {
+//     margin: 0 0 0 -1em !important;
+//     display: flex;
+
+//     span {
+//         flex-grow: 2;
+//     }
+
+//     &:nth-child(2) {
+//         top: 0.25em;
+//     }
+
+//     &:nth-child(3) {
+//         top: 2.75em;
+//     }
+
+//     &:nth-child(4) {
+//         top: 5.25em;
+//     }
+// }

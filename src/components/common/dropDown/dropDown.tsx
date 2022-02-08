@@ -7,7 +7,8 @@ interface IProps {
     placeholder: string;
     multiple?: boolean;
     isLoading?: boolean;
-    value?: Array<string>;
+    value?: string | Array<string>;
+    defaultValue?: string | Array<string>;
     options: Array<any>;
     onChange: (key: string) => void
 }
@@ -21,12 +22,14 @@ export const DropDown: React.FC<IProps> = (props: IProps) => {
         }
     };
 
-    const defaultValue: any = props.value || undefined;
+    const value: any = props.value || undefined;
+    const defaultValue: any = props.defaultValue || undefined;
     return (
         <Dropdown
             placeholder={props.placeholder || 'Please Select'}
             fluid
             selection
+            value={value}
             defaultValue={defaultValue}
             multiple={props.multiple || false}
             loading={props.isLoading || false}

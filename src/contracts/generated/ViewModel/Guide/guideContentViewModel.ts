@@ -11,6 +11,7 @@ export interface GuideContentViewModel {
     showCreatedByUser: boolean;
     userGuid: any;
     userName: string;
+    appGuid: string;
     languageCode: string;
     minutes: number;
     tags: any[];
