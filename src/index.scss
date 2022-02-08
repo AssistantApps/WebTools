@@ -1,4 +1,4 @@
-@import './scss/favison.scss';
+@import "./scss/favison.scss";
 
 // #assistantApp {
 //     min-height: 100vh;
@@ -7,6 +7,13 @@
 body {
     overflow-x: unset !important;
     min-width: unset !important;
+
+    h1 {
+        font-size: 2rem;
+    }
+    .navbar h2 {
+        font-size: 1.71428571rem;
+    }
 }
 
 // body {

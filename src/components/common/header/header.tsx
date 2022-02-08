@@ -41,7 +41,7 @@ export class Header extends React.Component<IProps, IState> {
 		return (
 			<header className="header_area navbar_fixed">
 				<div className="main_menu">
-					<nav className="navbar navbar-expand-lg navbar-light">
+					<nav className="navbar navbar-expand-lg navbar-light noselect">
 						<div className="container">
 							<a className="navbar-brand logo_h" href="/">
 								<img src="/assets/img/logo-sm.png" alt="logo" style={{ height: '100%' }} />

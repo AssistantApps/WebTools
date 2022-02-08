@@ -10,7 +10,6 @@ import { TranslationGetGraphViewModel } from '../../contracts/generated/ViewMode
 import { TranslationImageViewModel } from '../../contracts/generated/ViewModel/Translation/translationImageViewModel';
 import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { TranslationReportViewModel } from '../../contracts/generated/ViewModel/Translation/translationReportViewModel';
 import { TranslationSearchViewModel } from '../../contracts/generated/ViewModel/Translation/translationSearchViewModel';
 import { TranslationsPerLanguageGraphViewModel } from '../../contracts/generated/ViewModel/Translation/translationsPerLanguageGraphViewModel';
 import { TranslationSubmissionViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
@@ -23,6 +22,8 @@ import { BaseApiService } from './../BaseApiService';
 import { StorageService } from './../StorageService';
 import { AddGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addGuideViewModel';
 import { GuideContentViewModel } from '../../contracts/generated/ViewModel/Guide/guideContentViewModel';
+import { TranslatorLeaderboardItemViewModel } from '../../contracts/generated/ViewModel/Translation/translatorLeaderboardItemViewModel';
+import { TranslationReportAddViewModel } from '../../contracts/generated/ViewModel/Translation/translationReportAddViewModel';
 
 export class AssistantAppsApiService extends BaseApiService {
     // Base
@@ -56,11 +57,14 @@ export class AssistantAppsApiService extends BaseApiService {
     selectTranslationVote = (data: TranslationVoteViewModel): Promise<Result> =>
         this.post(apiEndpoints.translationVotes, data);
 
-    reportTranslation = (data: TranslationReportViewModel): Promise<Result> =>
+    reportTranslation = (data: TranslationReportAddViewModel): Promise<Result> =>
         this.post(apiEndpoints.translationReports, data);
 
     getTranslationsPerLangGraphData = (data: TranslationGetGraphViewModel): Promise<ResultWithValue<Array<TranslationsPerLanguageGraphViewModel>>> =>
         this.post(apiEndpoints.translationsPerLangGraph, data);
+
+    getTranslators = (data: any): Promise<ResultWithValue<Array<TranslatorLeaderboardItemViewModel>>> =>
+        this.post(apiEndpoints.translatorLeaderboard, data);
 
 
     // Guides
