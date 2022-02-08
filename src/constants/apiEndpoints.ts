@@ -5,8 +5,9 @@ export const translationKeySearch = 'translationKey/Search';
 export const translationKeySearchDropdown = 'translationKey/SearchDropdown';
 export const translationKeyImages = 'translationImage';
 export const translationVotes = 'translationvote';
-export const translationReports = 'translation/Report';
+export const translationReports = 'translationReport';
 export const translationsPerLangGraph = 'translation/Graph/TranslationsPerLanguage';
+export const translatorLeaderboard = 'translationStats/TranslatorLeaderboard';
 export const authUrl = 'Account/Login';
 
 export const guideParam = {

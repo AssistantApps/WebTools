@@ -3,7 +3,7 @@
 import { CoinbaseEventType } from "./../Enum/coinbaseEventType";
 
 export interface CoinbaseChargeDto {
-    userGuid: any;
+    userGuid: string;
     type: CoinbaseEventType;
     hostedUrl: string;
     expiresAt: any;
