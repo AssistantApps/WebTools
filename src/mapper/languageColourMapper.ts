@@ -10,6 +10,10 @@ const languageColourMap: any = {
     'tr': '#d80027',
     'id': '#A2001D',
     'hu': '#6DA544',
+    'cs': '#0052B4',
+    'zh-hans': '#D80027',
+    'ms': '#0052B4',
+    'nl': '#F79400',
 };
 
 export const getColourFromLanguageCode = (langCode: string) => {

@@ -47,11 +47,11 @@ export const TranslatorLeaderboardUnconnected: React.FC<IProps> = (props: IProps
                 {
                     (translators ?? []).map((translator, index: number) => (
                         <div key={`${translator.username}-${translator.total}`} className="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-20 translator-card">
-                            <div className="num noselect"><h2><small>#</small>{index + 1}</h2></div>
+                            <div className="num noselect"><h3><small>#</small>{index + 1}</h3></div>
                             <div className="translator">
                                 <Image src={translator.profileImageUrl} size='tiny' className="noselect" />
                                 <List.Content className="content">
-                                    <List.Header as='h2'>{translator.username}</List.Header>
+                                    <List.Header as='h2' className="name">{translator.username}</List.Header>
                                     <List.Description as='h3'>{translator.total} points</List.Description>
                                 </List.Content>
                             </div>
