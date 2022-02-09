@@ -10,8 +10,8 @@ interface IUserGuideTileProps {
 }
 export const UserGuideTile: React.FC<IUserGuideTileProps> = (props: IUserGuideTileProps) => {
     return (
-        <div className="col-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 pointer" onClick={props.onClick}>
-            <Card>
+        <div className="col-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <Card className="pointer" onClick={props.onClick}>
                 {/* <Image src={props.} wrapped ui={false} /> */}
                 <Card.Content>
                     <Card.Header>{props.item.title}</Card.Header>
