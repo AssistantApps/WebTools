@@ -136,7 +136,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
         setAddGuideObj({
             ...addGuideObj,
             [prop]: value,
-            updatedGuideDetails: addGuideObj.updatedGuideDetails == true ? true : updatedGuideDetails,
+            updatedGuideDetails: addGuideObj.updatedGuideDetails === true ? true : updatedGuideDetails,
         });
     }
 
