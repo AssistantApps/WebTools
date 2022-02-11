@@ -20,5 +20,5 @@ export const guide = {
     getGuideById: `GuideContent/${guideParam.getGuideById}`,
     submitGuide: 'GuideDetail',
     editGuide: `GuideDetail/${guideParam.editGuide}`,
-    deleteGuide: `GuideDetail/${guideParam.deleteGuide}`,
+    deleteGuide: `GuideContent/${guideParam.deleteGuide}`,
 }

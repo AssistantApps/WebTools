@@ -16,7 +16,7 @@ import { NetworkState } from '../../constants/networkState';
 import { guides } from '../../constants/route';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
 import { GuideSectionItemType } from '../../contracts/generated/Enum/guideSectionItemType';
-import { AddGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addGuideViewModel';
+import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addOrEditGuideViewModel';
 import { GuideSectionItemViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionItemViewModel';
 import { GuideSectionViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionViewModel';
 import { errorDialog, getStringDialog, successDialog } from '../../helper/dialogHelper';
@@ -51,7 +51,7 @@ export const TranslateGuidePageUnconnected: React.FC<IProps> = (props: IProps) =
 
     // Create specific
     const [submissionStatus, setSubmissionStatus] = useState<NetworkState>(NetworkState.Pending);
-    const [addGuideObj, setAddGuideObj] = useState<AddGuideViewModel>({
+    const [addGuideObj, setAddGuideObj] = useState<AddOrEditGuideViewModel>({
         appGuid: '',
         languageCode: '',
 
@@ -61,6 +61,7 @@ export const TranslateGuidePageUnconnected: React.FC<IProps> = (props: IProps) =
         tags: [],
         sections: [],
         showCreatedByUser: true,
+        updatedGuideDetails: false,
     });
 
     const isNotLoggedIn = props.userGuid == null || props.userGuid.length < 1;
@@ -249,6 +250,7 @@ export const TranslateGuidePageUnconnected: React.FC<IProps> = (props: IProps) =
                             <ActionButtons
                                 index={index}
                                 additionalClassName="pt1"
+                                itemSpecificName="section"
                                 totalLength={orderedSections.length}
                                 saveItem={editSectionDetails(section.guid)}
                                 moveItem={(_) => { }}

@@ -1,4 +1,7 @@
 .card.guide {
+    .content .header {
+        position: relative;
+    }
     .card-body {
         h3 {
             text-align: center;
@@ -9,10 +12,10 @@
 .guide-add-item {
     cursor: pointer;
 
-    .ui.card>.image>img {
+    .ui.card > .image > img {
         max-width: 100px;
         margin: 0 auto;
-        padding: 0.25em
+        padding: 0.25em;
     }
 
     .content .header {

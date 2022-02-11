@@ -1,6 +1,6 @@
 ﻿/* Auto Generated */
 
-export interface AddGuideViewModel {
+export interface AddOrEditGuideViewModel {
     appGuid: string;
     title: string;
     subTitle: string;
@@ -9,4 +9,5 @@ export interface AddGuideViewModel {
     minutes: number;
     tags: any[];
     sections: any[];
+    updatedGuideDetails: boolean;
 }

@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Card, Icon, Label } from 'semantic-ui-react';
+import { AdminApprovalStatus } from '../../contracts/generated/Enum/adminApprovalStatus';
 import { GuideSearchResultViewModel } from '../../contracts/generated/ViewModel/Guide/guideSearchResultViewModel';
 import { friendlyDate } from '../../helper/dateHelper';
 
@@ -9,19 +10,29 @@ interface IUserGuideTileProps {
     onClick?: () => void;
 }
 export const UserGuideTile: React.FC<IUserGuideTileProps> = (props: IUserGuideTileProps) => {
+    const deleteClick = (e: any) => {
+        e?.preventDefault?.();
+        props?.onDeleteClick?.();
+    }
     return (
         <div className="col-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <Card className="pointer" onClick={props.onClick}>
+            <Card className="guide">
                 {/* <Image src={props.} wrapped ui={false} /> */}
-                <Card.Content>
-                    <Card.Header>{props.item.title}</Card.Header>
+                <Card.Content className="pointer pos-rel" onClick={props.onClick}>
+                    <Card.Header>
+                        {props.item.title}
+                        <Icon name="pencil" className="pos-abs top-right" />
+                    </Card.Header>
                     <Card.Meta>{friendlyDate(props.item.dateCreated)}</Card.Meta>
                     <Card.Description><b>Subtitle: </b>{props.item.subTitle}</Card.Description>
                     <Card.Description><b>Tags: </b>{props.item.tags.join(', ')}</Card.Description>
                 </Card.Content>
-                <Card.Content extra>Status: {props.item.status}</Card.Content>
+                <Card.Content className="pointer" extra onClick={props.onClick}>
+                    <Card.Description><b>Version: </b>{props.item.version}</Card.Description>
+                    <Card.Description><b>Status: </b>{AdminApprovalStatus[props.item.status].toString()}</Card.Description>
+                </Card.Content>
                 <Card.Content extra>
-                    <Label color='red' className="pointer" onClick={props.onDeleteClick}>
+                    <Label color='red' className="pointer" onClick={deleteClick}>
                         <Icon name="trash" />Delete
                     </Label>
                 </Card.Content>
@@ -54,8 +65,8 @@ interface IBaseUserGuideTileProps {
 }
 const BaseUserGuideTile: React.FC<IBaseUserGuideTileProps> = (props: IBaseUserGuideTileProps) => {
     return (
-        <div className="pointer col-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12" onClick={props.onClick}>
-            <div className="card guide">
+        <div className="col-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div className="card guide pointer" onClick={props.onClick}>
                 <div className="card-header">
                     {props.headerContent}
                 </div>

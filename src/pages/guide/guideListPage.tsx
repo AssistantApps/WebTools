@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { SmallBanner } from '../../components/common/banner/banner';
 import { Error } from '../../components/common/error';
-import { Loading } from '../../components/common/loading';
+import { Loading, SmallLoading } from '../../components/common/loading';
 import { LoginRequired } from '../../components/common/loginRequired';
 import { CreateUserGuideTile, UserGuideTile } from '../../components/guide/userGuideTile';
 import { NetworkState } from '../../constants/networkState';
@@ -76,6 +76,7 @@ export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
 
     const renderPageContent = () => {
         if (fetchStatus === NetworkState.Error) return <Error message="Something went wrong" />;
+        if (fetchStatus === NetworkState.Loading) return <SmallLoading />;
 
         return (
             <>
@@ -87,7 +88,7 @@ export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
                             onDeleteClick={async () => {
                                 setFetchStatus(NetworkState.Loading);
                                 await props.assistantAppsApiService.deleteGuide(guide.guid);
-                                setFetchStatus(NetworkState.Success);
+                                fetchUserGuides();
                             }}
                             onClick={() => {
                                 history.push(

@@ -20,6 +20,15 @@
     cursor: pointer;
 }
 
+.pos-abs {
+    position: absolute;
+}
+
+.top-right {
+    top: 0;
+    right: 0;
+}
+
 .notAllowed,
 .notAllowed.ui.icon.button {
     cursor: not-allowed;
@@ -105,7 +114,7 @@ img.error {
     justify-content: center;
 }
 
-.ui.form .react-tag-input>.react-tag-input__input {
+.ui.form .react-tag-input > .react-tag-input__input {
     width: auto;
     padding: 0 0.5em;
     margin: 0.25em 0.5em;
@@ -215,12 +224,14 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
     background-color: #2a2f4a;
-    background-image: -webkit-linear-gradient(45deg,
-            rgba(255, 255, 255, 0.2) 25%,
-            transparent 25%,
-            transparent 50%,
-            rgba(255, 255, 255, 0.2) 50%,
-            rgba(255, 255, 255, 0.2) 75%,
-            transparent 75%,
-            transparent);
+    background-image: -webkit-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.2) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.2) 75%,
+        transparent 75%,
+        transparent
+    );
 }

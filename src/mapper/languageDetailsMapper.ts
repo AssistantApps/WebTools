@@ -14,3 +14,16 @@ export const languageDetailsToLanguageDropDownMapper = (appDetails: Array<Langua
             };
         });
 }
+
+export const languageDetailsToGuideLanguageDropDownMapper = (appDetails: Array<LanguageViewModel>): Array<DropDownWithIcon> => {
+
+    return appDetails.filter((item: LanguageViewModel) => item.isVisible)
+        .map((item: LanguageViewModel) => {
+            return {
+                key: item.guid,
+                text: item.name,
+                value: item.languageCode,
+                image: { src: getImageUrlFromCountryCode(item.countryCode) },
+            };
+        });
+}

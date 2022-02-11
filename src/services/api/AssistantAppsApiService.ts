@@ -20,7 +20,7 @@ import { PaginationWithValue } from '../../contracts/pagination/paginationWithVa
 import { Result, ResultWithValue } from '../../contracts/results/ResultWithValue';
 import { BaseApiService } from './../BaseApiService';
 import { StorageService } from './../StorageService';
-import { AddGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addGuideViewModel';
+import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addOrEditGuideViewModel';
 import { GuideContentViewModel } from '../../contracts/generated/ViewModel/Guide/guideContentViewModel';
 import { TranslatorLeaderboardItemViewModel } from '../../contracts/generated/ViewModel/Translation/translatorLeaderboardItemViewModel';
 import { TranslationReportAddViewModel } from '../../contracts/generated/ViewModel/Translation/translationReportAddViewModel';
@@ -72,9 +72,9 @@ export class AssistantAppsApiService extends BaseApiService {
         this.post(apiEndpoints.guide.getForCurrentUser, search);
     getGuidesById = (id: string): Promise<ResultWithValue<GuideContentViewModel>> =>
         this.get(apiEndpoints.guide.getGuideById.replace(apiEndpoints.guideParam.getGuideById, id));
-    submitGuide = (newGuide: AddGuideViewModel): Promise<Result> =>
+    submitGuide = (newGuide: AddOrEditGuideViewModel): Promise<Result> =>
         this.post(apiEndpoints.guide.submitGuide, newGuide);
-    editGuide = (guid: string, edittedGuide: AddGuideViewModel): Promise<Result> =>
+    editGuide = (guid: string, edittedGuide: AddOrEditGuideViewModel): Promise<Result> =>
         this.post(apiEndpoints.guide.editGuide.replace(apiEndpoints.guideParam.editGuide, guid), edittedGuide);
     deleteGuide = (guid: string): Promise<Result> =>
         this.delete(apiEndpoints.guide.deleteGuide.replace(apiEndpoints.guideParam.deleteGuide, guid));

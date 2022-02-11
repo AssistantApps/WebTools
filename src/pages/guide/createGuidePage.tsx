@@ -17,14 +17,14 @@ import { NetworkState } from '../../constants/networkState';
 import { guides } from '../../constants/route';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
 import { GuideSectionItemType } from '../../contracts/generated/Enum/guideSectionItemType';
-import { AddGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addGuideViewModel';
+import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addOrEditGuideViewModel';
 import { GuideSectionItemViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionItemViewModel';
 import { GuideSectionViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionViewModel';
 import { errorDialog, getStringDialog, successDialog } from '../../helper/dialogHelper';
 import { newGuid } from '../../helper/guidHelper';
 import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
-import { languageDetailsToLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
+import { languageDetailsToGuideLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
 import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
 import { ActionButtons, SectionItem } from './guideComponents';
 import { mapStateToProps } from './guidListPage.Redux';
@@ -58,7 +58,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
 
     // Create specific
     const [submissionStatus, setSubmissionStatus] = useState<NetworkState>(isEditing ? NetworkState.Loading : NetworkState.Pending);
-    const [addGuideObj, setAddGuideObj] = useState<AddGuideViewModel>({
+    const [addGuideObj, setAddGuideObj] = useState<AddOrEditGuideViewModel>({
         appGuid: '',
         languageCode: '',
 
@@ -68,6 +68,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
         tags: [],
         sections: [],
         showCreatedByUser: true,
+        updatedGuideDetails: false
     });
 
     const isNotLoggedIn = props.userGuid == null || props.userGuid.length < 1;
@@ -98,7 +99,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
             setLangStatus(NetworkState.Error);
             return;
         }
-        setLangDropDowns(languageDetailsToLanguageDropDownMapper(langResult.value));
+        setLangDropDowns(languageDetailsToGuideLanguageDropDownMapper(langResult.value));
         setLangStatus(NetworkState.Success);
     }
 
@@ -125,14 +126,17 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
             tags: fetchGuide.value.tags,
             sections: fetchGuide.value.sections,
             showCreatedByUser: fetchGuide.value.showCreatedByUser,
+            updatedGuideDetails: false,
         });
         setSubmissionStatus(NetworkState.Success);
     }
 
     const setDetailProperty = (prop: string, value: any) => {
+        const updatedGuideDetails = prop.includes('appGuid');
         setAddGuideObj({
             ...addGuideObj,
             [prop]: value,
+            updatedGuideDetails: addGuideObj.updatedGuideDetails == true ? true : updatedGuideDetails,
         });
     }
 
@@ -464,6 +468,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
                             <ActionButtons
                                 index={index}
                                 additionalClassName="pt1"
+                                itemSpecificName="section"
                                 totalLength={orderedSections.length}
                                 saveItem={editSectionDetails(section.guid)}
                                 moveItem={moveSection(section.guid)}

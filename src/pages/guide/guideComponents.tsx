@@ -38,6 +38,7 @@ export const SectionItem: React.FC<ISectionItemProps> = (props: ISectionItemProp
 
                 <ActionButtons
                     index={props.index}
+                    itemSpecificName="item"
                     totalLength={props.totalLength}
                     saveItem={(name: string, value: string) => props.saveItem(props.item.guid, name, value)}
                     moveItem={(moveDown: boolean) => props.moveItem(props.item.guid, moveDown)}
@@ -51,6 +52,7 @@ export const SectionItem: React.FC<ISectionItemProps> = (props: ISectionItemProp
 interface IActionButtonsProps {
     index: number;
     totalLength: number;
+    itemSpecificName: string;
     additionalClassName?: string;
     saveItem: (name: string, value: string) => void;
     moveItem: (moveDown: boolean) => void;
@@ -62,18 +64,18 @@ export const ActionButtons: React.FC<IActionButtonsProps> = (props: IActionButto
             {
                 (props.index > 0) &&
                 <Label color='blue' className="pointer" onClick={() => props.moveItem(false)}>
-                    <Icon name="arrow up" />Move up
+                    <Icon name="arrow up" />Move {props.itemSpecificName} up
                 </Label>
             }
             {
                 (props.index < (props.totalLength - 1)) &&
                 <Label color='blue' className="pointer" onClick={() => props.moveItem(true)}>
-                    <Icon name="arrow down" />Move down
+                    <Icon name="arrow down" />Move {props.itemSpecificName} down
                 </Label>
             }
 
             <Label color='red' className="pointer" onClick={props.deleteItem}>
-                <Icon name="trash" />Delete
+                <Icon name="trash" />Delete {props.itemSpecificName}
             </Label>
         </div>
 
