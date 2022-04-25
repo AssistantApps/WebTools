@@ -23,6 +23,7 @@ import './index.scss';
 import 'react-image-lightbox/style.css';
 import 'semantic-ui-css/semantic.min.css';
 import "@pathofdev/react-tag-input/build/index.css";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 declare global {
   interface Window { config: any; registration: any }

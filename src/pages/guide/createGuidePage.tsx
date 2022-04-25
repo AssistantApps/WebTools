@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useParams } from "react-router-dom";
-import { Form, Icon, Input, InputOnChangeData, Popup } from 'semantic-ui-react';
+import { Form, Input, InputOnChangeData } from 'semantic-ui-react';
 import { SmallBanner } from '../../components/common/banner/banner';
 import { ConditionalToolTip } from '../../components/common/conditionalTooltip';
 import { DropDown } from '../../components/common/dropDown/dropDown';
@@ -26,7 +26,7 @@ import { IDependencyInjection, withServices } from '../../integration/dependency
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
 import { languageDetailsToGuideLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
 import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
-import { ActionButtons, SectionItem } from './guideComponents';
+import { CreateGuideSections } from './createGuideSections';
 import { mapStateToProps } from './guidListPage.Redux';
 
 interface IWithDepInj {
@@ -136,7 +136,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
         setAddGuideObj({
             ...addGuideObj,
             [prop]: value,
-            updatedGuideDetails: addGuideObj.updatedGuideDetails == true ? true : updatedGuideDetails,
+            updatedGuideDetails: addGuideObj.updatedGuideDetails === true ? true : updatedGuideDetails,
         });
     }
 
@@ -154,83 +154,6 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
             sections: [
                 ...addGuideObj.sections,
                 newSection,
-            ],
-        });
-    }
-
-    const editSectionHeading = (sectionId: string) => async () => {
-        if (sectionId == null || sectionId.length < 1) return;
-
-        const selectedItemIndex = addGuideObj.sections
-            .findIndex((sec: GuideSectionViewModel) => sec.guid === sectionId);
-        if (selectedItemIndex < 0) return;
-
-        const selectedItem: GuideSectionViewModel = addGuideObj.sections[selectedItemIndex];
-        if (selectedItem == null) return;
-
-        const newHeading = await getStringDialog('New Section heading', selectedItem.heading);
-        if (newHeading == null || newHeading.length < 1) return;
-
-        const editFunc = editSectionDetails(sectionId)
-        editFunc('heading', newHeading);
-    }
-
-    const editSectionDetails = (sectionId: string) => async (name: string, value: string) => {
-        if (sectionId == null || sectionId.length < 1) return;
-
-        const selectedSectionIndex = addGuideObj.sections
-            .findIndex((sec: GuideSectionViewModel) => sec.guid === sectionId);
-        if (selectedSectionIndex < 0) return;
-
-        const selectedSection: GuideSectionViewModel = addGuideObj.sections[selectedSectionIndex];
-        if (selectedSection == null) return;
-
-        setAddGuideObj({
-            ...addGuideObj,
-            sections: [
-                ...addGuideObj.sections.slice(0, selectedSectionIndex),
-                { ...selectedSection, [name]: value },
-                ...addGuideObj.sections.slice(selectedSectionIndex + 1)
-            ],
-        });
-    }
-
-    const moveSection = (sectionId: string) => (moveDown: boolean) => {
-        if (sectionId == null || sectionId.length < 1) return;
-
-        const selectedSectionIndex = addGuideObj.sections
-            .findIndex((sec: GuideSectionViewModel) => sec.guid === sectionId);
-        if (selectedSectionIndex < 0) return;
-
-        const swapIndex = moveDown ? (selectedSectionIndex + 1) : (selectedSectionIndex - 1);
-        const tempItems = [...addGuideObj.sections];
-        const tempItem = { ...tempItems[selectedSectionIndex] };
-        tempItems[selectedSectionIndex] = { ...tempItems[swapIndex], sortOrder: tempItem.sortOrder };
-        tempItems[swapIndex] = { ...tempItem, sortOrder: tempItems[swapIndex].sortOrder };
-
-        setAddGuideObj({
-            ...addGuideObj,
-            sections: [
-                ...tempItems,
-            ],
-        });
-    }
-
-    const deleteSection = (sectionId: string) => () => {
-        if (sectionId == null || sectionId.length < 1) return;
-
-        const selectedSectionIndex = addGuideObj.sections
-            .findIndex((sec: GuideSectionViewModel) => sec.guid === sectionId);
-        if (selectedSectionIndex < 0) return;
-
-        const selectedSection: GuideSectionViewModel = addGuideObj.sections[selectedSectionIndex];
-        if (selectedSection == null) return;
-
-        setAddGuideObj({
-            ...addGuideObj,
-            sections: [
-                ...addGuideObj.sections.slice(0, selectedSectionIndex),
-                ...addGuideObj.sections.slice(selectedSectionIndex + 1)
             ],
         });
     }
@@ -268,111 +191,6 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
         setSelectedSectionGuid(undefined);
     }
 
-    const editSectionItemDetails = (sectionId: string) => async (sectionItemId: string, name: string, value: string) => {
-        if (sectionId == null || sectionId.length < 1) return;
-        if (sectionItemId == null || sectionItemId.length < 1) return;
-
-        const selectedSectionIndex = addGuideObj.sections
-            .findIndex((sec: GuideSectionViewModel) => sec.guid === sectionId);
-        if (selectedSectionIndex < 0) return;
-
-        const selectedSection: GuideSectionViewModel = addGuideObj.sections[selectedSectionIndex];
-        if (selectedSection == null) return;
-
-        const selectedItemIndex = selectedSection.items
-            .findIndex((secItem: GuideSectionItemViewModel) => secItem.guid === sectionItemId);
-        if (selectedItemIndex < 0) return;
-
-        const selectedItem: GuideSectionItemViewModel = selectedSection.items[selectedItemIndex];
-        if (selectedItem == null) return;
-
-        setAddGuideObj({
-            ...addGuideObj,
-            sections: [
-                ...addGuideObj.sections.slice(0, selectedSectionIndex),
-                {
-                    ...selectedSection, items: [
-                        ...selectedSection.items.slice(0, selectedItemIndex),
-                        { ...selectedItem, [name]: value, isNew: false, },
-                        ...selectedSection.items.slice(selectedItemIndex + 1)
-                    ]
-                },
-                ...addGuideObj.sections.slice(selectedSectionIndex + 1)
-            ],
-        });
-    }
-
-    const moveSectionItem = (sectionId: string) => (sectionItemId: string, moveDown: boolean) => {
-        if (sectionId == null || sectionId.length < 1) return;
-        if (sectionItemId == null || sectionItemId.length < 1) return;
-
-        const selectedSectionIndex = addGuideObj.sections
-            .findIndex((sec: GuideSectionViewModel) => sec.guid === sectionId);
-        if (selectedSectionIndex < 0) return;
-
-        const selectedSection: GuideSectionViewModel = addGuideObj.sections[selectedSectionIndex];
-        if (selectedSection == null) return;
-
-        const selectedItemIndex = selectedSection.items
-            .findIndex((secItem: GuideSectionItemViewModel) => secItem.guid === sectionItemId);
-        if (selectedItemIndex < 0) return;
-
-        const selectedItem: GuideSectionItemViewModel = selectedSection.items[selectedItemIndex];
-        if (selectedItem == null) return;
-
-        const swapIndex = moveDown ? (selectedItemIndex + 1) : (selectedItemIndex - 1);
-        const tempItems = [...selectedSection.items];
-        const tempItem = { ...tempItems[selectedItemIndex] };
-        tempItems[selectedItemIndex] = { ...tempItems[swapIndex], sortOrder: tempItem.sortOrder };
-        tempItems[swapIndex] = { ...tempItem, sortOrder: tempItems[swapIndex].sortOrder };
-
-        setAddGuideObj({
-            ...addGuideObj,
-            sections: [
-                ...addGuideObj.sections.slice(0, selectedSectionIndex),
-                {
-                    ...selectedSection, items: [
-                        ...tempItems
-                    ]
-                },
-                ...addGuideObj.sections.slice(selectedSectionIndex + 1)
-            ],
-        });
-    }
-
-    const deleteSectionItem = (sectionId: string) => (sectionItemId: string) => {
-        if (sectionId == null || sectionId.length < 1) return;
-        if (sectionItemId == null || sectionItemId.length < 1) return;
-
-        const selectedSectionIndex = addGuideObj.sections
-            .findIndex((sec: GuideSectionViewModel) => sec.guid === sectionId);
-        if (selectedSectionIndex < 0) return;
-
-        const selectedSection: GuideSectionViewModel = addGuideObj.sections[selectedSectionIndex];
-        if (selectedSection == null) return;
-
-        const selectedItemIndex = selectedSection.items
-            .findIndex((secItem: GuideSectionItemViewModel) => secItem.guid === sectionItemId);
-        if (selectedItemIndex < 0) return;
-
-        const selectedItem: GuideSectionItemViewModel = selectedSection.items[selectedItemIndex];
-        if (selectedItem == null) return;
-
-        setAddGuideObj({
-            ...addGuideObj,
-            sections: [
-                ...addGuideObj.sections.slice(0, selectedSectionIndex),
-                {
-                    ...selectedSection, items: [
-                        ...selectedSection.items.slice(0, selectedItemIndex),
-                        ...selectedSection.items.slice(selectedItemIndex + 1)
-                    ]
-                },
-                ...addGuideObj.sections.slice(selectedSectionIndex + 1)
-            ],
-        });
-    }
-
     const submitGuide = async () => {
         setSubmissionStatus(NetworkState.Loading);
 
@@ -399,7 +217,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
 
     const banner = (
         <SmallBanner
-            title="Create a Guide"
+            title={isEditing ? "Edit a Guide" : "Create a Guide"}
             descrip="Tool for creating and editing Guides for the the Assistant Apps"
         />
     );
@@ -413,72 +231,6 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
                         <LoginRequired />
                     </div>
                 </div>
-            </>
-        );
-    }
-
-    const renderSectionItems = (sectionId: string, sectionItems: Array<GuideSectionItemViewModel>) => {
-        const orderedSectionItems = (sectionItems ?? []).sort((a: GuideSectionItemViewModel, b: GuideSectionItemViewModel) => a.sortOrder - b.sortOrder);
-        return (
-            <>
-                {
-                    orderedSectionItems.map((sectionItem: GuideSectionItemViewModel, index: number) => (
-                        <div key={`container-${sectionItem.guid}-${index}`} className="col-12 pt1">
-                            <SectionItem
-                                key={`${sectionItem.guid}-${index}`}
-                                index={index}
-                                totalLength={orderedSectionItems.length}
-                                item={sectionItem}
-                                saveItem={editSectionItemDetails(sectionId)}
-                                moveItem={moveSectionItem(sectionId)}
-                                deleteItem={deleteSectionItem(sectionId)}
-                            />
-                        </div>
-                    ))
-                }
-            </>
-        );
-    }
-
-    const renderSections = (sections: Array<GuideSectionViewModel>) => {
-        const orderedSections = sections.sort((a: GuideSectionViewModel, b: GuideSectionViewModel) => a.sortOrder - b.sortOrder);
-        return (
-            <>
-                {
-                    orderedSections.map((section: GuideSectionViewModel, index: number) => (
-                        <div key={`${section.guid}-${index}-${section.items.map(si => si.guid).join(',')}`} className="col-12 pt1">
-                            <span className="pointer" onClick={editSectionHeading(section.guid)}>
-                                <h3 style={{ display: 'inline' }}>{section.heading}&nbsp;&nbsp;&nbsp;</h3>
-                                <Popup wide
-                                    content="Edit heading"
-                                    trigger={<Icon name="edit" />}
-                                />
-                            </span>
-
-                            <div className="row">
-                                {renderSectionItems(section.guid, section.items)}
-                            </div>
-
-                            <div className="row">
-                                <div className="col-12 pt1">
-                                    <button className="button mt1" onClick={() => setSelectedSectionGuid(section.guid)}>Add item</button>
-                                </div>
-                            </div>
-
-                            <ActionButtons
-                                index={index}
-                                additionalClassName="pt1"
-                                itemSpecificName="section"
-                                totalLength={orderedSections.length}
-                                saveItem={editSectionDetails(section.guid)}
-                                moveItem={moveSection(section.guid)}
-                                deleteItem={deleteSection(section.guid)}
-                            />
-
-                            <div className="row"><div className="col-12 pt2"><hr /></div></div>
-                        </div>
-                    ))
-                }
             </>
         );
     }
@@ -497,7 +249,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
         (firstInvalidSection != null);
 
     return (
-        <>
+        <div className="guide-page">
             {banner}
             {
                 (submissionStatus === NetworkState.Error) &&
@@ -584,22 +336,14 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
                     </div>
                 </div>
                 <hr />
-                <div className="row full pb2">
-                    <div className="col-12">
-                        <div className="row">
-                            <div className="col-12">
-                                {
-                                    ((addGuideObj.sections ?? []).length < 1) &&
-                                    (<h3 className="ta-center pt1">No sections added yet</h3>)
-                                }
-                            </div>
-                            {renderSections([...addGuideObj.sections])}
-                        </div>
-                    </div>
-                    <div className="col-12 pt1 ta-center">
-                        <button className="button mt1" onClick={addSection}>Add Section</button>
-                    </div>
-                </div>
+            </div>
+            <CreateGuideSections
+                addGuideObj={addGuideObj}
+                addSection={addSection}
+                setAddGuideObj={setAddGuideObj}
+                setSelectedSectionGuid={setSelectedSectionGuid}
+            />
+            <div className="container pt2">
                 <hr />
                 <div className="row full pb3">
                     <div className="col-12 ta-center pb1">
@@ -608,7 +352,11 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
                             showToolTip={submitDisabled}>
                             <button className={classNames("button full submit_btn mt1", { disabled: submitDisabled })}
                                 onClick={() => !submitDisabled && submitGuide()}>
-                                <span>Submit Guide</span>
+                                {
+                                    isEditing
+                                        ? <span>Submit <b>new version</b></span>
+                                        : <span>Submit Guide</span>
+                                }
                             </button>
                         </ConditionalToolTip>
                     </div>
@@ -629,7 +377,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
                 (submissionStatus === NetworkState.Loading) &&
                 <Loading />
             }
-        </>
+        </div>
     );
 };
 

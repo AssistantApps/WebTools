@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
 import { Form, Icon, Input, InputOnChangeData, Popup } from 'semantic-ui-react';
 import { SmallBanner } from '../../components/common/banner/banner';
 import { ConditionalToolTip } from '../../components/common/conditionalTooltip';
@@ -9,21 +8,16 @@ import { DropDown } from '../../components/common/dropDown/dropDown';
 import { Error } from '../../components/common/error';
 import { Loading } from '../../components/common/loading';
 import { LoginRequired } from '../../components/common/loginRequired';
-import { BaseDialog } from '../../components/common/modal/baseDialog';
 import { TagsFormInput } from '../../components/common/tagComponent';
-import { AddImageSection, AddLinkSection, AddMarkdownSection, AddTextSection } from '../../components/guide/addGuideComponents';
 import { NetworkState } from '../../constants/networkState';
-import { guides } from '../../constants/route';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
-import { GuideSectionItemType } from '../../contracts/generated/Enum/guideSectionItemType';
 import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addOrEditGuideViewModel';
 import { GuideSectionItemViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionItemViewModel';
 import { GuideSectionViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionViewModel';
-import { errorDialog, getStringDialog, successDialog } from '../../helper/dialogHelper';
-import { newGuid } from '../../helper/guidHelper';
+import { getStringDialog, successDialog } from '../../helper/dialogHelper';
 import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
-import { languageDetailsToLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
+import { languageDetailsToTranslationLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
 import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
 import { ActionButtons, SectionItem } from './guideComponents';
 import { mapStateToProps } from './guidListPage.Redux';
@@ -89,7 +83,7 @@ export const TranslateGuidePageUnconnected: React.FC<IProps> = (props: IProps) =
             setLangStatus(NetworkState.Error);
             return;
         }
-        setLangDropDowns(languageDetailsToLanguageDropDownMapper(langResult.value));
+        setLangDropDowns(languageDetailsToTranslationLanguageDropDownMapper(langResult.value));
         setLangStatus(NetworkState.Success);
     }
 
