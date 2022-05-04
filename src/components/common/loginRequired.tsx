@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Button } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 
 import { LoginDialog } from '../../components/dialog/loginDialog';
 
@@ -15,11 +15,13 @@ export const LoginRequired: React.FC<IProps> = (props: IProps) => {
                     <Segment placeholder style={{ minHeight: 'unset' }}>
                         <h2 style={{ textAlign: 'center', padding: '.25em' }}>
                             <span>Please log in</span>
-                            <LoginDialog colour="black">
-                                <Button style={{ marginTop: '.5em' }}>Click here to login</Button>
-                            </LoginDialog>
                         </h2>
-                        <div className="pb-4">
+                        <div className="row" style={{ justifyContent: 'center' }}>
+                            <div className="col-6 col-lg-6 col-md-12 g-button">
+                                <LoginDialog colour="black" showDialog={false} />
+                            </div>
+                        </div>
+                        <div className="pt-4 pb-4">
                             <h3 className="m0"><b>Why do I need to be logged in?</b></h3>
                             <p>This is one step to prevent DoS (Denial of Service) attacks. The translations shown here are the work of amazing individuals who have put a lot of effort into these translations. It would not be fair for people to take that work without their permission. By requiring a login in order to view the translations, we can track and block accounts that are trying to get all of these translations.</p>
                         </div>

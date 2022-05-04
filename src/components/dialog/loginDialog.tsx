@@ -25,6 +25,7 @@ interface IWithoutDepInj {
     userGuid?: string;
     userProfileUrl?: string;
     userName?: string;
+    showDialog?: boolean;
 
     setLoadingStatus?: (isLoading: boolean) => void;
     login?: (loginData: ILoginProps) => void;
@@ -33,9 +34,6 @@ interface IWithoutDepInj {
 
 interface IProps extends IWithDepInj, IWithoutDepInj { }
 
-interface IState {
-    isModalOpen: boolean;
-}
 
 export const LoginDialogUnconnected: React.FC<IProps> = (props: IProps) => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -124,7 +122,33 @@ export const LoginDialogUnconnected: React.FC<IProps> = (props: IProps) => {
                     className="pointer"
                     style={props.iconStyle || {}}
                 />Login</span>
-        )
+        );
+
+    const googleLoginButton = (
+        <GoogleLogin
+            clientId={window.config.googleClientId}
+            render={renderProps => (
+                <GoogleLoginButton onClick={() => {
+                    setLoadingStatus(true);
+                    renderProps.onClick();
+                }}
+                    style={{ opacity: renderProps.disabled ? '50%' : null, maxWidth: '50%' }}
+                />
+            )}
+            style={{
+                backgroundColor: 'red',
+            }}
+            buttonText="Login"
+            onSuccess={responseGoogle(OAuthProviderType.google)}
+            onFailure={oAuthLoginFailure}
+            cookiePolicy={'single_host_origin'}
+        />
+    );
+
+    if (props.showDialog === false) {
+        return googleLoginButton;
+    }
+
     return (
         <>
             {
@@ -133,7 +157,6 @@ export const LoginDialogUnconnected: React.FC<IProps> = (props: IProps) => {
                         {props.children}
                     </div>
                     : LoginComponent
-
             }
 
             <Modal
@@ -143,25 +166,7 @@ export const LoginDialogUnconnected: React.FC<IProps> = (props: IProps) => {
                 onClose={toggleModalOpen}
             >
                 <Modal.Header>AssistantApps Login</Modal.Header>
-                <Modal.Content>
-                    <div>
-                        <GoogleLogin
-                            clientId={window.config.googleClientId}
-                            render={renderProps => (
-                                <GoogleLoginButton onClick={() => {
-                                    setLoadingStatus(true);
-                                    renderProps.onClick();
-                                }}
-                                    style={{ opacity: renderProps.disabled ? '50%' : null, maxWidth: '50%' }}
-                                />
-                            )}
-                            buttonText="Login"
-                            onSuccess={responseGoogle(OAuthProviderType.google)}
-                            onFailure={oAuthLoginFailure}
-                            cookiePolicy={'single_host_origin'}
-                        />
-                    </div>
-                </Modal.Content>
+                <Modal.Content>{googleLoginButton}</Modal.Content>
             </Modal>
         </>
     );
