@@ -1,6 +1,6 @@
 {
   "name": "assistantapps.webtool",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@pathofdev/react-tag-input": "^1.0.7",
