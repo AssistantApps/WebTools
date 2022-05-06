@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { DOMAttributes } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -25,10 +25,16 @@ import 'semantic-ui-css/semantic.min.css';
 import "@pathofdev/react-tag-input/build/index.css";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
+type CustomElement<T> = Partial<T & DOMAttributes<T> & { children: any }>;
+
 declare global {
   interface Window { config: any; registration: any }
+  namespace JSX {
+    interface IntrinsicElements {
+      ['assistant-apps-translation-leaderboard']: CustomElement<any>;
+    }
+  }
 }
-
 const reactAppId = 'assistantApp';
 
 let persistedState: any = loadStateFromLocalStorage();

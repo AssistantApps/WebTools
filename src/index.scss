@@ -1,8 +1,10 @@
 @import "./scss/favison.scss";
 
-// #assistantApp {
-//     min-height: 100vh;
-// }
+:root {
+    // AssistantApps WebComponents
+    --assistantapps-font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    --assistantapps-font-weight: "300";
+}
 
 body {
     overflow-x: unset !important;
@@ -11,6 +13,7 @@ body {
     h1 {
         font-size: 2rem;
     }
+
     .navbar h2 {
         font-size: 1.71428571rem;
     }
