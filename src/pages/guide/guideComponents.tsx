@@ -3,6 +3,7 @@ import { Form, Icon, Label } from 'semantic-ui-react';
 import { GuideSectionItemType } from '../../contracts/generated/Enum/guideSectionItemType';
 import { GuideSectionItemViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionItemViewModel';
 import { MarkdownRenderer } from '../../components/common/markdown';
+import { LazyLoadImage } from '../../components/common/lazyLoadImage/lazyLoadImage';
 
 interface ISectionItemProps {
     index: number;
@@ -30,7 +31,7 @@ export const SectionItem: React.FC<ISectionItemProps> = (props: ISectionItemProp
     }
 
     return (
-        <div className="guide-item card noselect">
+        <div className="guide-item card mt-3 noselect">
             <div className="card-header">
                 <Form>
                     {renderContents(props.item)}
@@ -139,19 +140,30 @@ export const LinkSectionItemContent: React.FC<ISectionItemProps> = (props: ISect
 
 export const ImageSectionItemContent: React.FC<ISectionItemProps> = (props: ISectionItemProps) => {
     return (
-        <Form.Group>
-            <Form.Field width="16">
-                <label>Url</label>
-                <input placeholder="https://imgur.com" type="text"
-                    defaultValue={props.item.content}
-                    autoFocus={(props.item as any).isNew}
-                    onBlur={(e: any) => {
-                        const value = handleBlurEvent(e);
-                        props.saveItem(props.item.guid, 'content', value);
-                    }}
-                />
-            </Form.Field>
-        </Form.Group>
+        <>
+            <Form.Group>
+                <Form.Field width="16">
+                    <label>Url</label>
+                    <input placeholder="https://imgur.com" type="text"
+                        defaultValue={props.item.content}
+                        autoFocus={(props.item as any).isNew}
+                        onChange={(e: any) => {
+                            const value = handleBlurEvent(e);
+                            props.saveItem(props.item.guid, 'content', value);
+                        }}
+                    />
+                </Form.Field>
+            </Form.Group>
+            <Form.Group>
+                <Form.Field width="16" className="guide-item-img-url">
+                    <LazyLoadImage
+                        key={props.item.content}
+                        src={props.item.content}
+                        alt={props.item.guid}
+                    />
+                </Form.Field>
+            </Form.Group>
+        </>
     );
 }
 

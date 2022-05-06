@@ -1,18 +1,71 @@
-.card.guide {
-    .content .header {
-        position: relative;
-    }
-    .card-body {
-        h3 {
-            text-align: center;
+.guide-page {
+
+    .card.guide {
+        .content .header {
+            position: relative;
+        }
+
+        .card-body {
+            h3 {
+                text-align: center;
+            }
+        }
+
+        .guide-status>span {
+            text-transform: capitalize;
+        }
+
+        .guide-status.cancelled>span {
+            text-decoration: line-through;
+        }
+
+        .guide-status.approved>span {
+            color: green;
+        }
+
+        .guide-status.pending>span,
+        .guide-status.inReview>span {
+            color: #2579d2;
+        }
+
+        .guide-status.denied>span {
+            color: red;
         }
     }
+
+    .guide-item {
+        .card-header {
+            border-bottom: none;
+        }
+    }
+
+    .guide-item-img-url {
+        text-align: center;
+        // .lazy-load-image-background {
+        //     margin: 0 auto;
+        // }
+
+        img {
+            max-height: 400px;
+        }
+    }
+
+    .action-buttons {
+        position: absolute;
+        top: 0.3em;
+        right: 1.25rem;
+    }
+
+    .button b {
+        color: inherit;
+    }
 }
+
 
 .guide-add-item {
     cursor: pointer;
 
-    .ui.card > .image > img {
+    .ui.card>.image>img {
         max-width: 100px;
         margin: 0 auto;
         padding: 0.25em;
@@ -21,18 +74,6 @@
     .content .header {
         text-align: center;
     }
-}
-
-.guide-item {
-    .card-header {
-        border-bottom: none;
-    }
-}
-
-.action-buttons {
-    position: absolute;
-    top: 0.3em;
-    right: 1.25rem;
 }
 
 // .card-header .ui.floating.label {

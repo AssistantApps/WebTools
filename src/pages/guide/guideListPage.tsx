@@ -106,7 +106,7 @@ export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
     }
 
     return (
-        <>
+        <div className="guide-page">
             {banner}
             <div className="container">
                 <div className="row full pt3 pb3">
@@ -116,7 +116,7 @@ export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
             {
                 (fetchStatus === NetworkState.Loading) && <Loading />
             }
-        </>
+        </div>
     );
 };
 

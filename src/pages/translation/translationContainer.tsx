@@ -9,7 +9,7 @@ import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Tra
 import { TranslationSearchViewModel } from '../../contracts/generated/ViewModel/Translation/translationSearchViewModel';
 import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
-import { languageDetailsToLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
+import { languageDetailsToTranslationLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
 import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
 import { mapDispatchToProps, mapStateToProps } from './translation.redux';
 import { TranslationPresenter } from './translationPresenter';
@@ -176,7 +176,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
         return (
             <TranslationPresenter {...this.state}
                 appDropDowns={appDetailsToAppDropDownMapper(this.state.appDetails)}
-                langDropDowns={languageDetailsToLanguageDropDownMapper(this.state.langDetails)}
+                langDropDowns={languageDetailsToTranslationLanguageDropDownMapper(this.state.langDetails)}
                 setApps={this.setApps}
                 setLanguage={this.setLanguage}
                 setTranslationIndex={this.setTranslationIndex}

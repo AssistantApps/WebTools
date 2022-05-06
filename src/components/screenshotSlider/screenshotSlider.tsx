@@ -17,43 +17,44 @@ export const ScreenshotSlider: React.FC<IProps> = (props: IProps) => {
         'NMS3',
         'SMS0',
         'SMS1',
-        'SMS2'
+        'SMS2',
     ];
-
-
 
     const [index, setIndex] = useState<number>(0);
     const [oldIndex, setOldIndex] = useState<number>(0);
     const [indexIsNew, setIndexIsNew] = useState<boolean>(false);
-    // const [animationIsPaused, setAnimationIsPaused] = useState<boolean>(false);
     const [appName, setAppName] = useState(getAppNameFromImage(screenShotList[0]));
 
     useEffect(() => {
         let intervalId: any = 0;
-        wait(2000).then(() => {
-            transitionImages();
-            const secondsPerImage = props.secondsPerImage || 5;
-            intervalId = setInterval(() => transitionImages(), secondsPerImage * 1000);
-        });
+
+        const secondsPerImage = props.secondsPerImage || 5;
+        intervalId = setInterval(() => rotateImage(), secondsPerImage * 1000);
+
         return () => {
             clearInterval(intervalId);
         }
         // eslint-disable-next-line
     }, []);
 
-    const transitionImages = async () => {
-        // if (animationIsPaused) return;
+    const rotateImage = async () => {
+        setIndex(localIndex => {
+            const newIndex = ((localIndex + 1) >= screenShotList.length) ? 0 : localIndex + 1;
 
-        const newIndex = ((index + 1) >= screenShotList.length) ? 0 : index + 1;
-        setIndex(newIndex);
+            transitionImages(newIndex);
+            return newIndex;
+        });
+    }
+
+    const transitionImages = async (localIndex: number) => {
         setIndexIsNew(true);
 
         await wait(1000);
         setIndexIsNew(false);
 
         await wait(500);
-        setOldIndex(index);
-        setAppName(getAppNameFromImage(screenShotList[index]));
+        setOldIndex(localIndex);
+        setAppName(getAppNameFromImage(screenShotList[localIndex]));
     }
 
     const currentImage = screenShotList[index];
