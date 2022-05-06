@@ -12,6 +12,12 @@ $screenshotHeight: 65vh;
         transform: perspective(3000px) rotateY(0deg) translateY(-10%);
     }
 
+    .screenshotSliderContent {
+        height: $screenshotHeight;
+        overflow-y: hidden;
+        clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 8% 100%, 3% 96%, 0% 85%, 0% 15%, 3% 5%);
+    }
+
     // .screenshotSliderFrame {
     //     max-height: 50vh;
     //     position: absolute;
