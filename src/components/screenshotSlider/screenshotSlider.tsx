@@ -15,9 +15,12 @@ export const ScreenshotSlider: React.FC<IProps> = (props: IProps) => {
         'NMS1',
         'NMS2',
         'NMS3',
+        'NMS4',
+        'NMS5',
         'SMS0',
         'SMS1',
         'SMS2',
+        'SMS3',
     ];
 
     const [index, setIndex] = useState<number>(0);
@@ -73,8 +76,10 @@ export const ScreenshotSlider: React.FC<IProps> = (props: IProps) => {
             }
             trigger={
                 <div className="screenshotSlider">
-                    <ScreenshotImage imageName={screenShotList[oldIndex]} />
-                    <ScreenshotImage imageName={currentImage} className={indexIsNew ? 'transparent' : ''} />
+                    <div className="screenshotSliderContent">
+                        <ScreenshotImage imageName={screenShotList[oldIndex]} />
+                        <ScreenshotImage imageName={currentImage} className={indexIsNew ? 'transparent' : ''} />
+                    </div>
                     <ScreenshotFrame />
                 </div>
             }
