@@ -60,6 +60,9 @@ export const ScreenshotSlider: React.FC<IProps> = (props: IProps) => {
         setAppName(getAppNameFromImage(screenShotList[localIndex]));
     }
 
+    const preloadIndex = (((oldIndex + 1) >= screenShotList.length) ? 0 : oldIndex + 1);
+    const preloadImage = screenShotList[preloadIndex];
+    const oldImage = screenShotList[oldIndex];
     const currentImage = screenShotList[index];
     return (
         <Popup
@@ -77,7 +80,8 @@ export const ScreenshotSlider: React.FC<IProps> = (props: IProps) => {
             trigger={
                 <div className="screenshotSlider">
                     <div className="screenshotSliderContent">
-                        <ScreenshotImage imageName={screenShotList[oldIndex]} />
+                        <ScreenshotImage imageName={preloadImage} />
+                        <ScreenshotImage imageName={oldImage} />
                         <ScreenshotImage imageName={currentImage} className={indexIsNew ? 'transparent' : ''} />
                     </div>
                     <ScreenshotFrame />
