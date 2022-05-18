@@ -9,24 +9,24 @@ import { StateSettingReducer } from './state/StateSettingReducer';
 
 export const loadStateFromLocalStorage = () => {
     let commonReducer = initialCommonState;
-    let storedCommonReducer = localStorage.getItem(CacheKey.CommonReducerKey);
+    const storedCommonReducer = localStorage.getItem(CacheKey.CommonReducerKey);
     if (storedCommonReducer && storedCommonReducer !== "undefined") {
         commonReducer = JSON.parse(storedCommonReducer || '{}');
     }
 
     let settingReducer = initialSettingState;
-    let storedSettingReducer = localStorage.getItem(CacheKey.SettingReducerKey);
+    const storedSettingReducer = localStorage.getItem(CacheKey.SettingReducerKey);
     if (storedSettingReducer && storedSettingReducer !== "undefined") {
         settingReducer = JSON.parse(storedSettingReducer || '{}');
     }
 
     let translationReducer = initialTranslationState;
-    let storedTranslationReducer = localStorage.getItem(CacheKey.TranslationReducerKey);
+    const storedTranslationReducer = localStorage.getItem(CacheKey.TranslationReducerKey);
     if (storedTranslationReducer && storedTranslationReducer !== "undefined") {
         translationReducer = JSON.parse(storedTranslationReducer || '{}');
     }
 
-    let persistedState: any = {
+    const persistedState: any = {
         settingReducer,
         commonReducer,
         translationReducer
@@ -35,8 +35,8 @@ export const loadStateFromLocalStorage = () => {
 }
 
 export const saveStateToLocalStorage = (store: any) => {
-    var currentCommonReducer = store.getState().commonReducer;
-    var storedCommonReducer: StateCommonReducer = JSON.parse(localStorage.getItem(CacheKey.CommonReducerKey) || '{}');
+    const currentCommonReducer = store.getState().commonReducer;
+    const storedCommonReducer: StateCommonReducer = JSON.parse(localStorage.getItem(CacheKey.CommonReducerKey) || '{}');
     if (storedCommonReducer == null
         || storedCommonReducer.userGuid !== currentCommonReducer.userGuid
         || storedCommonReducer.userName !== currentCommonReducer.userName
@@ -47,16 +47,16 @@ export const saveStateToLocalStorage = (store: any) => {
         localStorage.setItem(CacheKey.CommonReducerKey, JSON.stringify(currentCommonReducer));
     }
 
-    var currentSettingReducer = store.getState().settingReducer;
-    var storedSettingReducer: StateSettingReducer = JSON.parse(localStorage.getItem(CacheKey.SettingReducerKey) || '{}');
+    const currentSettingReducer = store.getState().settingReducer;
+    const storedSettingReducer: StateSettingReducer = JSON.parse(localStorage.getItem(CacheKey.SettingReducerKey) || '{}');
     if (storedSettingReducer == null
         || storedSettingReducer.isDark !== currentSettingReducer.isDark
     ) {
         localStorage.setItem(CacheKey.SettingReducerKey, JSON.stringify(currentSettingReducer));
     }
 
-    var currentTranslationReducer = store.getState().translationReducer;
-    var storedTranslationReducer = localStorage.getItem(CacheKey.TranslationReducerKey);
+    const currentTranslationReducer = store.getState().translationReducer;
+    const storedTranslationReducer = localStorage.getItem(CacheKey.TranslationReducerKey);
     if (storedTranslationReducer == null
         || storedTranslationReducer !== JSON.stringify(currentTranslationReducer?.translationItems || [])) {
         localStorage.setItem(CacheKey.TranslationReducerKey, JSON.stringify(currentTranslationReducer));
