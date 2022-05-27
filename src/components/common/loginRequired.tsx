@@ -17,7 +17,7 @@ export const LoginRequired: React.FC<IProps> = (props: IProps) => {
                             <span>Please log in</span>
                         </h2>
                         <div className="row" style={{ justifyContent: 'center' }}>
-                            <div className="col-6 col-lg-6 col-md-12 g-button">
+                            <div className="col-12 col-lg-6 col-md-12 g-button">
                                 <LoginDialog colour="black" showDialog={false} />
                             </div>
                         </div>
