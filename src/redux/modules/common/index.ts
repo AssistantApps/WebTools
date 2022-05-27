@@ -1,4 +1,5 @@
-import * as type from './type'
+import * as type from './type';
+import * as CacheKey from '../../cacheKey';
 import { StateCommonReducer } from '../../state/StateCommonReducer';
 
 export const initialCommonState: StateCommonReducer = {
@@ -25,6 +26,7 @@ export const commonReducer = (state = initialCommonState, action: any) => {
                 userDetailsExpiryDate: action.userDetailsExpiryDate,
             });
         case type.LOGOUT:
+            localStorage.removeItem(CacheKey.CommonReducerKey);
             return Object.assign({}, state, {
                 userGuid: '',
                 userName: '',
