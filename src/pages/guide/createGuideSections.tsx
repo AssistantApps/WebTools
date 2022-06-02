@@ -156,6 +156,11 @@ export const CreateGuideSections: React.FC<IProps> = (props: IProps) => {
                         <h3 className="ta-center pt1">No sections added yet</h3>
                     </div>
                 </div>
+                <div className="row full pb2">
+                    <div className="col-12 pt1 ta-center">
+                        <button className="button mt1" onClick={addSection}>Add Section</button>
+                    </div>
+                </div>
             </div>
         );
     }
