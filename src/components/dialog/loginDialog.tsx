@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { GoogleLoginButton } from "react-social-login-buttons";
@@ -8,15 +8,11 @@ import { OAuthProviderType } from '../../contracts/generated/Enum/oAuthProviderT
 import { OAuthUserViewModel } from '../../contracts/generated/ViewModel/oAuthUserViewModel';
 import { ILoginProps } from '../../contracts/login';
 import { errorDialog } from '../../helper/dialogHelper';
-import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
-import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
+import { DependencyInjectionContext } from '../../integration/dependencyInjection';
 import { ConditionalToolTip } from '../common/conditionalTooltip';
 import { mapDispatchToProps, mapStateToProps } from './loginDialog.redux';
 
-interface IWithDepInj {
-    assistantAppsApiService: AssistantAppsApiService;
-}
-interface IWithoutDepInj {
+interface IProps {
     isLoading?: boolean;
     children?: React.ReactNode;
     iconStyle?: any;
@@ -32,10 +28,9 @@ interface IWithoutDepInj {
     logout?: () => void;
 }
 
-interface IProps extends IWithDepInj, IWithoutDepInj { }
-
 
 export const LoginDialogUnconnected: React.FC<IProps> = (props: IProps) => {
+    const services = useContext(DependencyInjectionContext);
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
     const responseGoogle = (type: OAuthProviderType) => async (response: any) => {
@@ -59,13 +54,13 @@ export const LoginDialogUnconnected: React.FC<IProps> = (props: IProps) => {
             username: response.profileObj.name,
         }
 
-        const loginResult = await props.assistantAppsApiService.loginWithOAuth(apiObj);
-        setLoadingStatus(false);
+        const loginResult = await services.assistantAppsApiService.loginWithOAuth(apiObj);
         if (loginResult.isSuccess && props.login) {
             props.login(loginResult.value);
         } else {
             console.error(loginResult.errorMessage);
             errorDialog('Login failed', 'Unable to log in, please try again');
+            setLoadingStatus(false);
         }
     }
 
@@ -87,7 +82,7 @@ export const LoginDialogUnconnected: React.FC<IProps> = (props: IProps) => {
     const oAuthLogout = () => {
         Swal.fire({
             title: 'Logout?',
-            text: `Are you sure that you want to logout?`,
+            text: 'Are you sure that you want to logout?',
             icon: 'question',
             allowEnterKey: true,
             allowEscapeKey: true,
@@ -172,9 +167,4 @@ export const LoginDialogUnconnected: React.FC<IProps> = (props: IProps) => {
     );
 }
 
-export const LoginDialog = withServices<IWithoutDepInj, IWithDepInj>(
-    connect(mapStateToProps, mapDispatchToProps)(LoginDialogUnconnected),
-    (services: IDependencyInjection) => ({
-        assistantAppsApiService: services.assistantAppsApiService,
-    })
-);
+export const LoginDialog = connect(mapStateToProps, mapDispatchToProps)(LoginDialogUnconnected);

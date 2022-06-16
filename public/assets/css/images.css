@@ -1,0 +1,50 @@
+.service-area .single-service {
+    background-image: url('/assets/img/background/tileCorner.webp');
+}
+
+
+.blog_banner .banner_inner .overlay {
+    background: url('/assets/img/banner/banner-2.jpg') no-repeat scroll center center;
+}
+
+
+.banner_box {
+    max-width: 1620px;
+    margin: auto;
+}
+
+.banner_area .banner_inner .overlay {
+    background: url("/assets/img/banner/banner.jpg") no-repeat scroll center center;
+}
+
+.hero-banner {
+    background: url("/assets/img/banner/banner.jpg") no-repeat scroll center center;
+}
+
+.primary-checkbox input:checked+label {
+    background: url("~/assets/img/elements/primary-check.png") no-repeat center center/cover;
+}
+
+.disabled-checkbox input:checked+label {
+    background: url("~/assets/img/elements/disabled-check.png") no-repeat center center/cover;
+}
+
+.primary-radio input:checked+label {
+    background: url("~/assets/img/elements/primary-radio.png") no-repeat center center/cover;
+}
+
+.confirm-radio input:checked+label {
+    background: url("~/assets/img/elements/success-radio.png") no-repeat center center/cover;
+}
+
+.disabled-radio input:checked+label {
+    background: url("~/assets/img/elements/disabled-radio.png") no-repeat center center/cover;
+}
+
+.pricing_area:before {
+    background-image: url("~/assets/img/background/pattern2.png");
+}
+
+.single-testimonial {
+    background-image: url("/assets/img/icon/cotation.png");
+}

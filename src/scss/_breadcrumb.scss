@@ -12,7 +12,7 @@
         min-height: 900px;
 
         .overlay {
-            // background: url('/assets/img/banner/home-banner.jpg') no-repeat scroll center center;
+            // background: url('~/assets/img/banner/home-banner.jpg') no-repeat scroll center center;
             position: absolute;
             left: 0;
             right: 0;
@@ -44,11 +44,7 @@
             }
         }
     }
-
 }
-
-
-
 
 .blog_banner {
     min-height: 660px;
@@ -66,8 +62,7 @@
         z-index: 1;
 
         .overlay {
-            background: url('/assets/img/banner/banner-2.jpg') no-repeat scroll center center;
-            opacity: .5;
+            opacity: 0.5;
             height: 125%;
             position: absolute;
             left: 0px;
@@ -121,7 +116,6 @@
         z-index: 1;
 
         .overlay {
-            background: url('/assets/img/banner/banner.jpg') no-repeat scroll center center;
             position: absolute;
             left: 0;
             right: 0;
@@ -129,7 +123,7 @@
             height: 125%;
             bottom: 0;
             z-index: -1;
-            opacity: .6;
+            opacity: 0.6;
         }
 
         .banner_content {
@@ -151,7 +145,7 @@
 
                     &:before {
                         content: "\e87a";
-                        font-family: 'Linearicons-Free';
+                        font-family: "Linearicons-Free";
                         position: absolute;
                         right: -25px;
                         top: 50%;
@@ -178,23 +172,20 @@
 /* End Home Banner Area css
 ============================================================================================ */
 
-
-
 /* banner section start
 ============================================================================================ */
 .hero-banner {
-    background: url('/assets/img/banner/banner.jpg') no-repeat scroll center center;
     position: relative;
     padding: 70px 0;
     background-size: cover;
     min-height: 450px;
     // z-index: 2;
 
-    @media(min-width: 768px) {
+    @media (min-width: 768px) {
         padding: 150px 0;
     }
 
-    @media(min-width: 1200px) {
+    @media (min-width: 1200px) {
         padding: 110px 0;
     }
 
@@ -202,7 +193,7 @@
         padding-top: 80px;
         padding-bottom: 80px;
 
-        @media(min-width: 992px) {
+        @media (min-width: 992px) {
             padding-top: 100px;
             padding-bottom: 100px;
         }
@@ -213,7 +204,7 @@
         margin-bottom: 25px;
         font-size: 28px;
 
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             font-size: 60px;
             margin-bottom: 45px;
         }
@@ -225,7 +216,7 @@
         text-transform: capitalize;
         margin-bottom: 0;
 
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             font-size: 42px;
         }
     }
@@ -242,7 +233,7 @@
     display: inline-block;
     // margin-bottom: 10px;
 
-    @media(min-width: 768px) {
+    @media (min-width: 768px) {
         margin-bottom: 10px;
     }
 
@@ -250,7 +241,7 @@
     span {
         font-size: 35px;
 
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             font-size: 60px;
         }
     }
@@ -261,7 +252,7 @@
     [class*=" flaticon-"]:after {
         font-size: 35px;
 
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             font-size: 60px;
         }
     }
@@ -269,8 +260,6 @@
 
 /* banner section end
   ============================================================================================ */
-
-
 
 /* breadcrumb section start
   ============================================================================================ */
@@ -282,17 +271,17 @@
         padding: 0;
 
         &-item {
-            padding: .1rem;
+            padding: 0.1rem;
 
             a {
                 text-transform: capitalize;
                 color: $white;
             }
 
-            &+.breadcrumb-item::before {
+            & + .breadcrumb-item::before {
                 color: $white;
-                padding-left: .2rem;
-                padding-right: .4rem;
+                padding-left: 0.2rem;
+                padding-right: 0.4rem;
                 // content: "-";
             }
 
@@ -309,7 +298,6 @@
             }
         }
     }
-
 }
 
 /* breadcrumb section end

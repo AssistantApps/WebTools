@@ -43,7 +43,6 @@
     padding: 25px 60px 25px 30px;
     border-radius: 5px;
     box-shadow: -2px 5.7px 20px 0 rgba(9, 30, 107, 0.05);
-    background-image: url('/assets/img/icon/cotation.png');
     background-size: auto;
     background-position: 100% -128%;
     background-repeat: no-repeat;
@@ -80,7 +79,7 @@
         }
     }
 
-    @media(max-width:575px) {
+    @media (max-width: 575px) {
         margin: 15px;
     }
 
@@ -89,15 +88,12 @@
     }
 }
 
-
-@media (min-width:768px) and (max-width: 991px) {
-
+@media (min-width: 768px) and (max-width: 991px) {
     .single-testimonial {
         padding: 57px 60px 53px 45px;
         background-position: 96% -52%;
     }
 }
-
 
 /* End Testimonials Area css
 ============================================================================================ */

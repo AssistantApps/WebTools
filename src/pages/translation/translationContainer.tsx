@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { NetworkState } from '../../constants/networkState';
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
@@ -17,14 +16,13 @@ import { TranslationPresenter } from './translationPresenter';
 interface IWithDepInj {
     assistantAppsApiService: AssistantAppsApiService;
 }
-interface IWithoutDepInj {
-    location: any;
-    match: any;
-    history: any;
+interface IWithoutDepInj { }
+
+interface IFromRedux {
     userGuid: string;
 }
 
-interface IProps extends IWithDepInj, IWithoutDepInj { }
+interface IProps extends IWithDepInj, IWithoutDepInj, IFromRedux { }
 
 interface IState {
     status: NetworkState;
@@ -71,7 +69,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
     }
 
     fetchAppData = async () => {
-        var appsResult = await this.props.assistantAppsApiService.getApps();
+        const appsResult = await this.props.assistantAppsApiService.getApps();
         if (!appsResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -191,7 +189,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
 };
 
 export const TranslationContainer = withServices<IWithoutDepInj, IWithDepInj>(
-    connect(mapStateToProps, mapDispatchToProps)(withRouter(TranslationContainerUnconnected)),
+    connect(mapStateToProps, mapDispatchToProps)(TranslationContainerUnconnected),
     (services: IDependencyInjection) => ({
         assistantAppsApiService: services.assistantAppsApiService,
     })
