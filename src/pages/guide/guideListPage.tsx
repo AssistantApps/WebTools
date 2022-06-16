@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { SmallBanner } from '../../components/common/banner/banner';
@@ -11,26 +11,18 @@ import { createGuide, editGuide, editGuideParam } from '../../constants/route';
 import { GuideSearchResultViewModel } from '../../contracts/generated/ViewModel/Guide/guideSearchResultViewModel';
 import { PaginationWithValue } from '../../contracts/pagination/paginationWithValue';
 import { anyObject } from '../../helper/typescriptHacks';
-import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
-import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
+import { DependencyInjectionContext } from '../../integration/dependencyInjection';
 import { mapStateToProps } from './guidListPage.Redux';
 
-interface IWithDepInj {
-    assistantAppsApiService: AssistantAppsApiService;
-}
-interface IWithoutDepInj {
-    location: any;
-    match: any;
-    history: any;
-}
 interface IFromRedux {
     userGuid: string;
 }
 
-interface IProps extends IFromRedux, IWithDepInj, IWithoutDepInj { }
+interface IProps extends IFromRedux { }
 
 export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
     const history = useHistory();
+    const services = useContext(DependencyInjectionContext);
     const [fetchStatus, setFetchStatus] = useState<NetworkState>(NetworkState.Pending);
     const [guidePagination, setGuidePagination] = useState<PaginationWithValue<Array<GuideSearchResultViewModel>>>(anyObject);
 
@@ -45,7 +37,7 @@ export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
         const searchParams: any = {
             page: 1,
         }
-        const guidesResult = await props.assistantAppsApiService.getGuidesForUser(searchParams);
+        const guidesResult = await services.assistantAppsApiService.getGuidesForUser(searchParams);
         if (guidesResult.isSuccess === false) {
             setFetchStatus(NetworkState.Error);
             return;
@@ -87,7 +79,7 @@ export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
                             item={{ ...guide }}
                             onDeleteClick={async () => {
                                 setFetchStatus(NetworkState.Loading);
-                                await props.assistantAppsApiService.deleteGuide(guide.guid);
+                                await services.assistantAppsApiService.deleteGuide(guide.guid);
                                 fetchUserGuides();
                             }}
                             onClick={() => {
@@ -120,9 +112,4 @@ export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
     );
 };
 
-export const GuideListPage = withServices<IWithoutDepInj, IWithDepInj>(
-    connect(mapStateToProps)(GuideListPageUnconnected),
-    (services: IDependencyInjection) => ({
-        assistantAppsApiService: services.assistantAppsApiService,
-    })
-);
+export const GuideListPage = connect(mapStateToProps)(GuideListPageUnconnected);

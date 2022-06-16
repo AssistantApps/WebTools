@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, InputOnChangeData, Popup } from 'semantic-ui-react';
 import { SmallBanner } from '../../components/common/banner/banner';
@@ -15,28 +15,20 @@ import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Gui
 import { GuideSectionItemViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionItemViewModel';
 import { GuideSectionViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionViewModel';
 import { getStringDialog, successDialog } from '../../helper/dialogHelper';
-import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
+import { DependencyInjectionContext } from '../../integration/dependencyInjection';
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
 import { languageDetailsToTranslationLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
-import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
 import { ActionButtons, SectionItem } from './guideComponents';
 import { mapStateToProps } from './guidListPage.Redux';
 
-interface IWithDepInj {
-    assistantAppsApiService: AssistantAppsApiService;
-}
-interface IWithoutDepInj {
-    location: any;
-    match: any;
-    history: any;
-}
 interface IFromRedux {
     userGuid: string;
 }
 
-interface IProps extends IFromRedux, IWithDepInj, IWithoutDepInj { }
+interface IProps extends IFromRedux { }
 
 export const TranslateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
+    const services = useContext(DependencyInjectionContext);
     // Meta
     const [appStatus, setAppStatus] = useState<NetworkState>(NetworkState.Pending);
     const [appDropDowns, setAppDropDowns] = useState<Array<DropDownWithIcon>>([]);
@@ -68,7 +60,7 @@ export const TranslateGuidePageUnconnected: React.FC<IProps> = (props: IProps) =
     }, [props.userGuid]);
 
     const fetchAppData = async () => {
-        var appsResult = await props.assistantAppsApiService.getApps();
+        var appsResult = await services.assistantAppsApiService.getApps();
         if (!appsResult.isSuccess) {
             setAppStatus(NetworkState.Error);
             return;
@@ -78,7 +70,7 @@ export const TranslateGuidePageUnconnected: React.FC<IProps> = (props: IProps) =
     }
 
     const fetchLanguageData = async () => {
-        var langResult = await props.assistantAppsApiService.getLanguages();
+        var langResult = await services.assistantAppsApiService.getLanguages();
         if (!langResult.isSuccess) {
             setLangStatus(NetworkState.Error);
             return;
@@ -393,9 +385,4 @@ export const TranslateGuidePageUnconnected: React.FC<IProps> = (props: IProps) =
     );
 };
 
-export const TranslateGuidePage = withServices<IWithoutDepInj, IWithDepInj>(
-    connect(mapStateToProps)(TranslateGuidePageUnconnected),
-    (services: IDependencyInjection) => ({
-        assistantAppsApiService: services.assistantAppsApiService,
-    })
-);
+export const TranslateGuidePage = connect(mapStateToProps)(TranslateGuidePageUnconnected);

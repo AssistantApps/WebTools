@@ -7,7 +7,6 @@
         background: #fff;
         text-align: left;
         padding: 40px 30px 45px;
-        background-image: url('/assets/img/background/tileCorner.webp');
         background-position: right top;
         background-repeat: no-repeat;
         @include transition;
@@ -22,7 +21,7 @@
             line-height: 112px;
 
             &:after {
-                content: '';
+                content: "";
                 position: absolute;
                 height: 80px;
                 width: 80px;
@@ -51,7 +50,6 @@
                 line-height: 27px;
                 font-size: 14px;
                 margin-bottom: 35px;
-
             }
 
             a {
@@ -61,7 +59,7 @@
                 font-weight: 500;
 
                 &:after {
-                    content: '';
+                    content: "";
                     position: absolute;
                     left: 0;
                     bottom: -6px;
@@ -74,11 +72,9 @@
                     &:after {
                         background: $baseColor;
                         @include transition;
-
                     }
                 }
             }
-
         }
     }
 }
@@ -87,7 +83,6 @@
     .service-icon:after {
         background: $circle1;
     }
-
 }
 
 .col-lg-4:nth-child(2) .single-service {
@@ -96,14 +91,12 @@
     .service-icon:after {
         background: $circle2;
     }
-
 }
 
 .col-lg-4:nth-child(3) .single-service {
     .service-icon:after {
         background: $circle3;
     }
-
 }
 
 .service-page.service-area {
@@ -112,7 +105,6 @@
     .single-service {
         background: $bg_one;
     }
-
 }
 
 .area-heading {
@@ -131,7 +123,7 @@
     }
 
     .line:after {
-        content: '';
+        content: "";
         position: absolute;
         width: 20px;
         height: 5px;
@@ -142,7 +134,7 @@
     }
 
     .line:before {
-        content: '';
+        content: "";
         position: absolute;
         width: 100px;
         height: 1px;

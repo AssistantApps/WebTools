@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useParams } from "react-router-dom";
@@ -22,30 +22,22 @@ import { GuideSectionItemViewModel } from '../../contracts/generated/ViewModel/G
 import { GuideSectionViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionViewModel';
 import { errorDialog, getStringDialog, successDialog } from '../../helper/dialogHelper';
 import { newGuid } from '../../helper/guidHelper';
-import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
+import { DependencyInjectionContext } from '../../integration/dependencyInjection';
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
 import { languageDetailsToGuideLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
-import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
 import { CreateGuideSections } from './createGuideSections';
 import { mapStateToProps } from './guidListPage.Redux';
 
-interface IWithDepInj {
-    assistantAppsApiService: AssistantAppsApiService;
-}
-interface IWithoutDepInj {
-    location: any;
-    match: any;
-    history: any;
-}
 interface IFromRedux {
     userGuid: string;
 }
 
-interface IProps extends IFromRedux, IWithDepInj, IWithoutDepInj { }
+interface IProps extends IFromRedux { }
 
 export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
     const { id: existingGuideId }: any = useParams();
     const isEditing = (existingGuideId != null && existingGuideId.length > 0);
+    const services = useContext(DependencyInjectionContext);
     const history = useHistory();
 
     // Meta
@@ -78,13 +70,11 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
         fetchAppData();
         fetchLanguageData();
         fetchExistingGuide();
-        // const seasIdSlashIndex = url.lastIndexOf('/');
-        // const seasId = url.substring(seasIdSlashIndex + 1, url.length);
         // eslint-disable-next-line
     }, [props.userGuid]);
 
     const fetchAppData = async () => {
-        const appsResult = await props.assistantAppsApiService.getApps();
+        const appsResult = await services.assistantAppsApiService.getApps();
         if (!appsResult.isSuccess) {
             setAppStatus(NetworkState.Error);
             return;
@@ -94,7 +84,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
     }
 
     const fetchLanguageData = async () => {
-        const langResult = await props.assistantAppsApiService.getLanguages();
+        const langResult = await services.assistantAppsApiService.getLanguages();
         if (!langResult.isSuccess) {
             setLangStatus(NetworkState.Error);
             return;
@@ -110,7 +100,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
             }
             return;
         }
-        const fetchGuide = await props.assistantAppsApiService.getGuidesById(existingGuideId);
+        const fetchGuide = await services.assistantAppsApiService.getGuidesById(existingGuideId);
         if (fetchGuide.isSuccess === false) {
             errorDialog('Loading Guide failed', 'Could not load the selected guide.');
             return;
@@ -195,7 +185,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
         setSubmissionStatus(NetworkState.Loading);
 
         if (isEditing === false) {
-            const addResult = await props.assistantAppsApiService.submitGuide(addGuideObj);
+            const addResult = await services.assistantAppsApiService.submitGuide(addGuideObj);
             if (addResult.isSuccess === false) {
                 errorDialog('Submission failed', 'Could not submit your guide. ' + addResult.errorMessage);
                 setSubmissionStatus(NetworkState.Error);
@@ -203,7 +193,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
             }
             successDialog('Success', 'Your guide has been submitted!');
         } else {
-            const editResult = await props.assistantAppsApiService.editGuide(existingGuideId, addGuideObj);
+            const editResult = await services.assistantAppsApiService.editGuide(existingGuideId, addGuideObj);
             if (editResult.isSuccess === false) {
                 errorDialog('Edit failed', 'Could not edit your guide. ' + editResult.errorMessage);
                 setSubmissionStatus(NetworkState.Error);
@@ -246,6 +236,8 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
         (addGuideObj.languageCode.length < 1) ||
         (addGuideObj.sections == null) ||
         (addGuideObj.sections.length < 1) ||
+        // (addGuideObj.title.length < 5) ||
+        // (addGuideObj.subTitle.length < 10) ||
         (firstInvalidSection != null);
 
     return (
@@ -381,9 +373,4 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
     );
 };
 
-export const CreateGuidePage = withServices<IWithoutDepInj, IWithDepInj>(
-    connect(mapStateToProps)(CreateGuidePageUnconnected),
-    (services: IDependencyInjection) => ({
-        assistantAppsApiService: services.assistantAppsApiService,
-    })
-);
+export const CreateGuidePage = connect(mapStateToProps)(CreateGuidePageUnconnected);

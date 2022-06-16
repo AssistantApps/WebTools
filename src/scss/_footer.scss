@@ -1,9 +1,8 @@
 /*============== footer-area css ===============*/
 
-
 .footer-area {
     padding-top: 115px;
-    // background: url('/assets/img/footer-bg.png') no-repeat center;
+    // background: url('~/assets/img/footer-bg.png') no-repeat center;
     background: #1f2338;
 
     a {
@@ -98,7 +97,6 @@
                 outline: none;
                 box-shadow: none;
             }
-
         }
     }
 
@@ -165,7 +163,6 @@
 }
 
 @media (max-width: 767px) {
-
     .home_banner_area .banner_inner .banner_content span::after {
         display: none;
     }

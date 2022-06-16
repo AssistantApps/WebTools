@@ -80,9 +80,6 @@
   }
 }
 
-
-
-
 /*============== End Elements Area css ================*/
 
 /*==============Elements Button Area css ================*/
@@ -177,7 +174,8 @@
   }
 }
 
-.border_btn {}
+.border_btn {
+}
 
 .primary-border {
   background: transparent;
@@ -285,14 +283,12 @@
 
 /*==============End Elements Button Area css ================*/
 
-
-
-
 /* =================================== */
 /*  Elements Page Styles
 /* =================================== */
 /*---------- Start Elements Page -------------*/
-.whole-wrap {}
+.whole-wrap {
+}
 
 .generic-banner {
   margin-top: 60px;
@@ -362,7 +358,6 @@
 
 /*---------- End Elements Page -------------*/
 
-
 .sample-text-area {
   padding: 100px 0 70px 0;
 }
@@ -397,9 +392,8 @@ sup,
 sub,
 u,
 del {
-  color: #4174BF;
+  color: #4174bf;
 }
-
 
 .typography h1,
 .typography h2,
@@ -410,7 +404,8 @@ del {
   color: #777777;
 }
 
-.button-area {}
+.button-area {
+}
 
 .button-area .border-top-generic {
   padding: 70px 15px;
@@ -435,7 +430,7 @@ del {
   outline: none;
   line-height: 40px;
   padding: 0 30px;
-  font-size: .8em;
+  font-size: 0.8em;
   text-align: center;
   text-decoration: none;
   font-weight: 500;
@@ -787,7 +782,7 @@ del {
 }
 
 .single-gallery-image:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .list-style {
@@ -971,7 +966,7 @@ del {
   cursor: pointer;
 }
 
-.default-switch input+label {
+.default-switch input + label {
   position: absolute;
   top: 1px;
   left: 1px;
@@ -987,7 +982,7 @@ del {
   cursor: pointer;
 }
 
-.default-switch input:checked+label {
+.default-switch input:checked + label {
   left: 19px;
 }
 
@@ -1015,7 +1010,7 @@ del {
   opacity: 0;
 }
 
-.primary-switch input+label {
+.primary-switch input + label {
   position: absolute;
   left: 0;
   top: 0;
@@ -1025,7 +1020,7 @@ del {
   height: 100%;
 }
 
-.primary-switch input+label:before {
+.primary-switch input + label:before {
   content: "";
   position: absolute;
   left: 0;
@@ -1043,7 +1038,7 @@ del {
   transition: all 0.2s;
 }
 
-.primary-switch input+label:after {
+.primary-switch input + label:after {
   content: "";
   position: absolute;
   top: 1px;
@@ -1060,11 +1055,11 @@ del {
   cursor: pointer;
 }
 
-.primary-switch input:checked+label:after {
+.primary-switch input:checked + label:after {
   left: 19px;
 }
 
-.primary-switch input:checked+label:before {
+.primary-switch input:checked + label:before {
   background: #f8b600;
 }
 
@@ -1088,7 +1083,7 @@ del {
   opacity: 0;
 }
 
-.confirm-switch input+label {
+.confirm-switch input + label {
   position: absolute;
   left: 0;
   top: 0;
@@ -1098,7 +1093,7 @@ del {
   height: 100%;
 }
 
-.confirm-switch input+label:before {
+.confirm-switch input + label:before {
   content: "";
   position: absolute;
   left: 0;
@@ -1116,7 +1111,7 @@ del {
   cursor: pointer;
 }
 
-.confirm-switch input+label:after {
+.confirm-switch input + label:after {
   content: "";
   position: absolute;
   top: 1px;
@@ -1133,11 +1128,11 @@ del {
   cursor: pointer;
 }
 
-.confirm-switch input:checked+label:after {
+.confirm-switch input:checked + label:after {
   left: 19px;
 }
 
-.confirm-switch input:checked+label:before {
+.confirm-switch input:checked + label:before {
   background: #4cd3e3;
 }
 
@@ -1161,7 +1156,7 @@ del {
   opacity: 0;
 }
 
-.primary-checkbox input+label {
+.primary-checkbox input + label {
   position: absolute;
   left: 0;
   top: 0;
@@ -1180,8 +1175,7 @@ del {
   }
 }
 
-.primary-checkbox input:checked+label {
-  background: url('/assets/img/elements/primary-check.png') no-repeat center center/cover;
+.primary-checkbox input:checked + label {
   border: none;
 }
 
@@ -1205,7 +1199,7 @@ del {
   opacity: 0;
 }
 
-.confirm-checkbox input+label {
+.confirm-checkbox input + label {
   position: absolute;
   left: 0;
   top: 0;
@@ -1218,8 +1212,7 @@ del {
   border: 1px solid #f1f1f1;
 }
 
-.confirm-checkbox input:checked+label {
-  background: url('/assets/img/elements/success-check.png') no-repeat center center/cover;
+.confirm-checkbox input:checked + label {
   border: none;
 }
 
@@ -1243,7 +1236,7 @@ del {
   opacity: 0;
 }
 
-.disabled-checkbox input+label {
+.disabled-checkbox input + label {
   position: absolute;
   left: 0;
   top: 0;
@@ -1261,8 +1254,7 @@ del {
   z-index: 3;
 }
 
-.disabled-checkbox input:checked+label {
-  background: url('/assets/img/elements/disabled-check.png') no-repeat center center/cover;
+.disabled-checkbox input:checked + label {
   border: none;
 }
 
@@ -1286,7 +1278,7 @@ del {
   opacity: 0;
 }
 
-.primary-radio input+label {
+.primary-radio input + label {
   position: absolute;
   left: 0;
   top: 0;
@@ -1299,8 +1291,7 @@ del {
   border: 1px solid #f1f1f1;
 }
 
-.primary-radio input:checked+label {
-  background: url('/assets/img/elements/primary-radio.png') no-repeat center center/cover;
+.primary-radio input:checked + label {
   border: none;
 }
 
@@ -1324,7 +1315,7 @@ del {
   opacity: 0;
 }
 
-.confirm-radio input+label {
+.confirm-radio input + label {
   position: absolute;
   left: 0;
   top: 0;
@@ -1337,8 +1328,7 @@ del {
   border: 1px solid #f1f1f1;
 }
 
-.confirm-radio input:checked+label {
-  background: url('/assets/img/elements/success-radio.png') no-repeat center center/cover;
+.confirm-radio input:checked + label {
   border: none;
 }
 
@@ -1362,7 +1352,7 @@ del {
   opacity: 0;
 }
 
-.disabled-radio input+label {
+.disabled-radio input + label {
   position: absolute;
   left: 0;
   top: 0;
@@ -1391,8 +1381,7 @@ del {
   padding: 0px;
 }
 
-.disabled-radio input:checked+label {
-  background: url('/assets/img/elements/disabled-radio.png') no-repeat center center/cover;
+.disabled-radio input:checked + label {
   border: none;
 }
 

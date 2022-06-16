@@ -71,7 +71,7 @@ export const ScreenshotSlider: React.FC<IProps> = (props: IProps) => {
             // header={<h4>Screenshot from</h4>}
             // position="top center"
 
-            offset="200, 0"
+            // offset="200, 0"
             content={<span>
                 <strong>Screenshot from&nbsp;</strong>
                 {appName}
