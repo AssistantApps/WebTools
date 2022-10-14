@@ -33,8 +33,8 @@ jobs:
 
       - name: Setup config
         run: |
-          rm -f "./public/assets/config.json"
-          mv "./public/assets/config.production.json" "./public/assets/config.json"
+          rm -f "./build/assets/config.json"
+          mv "./build/assets/config.production.json" "./build/assets/config.json"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.3.4
