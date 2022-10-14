@@ -26,8 +26,13 @@ jobs:
 
       - name: Build TS
         run: |
-          npm ci --force
+          npm ci
           npm run build
+
+      - name: Setup config
+        run: |
+          rm -f "./assets/config.json"
+          ren "./assets/config.Production.json" "config.json"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.3.4
