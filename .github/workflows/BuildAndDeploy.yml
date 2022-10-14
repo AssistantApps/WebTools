@@ -32,8 +32,8 @@ jobs:
 
       - name: Setup config
         run: |
-          rm -f "./assets/config.json"
-          mv "./assets/config.Production.json" "./assets/config.json"
+          rm -f "./public/assets/config.json"
+          mv "./public/assets/config.production.json" "./public/assets/config.json"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.3.4
