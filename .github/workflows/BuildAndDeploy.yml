@@ -27,6 +27,7 @@ jobs:
 
       - name: Build TS
         run: |
+          CI=false
           npm ci --force
           npm run build
 
