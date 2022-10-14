@@ -2,15 +2,15 @@
   
   # AssistantApps
   ### Easier way to contribute!
-  ![header](https://github.com/AssistantNMS/.github/blob/main/img/animatedBannerV2.svg?raw=true)
+  ![header](https://github.com/AssistantApps/.github/blob/main/img/animatedBanner.svg?raw=true)
   
   <br />
   
-  ![madeWithLove](./.github/img/made-with-love.svg)
-  ![gitmoji](https://github.com/AssistantNMS/.github/blob/main/badge/gitmoji.svg?raw=true)<br />
+  ![madeWithLove](https://github.com/AssistantApps/.github/blob/main/badges/made-with-love.svg)
+  ![gitmoji](https://github.com/AssistantApps/.github/blob/main/badges/gitmoji.svg?raw=true)<br />
   ![Profile views](https://komarev.com/ghpvc/?username=AssistantApps&color=green&style=for-the-badge)
 
-  [![Follow on Twitter](https://img.shields.io/twitter/follow/AssistantApps?color=%231d9bf0&style=for-the-badge)][assistantnmsTwitter]
+  [![Follow on Twitter](https://img.shields.io/twitter/follow/AssistantApps?color=%231d9bf0&style=for-the-badge)][assistantAppsTwitter]
   [![Discord](https://img.shields.io/discord/625007826913198080?style=for-the-badge)][discord]
   
   <br /> 
@@ -21,9 +21,8 @@ This WebApp allows you to contribute to the apps in an easier way, no coding req
 <br />
 
 ## 🔗 Links
-[![Website](https://img.shields.io/badge/Website-nmsassistant.com-blue?color=7986cc&style=for-the-badge)][assistantAppsWebsite]
-
-[![Twitter](https://img.shields.io/badge/Twitter-@AssistantNMS-blue?color=1DA1F2&style=for-the-badge)][assistantAppsTwitter] <br />
+[![Website](https://img.shields.io/badge/Website-nmsassistant.com-blue?color=7986cc&style=for-the-badge)][assistantAppsWebsite] <br />
+[![Twitter](https://img.shields.io/badge/Twitter-@AssistantApps-blue?color=1DA1F2&style=for-the-badge)][assistantAppsTwitter] <br />
 [![Discord](https://img.shields.io/badge/Discord-AssistantApps-blue?color=5865F2&style=for-the-badge)][discord] <br />
 
 
