@@ -6,6 +6,7 @@ name: Build and Deploy
 on:
   push:
     branches: ['main']
+  workflow_dispatch:
 
 jobs:
   build:
@@ -32,7 +33,7 @@ jobs:
       - name: Setup config
         run: |
           rm -f "./assets/config.json"
-          ren "./assets/config.Production.json" "config.json"
+          mv "./assets/config.Production.json" "./assets/config.json"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.3.4
