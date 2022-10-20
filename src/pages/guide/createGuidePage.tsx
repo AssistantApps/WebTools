@@ -35,7 +35,7 @@ interface IProps extends IFromRedux { }
 
 export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
     const [, params] = useRoute(editGuide);
-    const { id: existingGuideId }: any = params;
+    const existingGuideId: any = params?.id;
     const isEditing = (existingGuideId != null && existingGuideId.length > 0);
     const services = useContext(DependencyInjectionContext);
     const [, setLocation] = useLocation();
