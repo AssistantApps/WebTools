@@ -1,8 +1,7 @@
 import React, { DOMAttributes } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { HashRouter } from 'react-router-dom';
 
 import { App } from './App';
 // import { UpdateButton } from './components/updateButton';
@@ -20,7 +19,7 @@ import { reducer } from './redux';
 import * as serviceWorker from './serviceWorker';
 
 import './index.scss';
-import 'react-image-lightbox/style.css';
+import 'react-18-image-lightbox/style.css';
 import 'semantic-ui-css/semantic.min.css';
 import "@pathofdev/react-tag-input/build/index.css";
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -60,17 +59,18 @@ getJSON('/assets/config.json', (status: boolean, response: string) => {
   // initLocalization(store.getState()?.settingReducer?.selectedLanguage ?? 'en');
   modalSetup(reactAppId)
 
-  ReactDOM.render(
+  const root = ReactDOM.createRoot(
+    document.getElementById(reactAppId) as HTMLElement
+  );
+  root.render(
     <React.StrictMode>
       <DependencyInjectionProvider>
         <Provider store={store}>
-          <HashRouter>
-            <App />
-          </HashRouter>
+          <App />
         </Provider>
       </DependencyInjectionProvider>
     </React.StrictMode>
-    , document.getElementById(reactAppId));
+  );
 
   if (window.config.useServiceWorker) {
     serviceWorker.register({

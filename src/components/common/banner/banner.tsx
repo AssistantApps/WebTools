@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'wouter';
 import { ScreenshotSlider } from '../../screenshotSlider/screenshotSlider';
 import { ScrollDownArrowsIndicator } from '../scroll/scrollDownIndicator';
 import * as route from '../../../constants/route';
