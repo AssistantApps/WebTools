@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Route, Router } from "wouter";
-import { mapDispatchToProps, mapStateToProps } from './App.redux';
+import { mapDispatchToProps, mapStateToProps } from './appShell.redux';
 import { Footer } from './components/common/footer/footer';
 import { Header } from './components/common/header/header';
 import * as route from './constants/route';

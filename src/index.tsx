@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import { App } from './App';
+import { App } from './appShell';
 // import { UpdateButton } from './components/updateButton';
 // import { initLocalization } from './integration/i18n';
 // import { initAnalytics } from './integration/analytics';
