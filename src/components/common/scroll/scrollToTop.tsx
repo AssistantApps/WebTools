@@ -1,8 +1,9 @@
 import * as React from "react";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "wouter";
 
 interface IProps {
     location: any;
+    children: React.ReactNode;
 }
 
 class ScrollToTopWithoutRoute extends React.Component<IProps> {
@@ -17,4 +18,4 @@ class ScrollToTopWithoutRoute extends React.Component<IProps> {
     }
 }
 
-export const ScrollToTop = withRouter((props: IProps) => <ScrollToTopWithoutRoute {...props} />)
+// export const ScrollToTop = withRouter((props: IProps) => <ScrollToTopWithoutRoute {...props} />)

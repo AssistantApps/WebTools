@@ -1,5 +1,5 @@
 import React from 'react';
-import Lightbox from 'react-image-lightbox';
+import Lightbox from 'react-18-image-lightbox';
 import { Segment } from 'semantic-ui-react';
 import { NetworkState } from '../../constants/networkState';
 import { TranslationImageViewModel } from '../../contracts/generated/ViewModel/Translation/translationImageViewModel';

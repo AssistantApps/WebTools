@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useLocation } from 'wouter';
 import { SmallBanner } from '../../components/common/banner/banner';
 import { Error } from '../../components/common/error';
 import { Loading, SmallLoading } from '../../components/common/loading';
@@ -21,7 +21,7 @@ interface IFromRedux {
 interface IProps extends IFromRedux { }
 
 export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
-    const history = useHistory();
+    const [, setLocation] = useLocation();
     const services = useContext(DependencyInjectionContext);
     const [fetchStatus, setFetchStatus] = useState<NetworkState>(NetworkState.Pending);
     const [guidePagination, setGuidePagination] = useState<PaginationWithValue<Array<GuideSearchResultViewModel>>>(anyObject);
@@ -83,16 +83,14 @@ export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
                                 fetchUserGuides();
                             }}
                             onClick={() => {
-                                history.push(
+                                setLocation(
                                     editGuide.replace(editGuideParam, guide.guid)
                                 );
                             }}
                         />
                     ))
                 }
-                <CreateUserGuideTile onClick={() => {
-                    history.push(createGuide);
-                }} />
+                <CreateUserGuideTile onClick={() => setLocation(createGuide)} />
             </>
         );
     }
@@ -112,4 +110,4 @@ export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
     );
 };
 
-export const GuideListPage = connect(mapStateToProps)(GuideListPageUnconnected);
+export const GuideListPage: any = connect(mapStateToProps)(GuideListPageUnconnected);

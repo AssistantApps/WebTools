@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from '@leecheuk/react-google-login';
 import { connect } from 'react-redux';
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { Icon, Modal } from 'semantic-ui-react';
