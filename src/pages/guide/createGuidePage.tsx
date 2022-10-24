@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
-import { useParams } from "react-router-dom";
+import { useLocation, useRoute } from "wouter";
 import { Form, Input, InputOnChangeData } from 'semantic-ui-react';
 import { SmallBanner } from '../../components/common/banner/banner';
 import { ConditionalToolTip } from '../../components/common/conditionalTooltip';
@@ -14,7 +13,7 @@ import { BaseDialog } from '../../components/common/modal/baseDialog';
 import { TagsFormInput } from '../../components/common/tagComponent';
 import { AddImageSection, AddLinkSection, AddMarkdownSection, AddTextSection } from '../../components/guide/addGuideComponents';
 import { NetworkState } from '../../constants/networkState';
-import { guides } from '../../constants/route';
+import { editGuide, guides } from '../../constants/route';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
 import { GuideSectionItemType } from '../../contracts/generated/Enum/guideSectionItemType';
 import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addOrEditGuideViewModel';
@@ -35,10 +34,11 @@ interface IFromRedux {
 interface IProps extends IFromRedux { }
 
 export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
-    const { id: existingGuideId }: any = useParams();
+    const [, params] = useRoute(editGuide);
+    const existingGuideId: any = params?.id;
     const isEditing = (existingGuideId != null && existingGuideId.length > 0);
     const services = useContext(DependencyInjectionContext);
-    const history = useHistory();
+    const [, setLocation] = useLocation();
 
     // Meta
     const [appStatus, setAppStatus] = useState<NetworkState>(NetworkState.Pending);
@@ -202,7 +202,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
             successDialog('Success', 'Your guide has been editted!');
         }
         setSubmissionStatus(NetworkState.Success);
-        history.push(guides);
+        setLocation(guides);
     }
 
     const banner = (
@@ -373,4 +373,4 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
     );
 };
 
-export const CreateGuidePage = connect(mapStateToProps)(CreateGuidePageUnconnected);
+export const CreateGuidePage: any = connect(mapStateToProps)(CreateGuidePageUnconnected);
