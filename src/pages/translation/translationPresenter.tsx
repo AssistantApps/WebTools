@@ -95,7 +95,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
             </>
         );
     }
-    console.log(props.appDropDowns)
+
     return (
         <>
             {banner}
