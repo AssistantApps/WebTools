@@ -4,5 +4,5 @@
     "useServiceWorker": true,
     "apiUrl": "https://api.assistantapps.com",
     "googleClientId": "559605319918-8dp6336ptrp3l0erra4hs0p2qj5it5mb.apps.googleusercontent.com",
-    "assistantAppsTranslationCdnUrl": "https://cdn.assistantapps.com/Translation/"
+    "assistantAppsTranslationCdnUrl": "https://cdn-usr.assistantapps.com/translation"
 }
