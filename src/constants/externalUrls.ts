@@ -4,7 +4,7 @@ export class ExternalUrls {
     static kurtlourensEmail = "mailto:hi@kurtlourens.com";
     static kurtlourens = "https://kurtlourens.com";
     static patreon = "https://www.patreon.com/AssistantApps";
-    static kurtlourensFacebook = "https://kurtlourens.com";
-    static kurtlourensTwitter = "https://kurtlourens.com";
-    static kurtlourensLinkedIn = "https://kurtlourens.com";
+    static kurtlourensFacebook = "https://facebook.com/KurtLourensSoftwareEngineer";
+    static kurtlourensTwitter = "https://twitter.com/KhaozTopsy";
+    static kurtlourensLinkedIn = "https://za.linkedin.com/in/kurtlourensza";
 }
