@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Route, Router } from "wouter";
+import { Route, Router, Switch } from "wouter";
 import { mapDispatchToProps, mapStateToProps } from './appShell.redux';
 import { Footer } from './components/common/footer/footer';
 import { Header } from './components/common/header/header';
@@ -42,19 +42,21 @@ interface IProps extends StateSettingReducer {
 	toggleMenu: () => void;
 }
 
-const AppUnconnected: React.FC<any> = (props: IProps) => {
+const AppShellUnconnected: React.FC<any> = (props: IProps) => {
 	return (
 		<>
 			<Header />
 			<Router hook={useHashLocation}>
-				<Route path="/" component={HomePresenter} />
-				<Route path={route.translation} component={TranslationContainer} />
-				<Route path={route.translationAlt} component={TranslationContainer} />
-				<Route path={route.stats} component={StatisticsPresenter} />
-				<Route path={route.guides} component={GuideListPage} />
-				<Route path={route.createGuide} component={CreateGuidePage} />
-				<Route path={route.editGuide} component={CreateGuidePage} />
-				<Route component={NotFoundPresenter} />
+				<Switch>
+					<Route path="/" component={HomePresenter} />
+					<Route path={route.translation} component={TranslationContainer} />
+					<Route path={route.translationAlt} component={TranslationContainer} />
+					<Route path={route.stats} component={StatisticsPresenter} />
+					<Route path={route.guides} component={GuideListPage} />
+					<Route path={route.createGuide} component={CreateGuidePage} />
+					<Route path={route.editGuide} component={CreateGuidePage} />
+					<Route component={NotFoundPresenter} />
+				</Switch>
 			</Router>
 			<Footer />
 			{
@@ -63,4 +65,4 @@ const AppUnconnected: React.FC<any> = (props: IProps) => {
 		</>
 	);
 }
-export const App = connect(mapStateToProps, mapDispatchToProps)(AppUnconnected);
+export const AppShell = connect(mapStateToProps, mapDispatchToProps)(AppShellUnconnected);
