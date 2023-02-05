@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import { App } from './appShell';
+import { AppShell } from './appShell';
 // import { UpdateButton } from './components/updateButton';
 // import { initLocalization } from './integration/i18n';
 // import { initAnalytics } from './integration/analytics';
@@ -66,7 +66,7 @@ getJSON('/assets/config.json', (status: boolean, response: string) => {
     <React.StrictMode>
       <DependencyInjectionProvider>
         <Provider store={store}>
-          <App />
+          <AppShell />
         </Provider>
       </DependencyInjectionProvider>
     </React.StrictMode>
