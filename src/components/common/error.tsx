@@ -13,6 +13,7 @@ export const Error: React.FC<IProps> = (props: IProps) => {
                         className="error"
                         alt="error"
                     />
+                    <h3>{props.message}</h3>
                 </div>
             </div>
         </div>

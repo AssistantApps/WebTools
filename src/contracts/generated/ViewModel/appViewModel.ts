@@ -6,6 +6,7 @@ export interface AppViewModel {
     gameName: string;
     iconUrl: string;
     logoUrl: string;
+    linkUrl: string;
     isVisible: boolean;
     sortOrder: number;
 }

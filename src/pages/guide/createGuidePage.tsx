@@ -199,7 +199,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
                 setSubmissionStatus(NetworkState.Error);
                 return;
             }
-            successDialog('Success', 'Your guide has been editted!');
+            successDialog('Success', 'Your guide has been edited!');
         }
         setSubmissionStatus(NetworkState.Success);
         setLocation(guides);
@@ -249,7 +249,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
             }
             <div className="container">
                 <div className="row full pt3 pb1">
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md-6 custom-drop-down">
                         <Form>
                             <Form.Field >
                                 <label>Please select App you would like to create a guide for</label>

@@ -1,9 +1,10 @@
 import { State } from '../../redux/state';
-import { getUserGuid } from '../../redux/modules/common/selector';
+import { getUserGuid, getUserName } from '../../redux/modules/common/selector';
 
 export const mapStateToProps = (state: State) => {
     return {
         userGuid: getUserGuid(state),
+        userName: getUserName(state),
     };
 };
 

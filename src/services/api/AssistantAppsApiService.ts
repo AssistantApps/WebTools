@@ -74,8 +74,8 @@ export class AssistantAppsApiService extends BaseApiService {
         this.get(apiEndpoints.guide.getGuideById.replace(apiEndpoints.guideParam.getGuideById, id));
     submitGuide = (newGuide: AddOrEditGuideViewModel): Promise<Result> =>
         this.post(apiEndpoints.guide.submitGuide, newGuide);
-    editGuide = (guid: string, edittedGuide: AddOrEditGuideViewModel): Promise<Result> =>
-        this.post(apiEndpoints.guide.editGuide.replace(apiEndpoints.guideParam.editGuide, guid), edittedGuide);
+    editGuide = (guid: string, editedGuide: AddOrEditGuideViewModel): Promise<Result> =>
+        this.post(apiEndpoints.guide.editGuide.replace(apiEndpoints.guideParam.editGuide, guid), editedGuide);
     deleteGuide = (guid: string): Promise<Result> =>
         this.delete(apiEndpoints.guide.deleteGuide.replace(apiEndpoints.guideParam.deleteGuide, guid));
 

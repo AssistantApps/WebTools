@@ -17,4 +17,12 @@ export enum CacheType {
     teamMembers,
     translators,
     translatorLeaderboard,
+    badges,
+    exportLang,
+    translationsGraph,
+    twitchUserImg,
+    twitchUserData,
+    patreonLogin,
+    appNotice,
+    feedbackForm,
 }

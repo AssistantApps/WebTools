@@ -5,4 +5,5 @@ export enum AppType {
     nms,
     sms,
     hyt,
+    dkm,
 }

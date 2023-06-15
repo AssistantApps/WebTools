@@ -19,9 +19,9 @@ import { reducer } from './redux';
 import * as serviceWorker from './serviceWorker';
 
 import './index.scss';
+import './reactTag.scss';
 import 'react-18-image-lightbox/style.css';
 import 'semantic-ui-css/semantic.min.css';
-import "@pathofdev/react-tag-input/build/index.css";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 type CustomElement<T> = Partial<T & DOMAttributes<T> & { children: any }>;

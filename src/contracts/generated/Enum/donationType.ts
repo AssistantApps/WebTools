@@ -9,4 +9,5 @@ export enum DonationType {
     patreon,
     googlePay,
     applePay,
+    openCollective,
 }

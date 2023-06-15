@@ -29,4 +29,12 @@ export enum PermissionType {
     teamMemberManage,
     translationReportView,
     translationReportManage,
+    licenceView,
+    licenceManage,
+    appNoticeView,
+    appNoticeManage,
+    feedbackFormView,
+    feedbackFormManage,
+    translationSubmissionView,
+    databaseMaintenance,
 }

@@ -5,4 +5,6 @@ export enum PlatformType {
     iOS,
     web,
     api,
+    windows,
+    githubWindowsInstaller,
 }

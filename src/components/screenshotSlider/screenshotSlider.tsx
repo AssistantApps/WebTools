@@ -21,6 +21,8 @@ export const ScreenshotSlider: React.FC<IProps> = (props: IProps) => {
         'SMS1',
         'SMS2',
         'SMS3',
+        'DKM1',
+        'DKM2',
     ];
 
     const [index, setIndex] = useState<number>(0);

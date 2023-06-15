@@ -8,11 +8,6 @@ import './header.scss';
 import { Icon } from 'semantic-ui-react';
 import { home, stats, translation } from '../../../constants/route';
 
-interface IState {
-	isOpen: boolean;
-	links: Array<any>;
-}
-
 interface IProps { }
 
 export const Header: React.FC<IProps> = (props: IProps) => {

@@ -6,4 +6,7 @@ export interface UserViewModel {
     username: string;
     joinDate: Date;
     isAdmin: boolean;
+    isDonator: boolean;
+    isPatreon: boolean;
+    isHiddenOnLeaderboard: boolean;
 }

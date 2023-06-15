@@ -12,4 +12,5 @@ export interface GuideSearchViewModel {
     orderByLikes: SortDirection;
     page: number;
     languageCode: string;
+    approvalStatusesToShow: any[];
 }
