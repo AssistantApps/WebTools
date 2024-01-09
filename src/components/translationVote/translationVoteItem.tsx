@@ -1,6 +1,6 @@
+import { TranslationSubmissionWithVotesViewModel } from '@assistantapps/assistantapps.api.client';
 import React from 'react';
 import { Button, Icon, Label, List, Popup } from 'semantic-ui-react';
-import { TranslationSubmissionWithVotesViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
 import './_translationVoteItem.scss';
 
 

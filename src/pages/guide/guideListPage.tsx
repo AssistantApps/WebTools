@@ -10,12 +10,11 @@ import { CreateUserGuideTile, UserGuideTile } from '../../components/guide/userG
 import { AdminAprovalStatusOptions, DefaultAdminAprovalStatusSelection } from '../../constants/dropDown';
 import { NetworkState } from '../../constants/networkState';
 import { createGuide, editGuide, editGuideParam } from '../../constants/route';
-import { AdminApprovalStatus } from '../../contracts/generated/Enum/adminApprovalStatus';
-import { GuideSearchResultViewModel } from '../../contracts/generated/ViewModel/Guide/guideSearchResultViewModel';
 import { PaginationWithValue } from '../../contracts/pagination/paginationWithValue';
 import { anyObject } from '../../helper/typescriptHacks';
 import { DependencyInjectionContext } from '../../integration/dependencyInjection';
 import { mapStateToProps } from './guidListPage.Redux';
+import { AdminApprovalStatus, GuideSearchResultViewModel } from '@assistantapps/assistantapps.api.client';
 
 interface IFromRedux {
     userGuid: string;
@@ -37,7 +36,7 @@ export const GuideListPageUnconnected: React.FC<IProps> = (props: IProps) => {
         const isNotLoggedIn = props.userGuid == null || props.userGuid.length < 1;
         if (isNotLoggedIn) return;
 
-        if (fetchStatus == NetworkState.Loading) return;
+        if (fetchStatus === NetworkState.Loading) return;
         fetchUserGuides();
         // eslint-disable-next-line
     }, [props.userGuid]);

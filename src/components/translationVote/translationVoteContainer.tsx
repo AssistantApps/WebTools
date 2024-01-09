@@ -1,15 +1,12 @@
+import { TranslationKeyViewModel, TranslationReportAddViewModel, TranslationSubmissionViewModel, TranslationSubmissionWithVotesViewModel } from '@assistantapps/assistantapps.api.client';
 import React from 'react';
 import Swal from 'sweetalert2';
 import { NetworkState } from '../../constants/networkState';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { TranslationSubmissionViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
-import { TranslationSubmissionWithVotesViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
-import { TranslationReportAddViewModel } from '../../contracts/generated/ViewModel/Translation/translationReportAddViewModel';
 import { Result } from '../../contracts/results/ResultWithValue';
-import { StorageService } from '../../services/StorageService';
-import { TranslationVotePresenter } from './translationVotePresenter';
-import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
 import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
+import { StorageService } from '../../services/StorageService';
+import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
+import { TranslationVotePresenter } from './translationVotePresenter';
 
 interface IWithDepInj {
     assistantAppsApiService: AssistantAppsApiService;

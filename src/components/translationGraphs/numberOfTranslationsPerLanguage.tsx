@@ -3,9 +3,6 @@ import { Bar, BarChart, CartesianGrid, Cell, Label, ResponsiveContainer, Tooltip
 import { Menu } from 'semantic-ui-react';
 import { NetworkState } from '../../constants/networkState';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
-import { TranslationGetGraphViewModel } from '../../contracts/generated/ViewModel/Translation/translationGetGraphViewModel';
-import { TranslationsPerLanguageGraphViewModel } from '../../contracts/generated/ViewModel/Translation/translationsPerLanguageGraphViewModel';
 import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
 import { getColourFromLanguageCode } from '../../mapper/languageColourMapper';
@@ -14,6 +11,7 @@ import { DropDown } from '../common/dropDown/dropDown';
 import { TooltipWithFlag } from '../common/graph/tooltipWithFlag';
 import { FlagAxisTick, SteppedAxisTick } from '../common/graph/xAxis';
 import { SmallLoading } from '../common/loading';
+import { AppViewModel, TranslationGetGraphViewModel, TranslationsPerLanguageGraphViewModel } from '@assistantapps/assistantapps.api.client';
 
 interface IWithDepInj {
     assistantAppsApiService: AssistantAppsApiService;

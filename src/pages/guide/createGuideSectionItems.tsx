@@ -1,7 +1,5 @@
-import React, { } from 'react';
-import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addOrEditGuideViewModel';
-import { GuideSectionItemViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionItemViewModel';
-import { GuideSectionViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionViewModel';
+import { AddOrEditGuideViewModel, GuideSectionItemViewModel, GuideSectionViewModel } from '@assistantapps/assistantapps.api.client';
+import React from 'react';
 import { SectionItem } from './guideComponents';
 
 

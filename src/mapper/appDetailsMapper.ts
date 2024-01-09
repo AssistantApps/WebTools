@@ -1,6 +1,6 @@
+import { AppViewModel } from '@assistantapps/assistantapps.api.client';
 import { PublishedAppsDetailsType } from '../constants/appDetails';
 import { DropDownWithIcon } from '../contracts/dropdown/dropDownWithIcon';
-import { AppViewModel } from '../contracts/generated/ViewModel/appViewModel';
 
 export const appDetailsConstantToDropDownMapper = (publishedAppsDetail: PublishedAppsDetailsType) => {
     if (!publishedAppsDetail.publiclyVisible) return null;

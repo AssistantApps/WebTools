@@ -1,11 +1,7 @@
+import { AppViewModel, LanguageViewModel, TranslationKeySearchDropdownViewModel, TranslationKeyViewModel, TranslationSearchViewModel } from '@assistantapps/assistantapps.api.client';
 import React from 'react';
 import { connect } from 'react-redux';
 import { NetworkState } from '../../constants/networkState';
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
-import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
-import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { TranslationSearchViewModel } from '../../contracts/generated/ViewModel/Translation/translationSearchViewModel';
 import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
 import { languageDetailsToTranslationLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';

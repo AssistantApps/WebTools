@@ -1,3 +1,4 @@
+import { AddOrEditGuideViewModel, GuideSectionItemViewModel, GuideSectionViewModel } from '@assistantapps/assistantapps.api.client';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -11,15 +12,12 @@ import { LoginRequired } from '../../components/common/loginRequired';
 import { TagsFormInput } from '../../components/common/tagComponent';
 import { NetworkState } from '../../constants/networkState';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
-import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addOrEditGuideViewModel';
-import { GuideSectionItemViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionItemViewModel';
-import { GuideSectionViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionViewModel';
 import { getStringDialog, successDialog } from '../../helper/dialogHelper';
 import { DependencyInjectionContext } from '../../integration/dependencyInjection';
 import { appDetailsToAppDropDownMapper } from '../../mapper/appDetailsMapper';
 import { languageDetailsToTranslationLanguageDropDownMapper } from '../../mapper/languageDetailsMapper';
-import { ActionButtons, SectionItem } from './guideComponents';
 import { mapStateToProps } from './guidListPage.Redux';
+import { ActionButtons, SectionItem } from './guideComponents';
 
 interface IFromRedux {
     userGuid: string;

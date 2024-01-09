@@ -1,8 +1,9 @@
+import { AddOrEditGuideViewModel, GuideSectionItemType, GuideSectionItemViewModel, GuideSectionViewModel } from '@assistantapps/assistantapps.api.client';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useLocation, useRoute } from "wouter";
 import { Form, Input, InputOnChangeData } from 'semantic-ui-react';
+import { useLocation, useRoute } from "wouter";
 import { SmallBanner } from '../../components/common/banner/banner';
 import { ConditionalToolTip } from '../../components/common/conditionalTooltip';
 import { DropDown } from '../../components/common/dropDown/dropDown';
@@ -15,10 +16,6 @@ import { AddImageSection, AddLinkSection, AddMarkdownSection, AddTextSection } f
 import { NetworkState } from '../../constants/networkState';
 import { editGuide, guides } from '../../constants/route';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
-import { GuideSectionItemType } from '../../contracts/generated/Enum/guideSectionItemType';
-import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addOrEditGuideViewModel';
-import { GuideSectionItemViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionItemViewModel';
-import { GuideSectionViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionViewModel';
 import { errorDialog, getStringDialog, successDialog } from '../../helper/dialogHelper';
 import { newGuid } from '../../helper/guidHelper';
 import { DependencyInjectionContext } from '../../integration/dependencyInjection';

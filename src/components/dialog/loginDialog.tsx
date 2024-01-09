@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { Icon, Modal } from 'semantic-ui-react';
 import Swal from 'sweetalert2';
-import { OAuthProviderType } from '../../contracts/generated/Enum/oAuthProviderType';
-import { OAuthUserViewModel } from '../../contracts/generated/ViewModel/oAuthUserViewModel';
+
 import { ILoginProps } from '../../contracts/login';
 import { errorDialog } from '../../helper/dialogHelper';
 import { DependencyInjectionContext } from '../../integration/dependencyInjection';
 import { ConditionalToolTip } from '../common/conditionalTooltip';
 import { mapDispatchToProps, mapStateToProps } from './loginDialog.redux';
+import { OAuthProviderType, OAuthUserViewModel } from '@assistantapps/assistantapps.api.client';
 
 interface IProps {
     isLoading?: boolean;

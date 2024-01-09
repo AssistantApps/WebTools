@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import React, { ReactNode } from 'react';
 import { Card, Icon, Label } from 'semantic-ui-react';
-import { AdminApprovalStatus } from '../../contracts/generated/Enum/adminApprovalStatus';
-import { GuideSearchResultViewModel } from '../../contracts/generated/ViewModel/Guide/guideSearchResultViewModel';
+
 import { friendlyDate } from '../../helper/dateHelper';
+import { AdminApprovalStatus, GuideSearchResultViewModel } from '@assistantapps/assistantapps.api.client';
 
 interface IUserGuideTileProps {
     item: GuideSearchResultViewModel;

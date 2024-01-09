@@ -1,9 +1,8 @@
+import { TranslationKeyViewModel, TranslationSubmissionWithVotesViewModel } from '@assistantapps/assistantapps.api.client';
 import classNames from 'classnames';
 import React from 'react';
 import { Form, Placeholder, Segment, TextArea, TextAreaProps } from 'semantic-ui-react';
 import { NetworkState } from '../../constants/networkState';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { TranslationSubmissionWithVotesViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
 import { ConditionalToolTip } from '../common/conditionalTooltip';
 import { TranslationVoteItem } from './translationVoteItem';
 

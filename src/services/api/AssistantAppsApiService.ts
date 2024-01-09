@@ -1,70 +1,47 @@
+import { AssistantAppsApiService as aaApi, AddOrEditGuideViewModel, AppViewModel, GuideContentViewModel, GuideSearchResultViewModel, GuideSearchViewModel, IUserLogin, LanguageViewModel, OAuthUserViewModel, TranslationGetGraphViewModel, TranslationImageViewModel, TranslationKeySearchDropdownViewModel, TranslationKeyViewModel, TranslationReportAddViewModel, TranslationSearchViewModel, TranslationsPerLanguageGraphViewModel, TranslationSubmissionViewModel, TranslationSubmissionWithVotesViewModel, TranslationVoteViewModel, TranslatorLeaderboardItemViewModel } from '@assistantapps/assistantapps.api.client';
 import * as apiEndpoints from '../../constants/apiEndpoints';
 import * as storageType from '../../constants/storageType';
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
-import { getExpiryDateUtc } from '../../helper/dateHelper';
-import { GuideSearchResultViewModel } from '../../contracts/generated/ViewModel/Guide/guideSearchResultViewModel';
-import { GuideSearchViewModel } from '../../contracts/generated/ViewModel/Guide/guideSearchViewModel';
-import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
-import { OAuthUserViewModel } from '../../contracts/generated/ViewModel/oAuthUserViewModel';
-import { TranslationGetGraphViewModel } from '../../contracts/generated/ViewModel/Translation/translationGetGraphViewModel';
-import { TranslationImageViewModel } from '../../contracts/generated/ViewModel/Translation/translationImageViewModel';
-import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { TranslationSearchViewModel } from '../../contracts/generated/ViewModel/Translation/translationSearchViewModel';
-import { TranslationsPerLanguageGraphViewModel } from '../../contracts/generated/ViewModel/Translation/translationsPerLanguageGraphViewModel';
-import { TranslationSubmissionViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionViewModel';
-import { TranslationSubmissionWithVotesViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmissionWithVotesViewModel';
-import { TranslationVoteViewModel } from '../../contracts/generated/ViewModel/Translation/translationVoteViewModel';
 import { ILoginProps } from '../../contracts/login';
 import { PaginationWithValue } from '../../contracts/pagination/paginationWithValue';
 import { Result, ResultWithValue } from '../../contracts/results/ResultWithValue';
+import { getExpiryDateUtc } from '../../helper/dateHelper';
 import { BaseApiService } from './../BaseApiService';
 import { StorageService } from './../StorageService';
-import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addOrEditGuideViewModel';
-import { GuideContentViewModel } from '../../contracts/generated/ViewModel/Guide/guideContentViewModel';
-import { TranslatorLeaderboardItemViewModel } from '../../contracts/generated/ViewModel/Translation/translatorLeaderboardItemViewModel';
-import { TranslationReportAddViewModel } from '../../contracts/generated/ViewModel/Translation/translationReportAddViewModel';
 
 export class AssistantAppsApiService extends BaseApiService {
+    private _api: aaApi;
+
+    constructor() {
+        super();
+        this._api = new aaApi({
+            url: window.config.apiUrl,
+        });
+    }
+
     // Base
-    getApps = (): Promise<ResultWithValue<Array<AppViewModel>>> =>
-        this.get<Array<AppViewModel>>(apiEndpoints.app);
-    getLanguages = (): Promise<ResultWithValue<Array<LanguageViewModel>>> =>
-        this.get<Array<LanguageViewModel>>(apiEndpoints.language);
+    getApps = (): Promise<ResultWithValue<Array<AppViewModel>>> => this._api.app.readAll();
+    getLanguages = (): Promise<ResultWithValue<Array<LanguageViewModel>>> => this._api.language.readAll();
 
     // Translations
-    getTranslationKeys = (searchObj: TranslationSearchViewModel): Promise<ResultWithValue<Array<TranslationKeyViewModel>>> =>
-        this.post<Array<TranslationKeyViewModel>>(apiEndpoints.translationKeySearch, searchObj);
+    submitTranslation = (data: TranslationSubmissionViewModel): Promise<Result> => this._api.translation.create(data);
+    deleteTranslation = (guid: string): Promise<Result> => this._api.translation.del(guid);
+    getTranslationsPerLangGraphData = (data: TranslationGetGraphViewModel): Promise<ResultWithValue<Array<TranslationsPerLanguageGraphViewModel>>> => this._api.translation.createSearchPerLanguage(data);
 
-    getTranslationKeysSearchDropdown = (searchObj: TranslationSearchViewModel): Promise<ResultWithValue<Array<TranslationKeySearchDropdownViewModel>>> =>
-        this.post<Array<TranslationKeySearchDropdownViewModel>>(apiEndpoints.translationKeySearchDropdown, searchObj);
+    // Translations
+    getTranslationKeys = (searchObj: TranslationSearchViewModel): Promise<ResultWithValue<Array<TranslationKeyViewModel>>> => this._api.translationKey.createSearch(searchObj);
+    getTranslationKeysSearchDropdown = (searchObj: TranslationSearchViewModel): Promise<ResultWithValue<Array<TranslationKeySearchDropdownViewModel>>> => this._api.translationKey.createSearchDropdown(searchObj);
+    getSubmittedTranslations = (translationKeyGuid: string, languageGuid: string): Promise<ResultWithValue<Array<TranslationSubmissionWithVotesViewModel>>> => this._api.translation.readForLang(translationKeyGuid, languageGuid);
 
-    getTranslationImages = (translationKeyGuid: string): Promise<ResultWithValue<Array<TranslationImageViewModel>>> =>
-        this.get<Array<TranslationImageViewModel>>(`${apiEndpoints.translationKeyImages}/${translationKeyGuid}`);
+    // Translation Images
+    getTranslationImages = (translationKeyGuid: string): Promise<ResultWithValue<Array<TranslationImageViewModel>>> => this._api.translationImage.readAll(translationKeyGuid);
 
-    getTranslationVotes = (translationKeyGuid: string): Promise<ResultWithValue<Array<TranslationVoteViewModel>>> =>
-        this.get<Array<TranslationVoteViewModel>>(`${apiEndpoints.translationVotes}/${translationKeyGuid}`);
+    // Translation Votes
+    getTranslationVotes = (translationKeyGuid: string): Promise<ResultWithValue<Array<TranslationVoteViewModel>>> => this._api.translationVote.readForTansKeyGuid(translationKeyGuid);
+    selectTranslationVote = (data: TranslationVoteViewModel): Promise<Result> => this._api.translationVote.create(data);
 
-    getSubmittedTranslations = (translationKeyGuid: string, languageGuid: string): Promise<ResultWithValue<Array<TranslationSubmissionWithVotesViewModel>>> =>
-        this.get<Array<TranslationSubmissionWithVotesViewModel>>(`${apiEndpoints.translation}/${translationKeyGuid}/${languageGuid}`);
-
-    submitTranslation = (data: TranslationSubmissionViewModel): Promise<Result> =>
-        this.post(apiEndpoints.translation, data);
-
-    deleteTranslation = (guid: string): Promise<Result> =>
-        this.delete(`${apiEndpoints.translation}/${guid}`);
-
-    selectTranslationVote = (data: TranslationVoteViewModel): Promise<Result> =>
-        this.post(apiEndpoints.translationVotes, data);
-
-    reportTranslation = (data: TranslationReportAddViewModel): Promise<Result> =>
-        this.post(apiEndpoints.translationReports, data);
-
-    getTranslationsPerLangGraphData = (data: TranslationGetGraphViewModel): Promise<ResultWithValue<Array<TranslationsPerLanguageGraphViewModel>>> =>
-        this.post(apiEndpoints.translationsPerLangGraph, data);
-
-    getTranslators = (data: any): Promise<ResultWithValue<Array<TranslatorLeaderboardItemViewModel>>> =>
-        this.post(apiEndpoints.translatorLeaderboard, data);
+    // Translation Reports
+    reportTranslation = (data: TranslationReportAddViewModel): Promise<Result> => this._api.translationReport.create(data);
+    getTranslators = (data: any): Promise<ResultWithValue<Array<TranslatorLeaderboardItemViewModel>>> => this._api.translationStat.readAll(data);
 
 
     // Guides
@@ -85,19 +62,28 @@ export class AssistantAppsApiService extends BaseApiService {
         let userGuid = '';
         let timeTillExpiry = 0;
         let expiryDate = new Date();
-        const apiResult = await this.post(apiEndpoints.authUrl, oAuthObj, (headers) => {
-            const token = headers.token;
-            timeTillExpiry = headers.tokenexpiry;
-            userGuid = headers.userguid;
+        const apiResult = await this._api.account.loginWithGoogleAuth(
+            oAuthObj,
+            (userAcc: IUserLogin) => {
+                const token = userAcc.token;
+                timeTillExpiry = parseInt(userAcc.tokenExpiry);
+                userGuid = userAcc.userGuid;
 
-            this.setInterceptors(token);
-            expiryDate = getExpiryDateUtc(timeTillExpiry);
+                this.setInterceptors(token);
+                expiryDate = getExpiryDateUtc(timeTillExpiry);
 
-            const storageServ = new StorageService();
-            storageServ.set(storageType.token, token, expiryDate);
-            storageServ.set(storageType.userGuid, userGuid, expiryDate);
-            storageServ.set(storageType.userName, oAuthObj.username, expiryDate);
-        });
+                const storageServ = new StorageService();
+                storageServ.set(storageType.token, token, expiryDate);
+                storageServ.set(storageType.userGuid, userGuid, expiryDate);
+                storageServ.set(storageType.userName, oAuthObj.username, expiryDate);
+
+
+                this._api = new aaApi({
+                    url: window.config.apiUrl,
+                    authToken: userAcc.token,
+                })
+            },
+        );
 
         const loginData: ILoginProps = {
             userGuid: userGuid,

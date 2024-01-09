@@ -1,3 +1,4 @@
+import { TranslationKeySearchDropdownViewModel, TranslationKeyViewModel } from '@assistantapps/assistantapps.api.client';
 import classNames from 'classnames';
 import React from 'react';
 import { Icon, Pagination, PaginationProps } from 'semantic-ui-react';
@@ -11,8 +12,6 @@ import { TranslationSearch } from '../../components/translationSearch/translatio
 import { TranslationVoteContainer } from '../../components/translationVote/translationVoteContainer';
 import { NetworkState } from '../../constants/networkState';
 import { DropDownWithIcon } from '../../contracts/dropdown/dropDownWithIcon';
-import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { MainTranslationPanel } from './translationComponents';
 
 interface IProps {

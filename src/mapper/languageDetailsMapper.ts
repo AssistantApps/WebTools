@@ -1,5 +1,5 @@
+import { LanguageViewModel } from '@assistantapps/assistantapps.api.client';
 import { DropDownWithIcon } from '../contracts/dropdown/dropDownWithIcon';
-import { LanguageViewModel } from '../contracts/generated/ViewModel/languageViewModel';
 import { getImageUrlFromCountryCode } from '../helper/countryCodeHelper';
 
 export const languageDetailsToTranslationLanguageDropDownMapper = (appDetails: Array<LanguageViewModel>): Array<DropDownWithIcon> => {

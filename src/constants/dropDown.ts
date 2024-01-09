@@ -1,4 +1,4 @@
-import { AdminApprovalStatus } from "../contracts/generated/Enum/adminApprovalStatus";
+import { AdminApprovalStatus } from "@assistantapps/assistantapps.api.client";
 import { addSpacesForEnum, capitalizeFirstLetter } from "../helper/stringHelper";
 
 export const AdminAprovalStatusOptions = Object.values(AdminApprovalStatus)

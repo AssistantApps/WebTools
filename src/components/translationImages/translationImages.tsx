@@ -2,10 +2,10 @@ import React from 'react';
 import Lightbox from 'react-18-image-lightbox';
 import { Segment } from 'semantic-ui-react';
 import { NetworkState } from '../../constants/networkState';
-import { TranslationImageViewModel } from '../../contracts/generated/ViewModel/Translation/translationImageViewModel';
 import { IDependencyInjection, withServices } from '../../integration/dependencyInjection';
 import { AssistantAppsApiService } from '../../services/api/AssistantAppsApiService';
 import { SmallLoading } from '../common/loading';
+import { TranslationImageViewModel } from '@assistantapps/assistantapps.api.client';
 
 interface IWithDepInj {
     assistantAppsApiService: AssistantAppsApiService;

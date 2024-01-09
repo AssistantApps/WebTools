@@ -9,6 +9,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@assistantapps/assistantapps.api.client": "^0.0.23",
     "@leecheuk/react-google-login": "^5.4.1",
     "@pathofdev/react-tag-input": "^1.0.7",
     "axios": "^1.1.3",

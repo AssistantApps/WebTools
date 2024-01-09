@@ -1,7 +1,6 @@
-import React, { } from 'react';
+import { AddOrEditGuideViewModel, GuideSectionViewModel } from '@assistantapps/assistantapps.api.client';
+import React from 'react';
 import { Icon, Popup } from 'semantic-ui-react';
-import { AddOrEditGuideViewModel } from '../../contracts/generated/ViewModel/Guide/addOrEditGuideViewModel';
-import { GuideSectionViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionViewModel';
 import { getStringDialog } from '../../helper/dialogHelper';
 import { CreateGuideSectionItems } from './createGuideSectionItems';
 import { ActionButtons } from './guideComponents';

@@ -3,12 +3,10 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import { Button, Icon, Popup } from 'semantic-ui-react';
 import Autosuggest, { InputProps } from 'react-autosuggest';
+import { TranslationKeySearchDropdownViewModel, TranslationKeyViewModel } from '@assistantapps/assistantapps.api.client';
 
 import { Error } from '../../components/common/error';
 import { NetworkState } from '../../constants/networkState';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { TranslationKeySearchDropdownViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeySearchDropdownViewModel';
-
 import './translationSearch.scss';
 
 interface IProps {

@@ -1,9 +1,8 @@
+import { GuideSectionItemType, GuideSectionItemViewModel } from '@assistantapps/assistantapps.api.client';
 import React, { useState } from 'react';
 import { Form, Icon, Label } from 'semantic-ui-react';
-import { GuideSectionItemType } from '../../contracts/generated/Enum/guideSectionItemType';
-import { GuideSectionItemViewModel } from '../../contracts/generated/ViewModel/Guide/guideSectionItemViewModel';
-import { MarkdownRenderer } from '../../components/common/markdown';
 import { LazyLoadImage } from '../../components/common/lazyLoadImage/lazyLoadImage';
+import { MarkdownRenderer } from '../../components/common/markdown';
 
 interface ISectionItemProps {
     index: number;
