@@ -67,7 +67,7 @@ export class TranslationVoteContainerUnconnected extends React.Component<IProps,
             }
         });
 
-        var translationVotesResult = await this.props.assistantAppsApiService.getSubmittedTranslations(this.props.currentTranslation.guid, this.props.languageGuid);
+        const translationVotesResult = await this.props.assistantAppsApiService.getSubmittedTranslations(this.props.currentTranslation.guid, this.props.languageGuid);
         if (!translationVotesResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -110,7 +110,7 @@ export class TranslationVoteContainerUnconnected extends React.Component<IProps,
             })
             return;
         }
-        var apiResult = await apiFunc();
+        const apiResult = await apiFunc();
         if (!apiResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -133,12 +133,12 @@ export class TranslationVoteContainerUnconnected extends React.Component<IProps,
                 status: NetworkState.Loading
             }
         });
-        var voteObj: TranslationSubmissionViewModel = {
+        const voteObj: TranslationSubmissionViewModel = {
             translationKeyGuid: this.props.currentTranslation.guid,
             languageGuid: this.props.languageGuid,
             text: this.state.translation,
         }
-        var transResult = await this.props.assistantAppsApiService.submitTranslation(voteObj);
+        const transResult = await this.props.assistantAppsApiService.submitTranslation(voteObj);
         if (!transResult.isSuccess) {
             if (transResult.statusCode != null && transResult.statusCode === 409) {
                 Swal.fire({
@@ -199,7 +199,7 @@ export class TranslationVoteContainerUnconnected extends React.Component<IProps,
                 status: NetworkState.Loading
             }
         });
-        var reportObj: TranslationReportAddViewModel = {
+        const reportObj: TranslationReportAddViewModel = {
             translationGuid: badTrans.guid,
             translationKey: this.props.currentTranslation.key,
             offendingText: badTrans.text,
@@ -207,7 +207,7 @@ export class TranslationVoteContainerUnconnected extends React.Component<IProps,
             languageGuid: this.props.languageGuid,
             additionalMessage: additionalText as string,
         }
-        var reportResult = await this.props.assistantAppsApiService.reportTranslation(reportObj);
+        const reportResult = await this.props.assistantAppsApiService.reportTranslation(reportObj);
         if (!reportResult.isSuccess) {
             this.setState(() => {
                 return {

@@ -1,0 +1,173 @@
+$bgColour: #20201e;
+$borderColour: #0c0c0c;
+$widgetColour: #3b3b38;
+$focusColour: #4b4b4a;
+$focusDarkColour: darken($focusColour, 10%);
+$textColour: rgb(219, 219, 219);
+
+body.dark {
+    background: $bgColour !important;
+    color: $textColour !important;
+
+    .ui.form .field>label {
+        color: $textColour;
+        font-size: 1em;
+    }
+
+    .ui.menu {
+        background: $focusDarkColour;
+        border: 1px solid $focusDarkColour;
+    }
+
+    .ui.pagination.menu .item {
+        &:before {
+            background-color: $focusDarkColour;
+        }
+
+        &.active {
+            background-color: $focusDarkColour !important;
+        }
+    }
+
+    .ui.basic.label,
+    .ui.selection.dropdown,
+    .react-tag-input,
+    .react-tag-input__input,
+    .ui.selection.active.dropdown .menu,
+    .ui.icon.button,
+    .ui.menu .item,
+    .ui.popup,
+    .ui.popup:before {
+        color: $textColour !important;
+        background: $widgetColour !important;
+
+        &:hover {
+            border-color: $borderColour !important;
+        }
+    }
+
+    .ui.dropdown .menu .item,
+    .ui.dropdown,
+    .ui.card>.content>.header,
+    .ui.cards>.card>.content>.header {
+        color: $textColour;
+    }
+
+    .ui.selection.active.dropdown .menu {
+        border-color: $borderColour;
+    }
+
+    .ui.selection.dropdown .menu>.item {
+        border-top: 1px solid $focusDarkColour;
+    }
+
+    .ui.placeholder.segment,
+    .card {
+        background: $focusDarkColour;
+    }
+
+    .ui.selection.dropdown {
+        border: 1px solid $borderColour;
+    }
+
+    .ui.fluid.multiple.selection.dropdown .ui.label,
+    .ui.basic.label {
+        color: $textColour;
+        background: $focusColour;
+    }
+
+    .ui.labeled.button.vote-opt {
+        .ui.basic.label {
+            background: lighten($focusColour, 10%) !important;
+
+            &.no-radius {
+                border-radius: 0;
+            }
+
+            &.blue {
+                background-color: #3591ad !important;
+            }
+        }
+    }
+
+    .react-tag-input {
+        border: none;
+    }
+
+    .react-tag-input__tag,
+    .react-tag-input__tag__remove {
+        color: $textColour;
+        background: $focusColour;
+
+        :after,
+        :before {
+            background-color: red;
+        }
+    }
+
+    .ui.placeholder {
+        background-color: #4e4e4e;
+        background-image: linear-gradient(to right, rgba(255, 255, 255, .08) 0, rgba(255, 255, 255, .15) 15%, rgba(255, 255, 255, .08) 30%);
+    }
+
+    .ui.placeholder,
+    .ui.placeholder .image.header:after,
+    .ui.placeholder .line,
+    .ui.placeholder .line:after,
+    .ui.placeholder>:before {
+        background-color: $bgColour;
+    }
+
+    .ui.form,
+    .ui.input {
+
+        input:not([type]),
+        input[type=date],
+        input[type=datetime-local],
+        input[type=email],
+        input[type=file],
+        input[type=number],
+        input[type=password],
+        input[type=search],
+        input[type=tel],
+        input[type=text],
+        input[type=time],
+        input[type=url],
+        textarea {
+            color: $textColour;
+            background: $widgetColour;
+
+            &:focus {
+                color: $textColour;
+                background: $focusColour;
+            }
+        }
+    }
+
+    .button.disabled {
+        border-color: #616161;
+        background: #777777;
+    }
+
+    .guide-page {
+
+        .ui.card.guide {
+
+            .meta {
+                color: rgba(255, 255, 255, .4)
+            }
+
+            .content>.description {
+                color: rgba(255, 255, 255, .68)
+            }
+
+            .description.guide-status.approved>span {
+                color: lightgreen;
+            }
+
+            .description.guide-status.pending>span {
+                color: lightblue;
+            }
+        }
+    }
+}

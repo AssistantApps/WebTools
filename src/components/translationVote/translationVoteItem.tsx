@@ -1,5 +1,5 @@
 import { TranslationSubmissionWithVotesViewModel } from '@assistantapps/assistantapps.api.client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Icon, Label, List, Popup } from 'semantic-ui-react';
 import './_translationVoteItem.scss';
 
@@ -14,38 +14,42 @@ interface IProps {
 }
 
 export const TranslationVoteItem: React.FC<IProps> = (props: IProps) => {
+    const [isPopupOpen, setPopupOpen] = useState<boolean>(false);
+
     const numMaxChars = 20;
     let translationTextIsLarge = false;
 
-    var translationText = props.details.text;
+    let translationText = props.details.text;
     const numTextChars = props.details.text.length;
     if (numTextChars > numMaxChars) {
         translationText = props.details.text.substring(0, numMaxChars) + '...';
         translationTextIsLarge = true;
     }
-    var username = props.details.username;
+    let username = props.details.username;
     const numUsernameChars = props.details.text.length;
     if (numUsernameChars > numMaxChars) {
         username = props.details.username.substring(0, numMaxChars) + '...';
     }
 
-    var popupContent = 'Translator: ' + username;
+    let popupContent = 'Translator: ' + username;
     if (translationTextIsLarge) {
         popupContent = props.details.text + ' - Translated by: ' + props.details.username;
     }
 
     const renderIcon = (localProps: IProps) => {
-        var options = [];
-        var subOptions = [];
+        const options = [];
+        const subOptions = [];
 
         if (localProps.onEdit != null) {
-            const onEdit = localProps.onEdit;
             subOptions.push(
                 {
                     guid: `edit-${localProps.details.guid}`,
                     component: (
                         <Label key={`edit-${localProps.details.guid}`}
-                            onClick={() => onEdit(localProps.details.text)}
+                            onClick={() => {
+                                setPopupOpen(false);
+                                localProps?.onEdit?.(localProps.details.text);
+                            }}
                             basic color="grey" className="pointer noselect">
                             <Icon name="edit" />
                             <span>Edit</span>
@@ -74,7 +78,11 @@ export const TranslationVoteItem: React.FC<IProps> = (props: IProps) => {
                 {
                     guid: `report-${localProps.details.guid}`,
                     component: (
-                        <Label key={`report-${localProps.details.guid}`} onClick={() => localProps.onReport(localProps.details)}
+                        <Label key={`report-${localProps.details.guid}`}
+                            onClick={() => {
+                                setPopupOpen(false);
+                                localProps.onReport(localProps.details);
+                            }}
                             basic color="red" className="pointer noselect" >
                             <Icon name="announcement" />
                             <span>Report</span>
@@ -84,12 +92,12 @@ export const TranslationVoteItem: React.FC<IProps> = (props: IProps) => {
             );
         }
 
-        const additionalCss = props.details.isCurentVote ? 'notAllowed' : '';
+        const additionalCss = props.details.isCurentVote ? 'notAllowed no-radius' : 'no-radius';
         const localOnClick = props.details.isCurentVote ? () => null : props.onClick;
         if (!localProps.isCopyTextMode) {
             options.push(
                 <Label key={`vote-${localProps.details.guid}`} onClick={localOnClick} className={additionalCss}
-                    basic pointing='left' color={localProps.details.isCurentVote ? 'green' : undefined} >
+                    basic pointing='left' color={localProps.details.isCurentVote ? 'blue' : undefined} >
                     {
                         localProps.details.isCurentVote && <Icon name="check" />
                     }
@@ -116,7 +124,11 @@ export const TranslationVoteItem: React.FC<IProps> = (props: IProps) => {
                         <Label basic>
                             <Icon name="ellipsis vertical" className="m-0" />
                         </Label>
-                    }>
+                    }
+                    open={isPopupOpen}
+                    onOpen={() => setPopupOpen(true)}
+                    onClose={() => setPopupOpen(false)}
+                >
                     <List>
                         {
                             subOptions.map((item: any) => {

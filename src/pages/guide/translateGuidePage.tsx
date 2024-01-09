@@ -58,7 +58,7 @@ export const TranslateGuidePageUnconnected: React.FC<IProps> = (props: IProps) =
     }, [props.userGuid]);
 
     const fetchAppData = async () => {
-        var appsResult = await services.assistantAppsApiService.getApps();
+        const appsResult = await services.assistantAppsApiService.getApps();
         if (!appsResult.isSuccess) {
             setAppStatus(NetworkState.Error);
             return;
@@ -68,7 +68,7 @@ export const TranslateGuidePageUnconnected: React.FC<IProps> = (props: IProps) =
     }
 
     const fetchLanguageData = async () => {
-        var langResult = await services.assistantAppsApiService.getLanguages();
+        const langResult = await services.assistantAppsApiService.getLanguages();
         if (!langResult.isSuccess) {
             setLangStatus(NetworkState.Error);
             return;

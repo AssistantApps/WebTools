@@ -83,7 +83,7 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
     }
 
     fetchLanguageData = async () => {
-        var langResult = await this.props.assistantAppsApiService.getLanguages();
+        const langResult = await this.props.assistantAppsApiService.getLanguages();
         if (!langResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -106,12 +106,12 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
                 translationKeyStatus: NetworkState.Loading
             }
         });
-        var searchObj: TranslationSearchViewModel = {
+        const searchObj: TranslationSearchViewModel = {
             appGuidList: this.state.selectedApps,
             languageGuid: this.state.selectedLanguage,
             showOnlyUntranslated: onlyUntranslated,
         }
-        var transKeyResult = await this.props.assistantAppsApiService.getTranslationKeys(searchObj);
+        const transKeyResult = await this.props.assistantAppsApiService.getTranslationKeys(searchObj);
         if (!transKeyResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -135,12 +135,12 @@ export class TranslationContainerUnconnected extends React.Component<IProps, ISt
                 translationKeyDropdownStatus: NetworkState.Loading
             }
         });
-        var searchObj: TranslationSearchViewModel = {
+        const searchObj: TranslationSearchViewModel = {
             appGuidList: this.state.selectedApps,
             languageGuid: this.state.selectedLanguage,
             showOnlyUntranslated: onlyUntranslated,
         }
-        var transKeySearchDropDownResult = await this.props.assistantAppsApiService.getTranslationKeysSearchDropdown(searchObj);
+        const transKeySearchDropDownResult = await this.props.assistantAppsApiService.getTranslationKeysSearchDropdown(searchObj);
         if (!transKeySearchDropDownResult.isSuccess) {
             this.setState(() => {
                 return {

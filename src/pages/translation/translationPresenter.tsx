@@ -100,7 +100,7 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
             {banner}
             <div className="container">
                 <div className="row full pt3 pb1">
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md-6 custom-drop-down">
                         <label>Please select Apps you would like to translate for</label>
                         {
                             (props.appStatus !== NetworkState.Error)
@@ -109,12 +109,12 @@ export const TranslationPresenter: React.FC<IProps> = (props: IProps) => {
                                     options={props.appDropDowns}
                                     multiple={true}
                                     isLoading={props.appStatus === NetworkState.Loading}
-                                    onChange={(apps: any) => props.setApps(apps)}
+                                    onChange={(apps: any) => props.setApps(Array.isArray(apps) ? apps : [apps])}
                                 />
                                 : <p>Error loading apps, please refresh the page or contact us</p>
                         }
                     </div>
-                    <div className="col-12 col-md-6 custom-drop-down pt1 pt-md-0">
+                    <div className="col-12 col-md-6 custom-drop-down lang pt1 pt-md-0">
                         <label>Please select a language</label>
                         {
                             (props.langStatus !== NetworkState.Error)

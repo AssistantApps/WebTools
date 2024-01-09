@@ -59,7 +59,7 @@ export class NumberOfTranslationsPerLanguageGraphUnconnected extends React.Compo
     }
 
     fetchAppData = async () => {
-        var appsResult = await this.props.assistantAppsApiService.getApps();
+        const appsResult = await this.props.assistantAppsApiService.getApps();
         if (!appsResult.isSuccess) {
             this.setState(() => {
                 return {
@@ -79,7 +79,7 @@ export class NumberOfTranslationsPerLanguageGraphUnconnected extends React.Compo
     }
 
     fetchGraphData = async (searchObj: TranslationGetGraphViewModel) => {
-        var appsResult = await this.props.assistantAppsApiService.getTranslationsPerLangGraphData(searchObj);
+        const appsResult = await this.props.assistantAppsApiService.getTranslationsPerLangGraphData(searchObj);
         if (!appsResult.isSuccess) {
             this.setState(() => {
                 return {

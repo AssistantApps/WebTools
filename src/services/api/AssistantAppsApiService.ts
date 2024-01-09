@@ -13,8 +13,12 @@ export class AssistantAppsApiService extends BaseApiService {
 
     constructor() {
         super();
+
+        const storageServ = new StorageService();
+        const tokenFromStorage = storageServ.get<string>(storageType.token);
         this._api = new aaApi({
             url: window.config.apiUrl,
+            authToken: (tokenFromStorage.isSuccess) ? tokenFromStorage.value : undefined,
         });
     }
 

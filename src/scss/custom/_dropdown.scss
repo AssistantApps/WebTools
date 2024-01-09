@@ -1,16 +1,13 @@
 .custom-drop-down {
-    .ui.dropdown .menu > .item > .image,
-    .ui.dropdown .menu > .item > img,
-    .ui.dropdown > .text > .image,
-    .ui.dropdown > .text > img {
+
+    .ui.dropdown .menu>.item>.image,
+    .ui.dropdown .menu>.item>img,
+    .ui.dropdown>.text>.image,
+    .ui.dropdown>.text>img {
         max-width: 3em;
     }
 
-    .ui.dropdown > .text {
-        display: inline;
-    }
-
-    .ui.multiple.dropdown > .label {
+    .ui.multiple.dropdown>.label {
         margin-top: 0;
         margin-left: 0;
         margin-bottom: 0;
@@ -18,5 +15,15 @@
 
     img.ui.image {
         border-radius: 4px;
+    }
+
+    &.lang {
+        .ui.dropdown>.text {
+            display: inline;
+        }
+
+        img.ui.image {
+            border-radius: 0;
+        }
     }
 }

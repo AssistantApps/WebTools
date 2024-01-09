@@ -58,7 +58,7 @@ export class TranslationImagesUnconnected extends React.Component<IProps, IState
             return;
         }
 
-        var imagesResult = await this.props.assistantAppsApiService.getTranslationImages(this.props.translationKeyGuid);
+        const imagesResult = await this.props.assistantAppsApiService.getTranslationImages(this.props.translationKeyGuid);
         if (!imagesResult.isSuccess) {
             this.setState(() => {
                 return {

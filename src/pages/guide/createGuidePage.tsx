@@ -264,7 +264,7 @@ export const CreateGuidePageUnconnected: React.FC<IProps> = (props: IProps) => {
                                 : <p>Error loading apps, please refresh the page or contact us</p>
                         }
                     </div>
-                    <div className="col-12 col-md-6 custom-drop-down pt1 pt-md-0">
+                    <div className="col-12 col-md-6 custom-drop-down lang pt1 pt-md-0">
                         <Form>
                             <Form.Field >
                                 <label>Please select the language your guide will be written in</label>

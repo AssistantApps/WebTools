@@ -133,6 +133,7 @@ export const LoginDialogUnconnected: React.FC<IProps> = (props: IProps) => {
             style={{
                 backgroundColor: 'red',
             }}
+            theme="dark"
             buttonText="Login"
             onSuccess={responseGoogle(OAuthProviderType.google)}
             onFailure={oAuthLoginFailure}

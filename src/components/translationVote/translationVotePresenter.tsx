@@ -65,7 +65,7 @@ export const TranslationVotePresenter: React.FC<IProps> = (props: IProps) => {
                 <div className={classNames('col-12', { inVisible: showOwnSubmissionTextBox })}>
                     <p>Submissions from previous Translators</p>
                     {
-                        props.voteOptions.map((voteOpt: TranslationSubmissionWithVotesViewModel) => {
+                        (Array.isArray(props.voteOptions) ? props.voteOptions : []).map((voteOpt: TranslationSubmissionWithVotesViewModel) => {
                             return (
                                 <TranslationVoteItem
                                     key={voteOpt.guid}
